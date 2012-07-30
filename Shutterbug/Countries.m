@@ -13,28 +13,25 @@
 @synthesize country = _country;
 @synthesize cities = _cities;
 
+// Each country has an array of cities
 - (NSMutableArray *)cities
 {
     if (!_cities) _cities = [[NSMutableArray alloc] init];
     return _cities;
 }
 
-- (id)initWithCountryName:(NSString *)name
+// This will make sure that the copy will include all the elements of the cities
+// array and not just the pointers to them!!!
+- (id)copy
 {
-    self = [super init];
-    if (self) {
-        self.country = name;
+    Countries *newLocale = [[Countries alloc] init];
+    if (newLocale) {
+        // String is just a litteral copy
+        newLocale.country = self.country;
+        // For the array, however, we need to explicitly copy otherise we get a pointer
+        // to the array of cities
+        newLocale.cities = [self.cities copy];
     }
-    return self;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    Countries *new = [[Countries allocWithZone:zone] init];
-    if (new) {
-        new.country = [NSString stringWithString:self.country];
-        new.cities = [[NSMutableArray allocWithZone:zone] initWithArray:self.cities copyItems:YES];
-    }
-    return new;
+    return newLocale;
 }
 @end

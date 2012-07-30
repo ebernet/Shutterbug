@@ -23,6 +23,10 @@
 		A0F6385515C3207E0067B162 /* Countries.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6385415C3207E0067B162 /* Countries.m */; };
 		A0F6386D15C625D80067B162 /* RecentPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6386C15C625D80067B162 /* RecentPhotoTableViewController.m */; };
 		A0F6387415C63A2A0067B162 /* PhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6387315C63A2A0067B162 /* PhotoTableViewController.m */; };
+		A0FB160D15C7287300ED5294 /* iPadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FB160915C7287300ED5294 /* iPadIcon.png */; };
+		A0FB160E15C7287300ED5294 /* iPadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FB160A15C7287300ED5294 /* iPadIcon@2x.png */; };
+		A0FB160F15C7287300ED5294 /* iPhoneIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FB160B15C7287300ED5294 /* iPhoneIcon.png */; };
+		A0FB161015C7287300ED5294 /* iPhoneIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FB160C15C7287300ED5294 /* iPhoneIcon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +60,10 @@
 		A0F6386C15C625D80067B162 /* RecentPhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotoTableViewController.m; sourceTree = "<group>"; };
 		A0F6387215C63A130067B162 /* PhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTableViewController.h; sourceTree = "<group>"; };
 		A0F6387315C63A2A0067B162 /* PhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTableViewController.m; sourceTree = "<group>"; };
+		A0FB160915C7287300ED5294 /* iPadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadIcon.png; sourceTree = "<group>"; };
+		A0FB160A15C7287300ED5294 /* iPadIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPadIcon@2x.png"; sourceTree = "<group>"; };
+		A0FB160B15C7287300ED5294 /* iPhoneIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneIcon.png; sourceTree = "<group>"; };
+		A0FB160C15C7287300ED5294 /* iPhoneIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhoneIcon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +138,10 @@
 		A0A7C49D15C0A83600A83C26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A0FB160915C7287300ED5294 /* iPadIcon.png */,
+				A0FB160A15C7287300ED5294 /* iPadIcon@2x.png */,
+				A0FB160B15C7287300ED5294 /* iPhoneIcon.png */,
+				A0FB160C15C7287300ED5294 /* iPhoneIcon@2x.png */,
 				A0A7C4A515C0A83600A83C26 /* AppDelegate.h */,
 				A0A7C4A615C0A83600A83C26 /* AppDelegate.m */,
 				A0A7C49E15C0A83600A83C26 /* Shutterbug-Info.plist */,
@@ -194,6 +206,10 @@
 				A0A7C4A115C0A83600A83C26 /* InfoPlist.strings in Resources */,
 				A0A7C4AA15C0A83600A83C26 /* MainStoryboard_iPhone.storyboard in Resources */,
 				A0A7C4AD15C0A83600A83C26 /* MainStoryboard_iPad.storyboard in Resources */,
+				A0FB160D15C7287300ED5294 /* iPadIcon.png in Resources */,
+				A0FB160E15C7287300ED5294 /* iPadIcon@2x.png in Resources */,
+				A0FB160F15C7287300ED5294 /* iPhoneIcon.png in Resources */,
+				A0FB161015C7287300ED5294 /* iPhoneIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

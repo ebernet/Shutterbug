@@ -51,6 +51,8 @@
 }
 
 // Store photo in recents
+// COULD store just the photo ID, but the entire record is not very large
+// And like this I don't need to retrieve name informatio again, etc.
 - (void)addToRecents {
     // Get recents array from defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
