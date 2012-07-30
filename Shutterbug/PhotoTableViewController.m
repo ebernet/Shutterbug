@@ -10,14 +10,12 @@
 #import "FlickrFetcher.h"
 
 @interface PhotoTableViewController ()
-@property (nonatomic, weak) NSDictionary *photoToDisplay;
 @property (nonatomic, weak) DetailViewController *detailViewController;
 @end
 
 @implementation PhotoTableViewController
 @synthesize photos = _photos;
 
-@synthesize photoToDisplay = _photoToDisplay;
 @synthesize detailViewController = _detailViewController;
 @synthesize spinner = _spinner;
 
@@ -31,7 +29,7 @@
 - (UIActivityIndicatorView *)spinner
 {
     if (_spinner == nil) {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     }
     return _spinner;
     
@@ -61,6 +59,7 @@
     
     if ([photoTitle isEqualToString:@""]) {
         cell.textLabel.text = ([photoDescription isEqualToString:@""])?@"Unknown":photoDescription;
+        cell.detailTextLabel.text = @"";
     } else {
         cell.textLabel.text = photoTitle;
         cell.detailTextLabel.text = photoDescription;
@@ -69,8 +68,16 @@
     return cell;
 }
 
+// Only called on iPhone, not on iPad
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Show Photo"]) {
+        DetailViewController *destVC = segue.destinationViewController;
+        destVC.photoDictionary = self.photoToDisplay;
+    }
+}
 
-// Are we in a split view controller? If so, return detail view controller if it is a GraphViewController
+// Are we in a split view controller? If so, return detail view controller if it is a DetailViewController
 - (DetailViewController *)splitViewDetailViewController
 {
     // splitViews always have just two, detail is lastObject
@@ -79,31 +86,17 @@
     return gvc;
 }
 
-// For pressing update graph button from master of splitViewController
+// For pressing an image from list item in table.
+// Each subclass handles it a little differently, one adding it
+// to recents and one not
 - (void)showPhoto
 {
+    // iPad? Just set the image
     if ([self splitViewDetailViewController]) {
         [[self splitViewDetailViewController] setPhotoDictionary:self.photoToDisplay];
+    } else { // iPhone? Transition to image
+        [self performSegueWithIdentifier:@"Show Photo" sender:self];
     }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    
-    if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        DetailViewController *destVC = segue.destinationViewController;
-        destVC.photoDictionary = self.photoToDisplay;
-    }
-}
-
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Set the current photo from the DB
-    self.photoToDisplay = [self.photos objectAtIndex:indexPath.row];
-    [self showPhoto];
 }
 
 @end

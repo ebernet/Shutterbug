@@ -108,7 +108,7 @@
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="06i-Tl-Sep">
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="white" id="06i-Tl-Sep">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </activityIndicatorView>
@@ -166,7 +166,7 @@
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="fm7-qu-rny">
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="white" id="fm7-qu-rny">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </activityIndicatorView>
@@ -179,7 +179,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-973" y="123"/>
+            <point key="canvasLocation" x="-1021" y="117"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="f1y-Ga-pgq">
@@ -230,7 +230,7 @@
                                             <rect key="frame" x="117" y="6" width="534" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lcw-Za-Wch">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="Lcw-Za-Wch">
                                                     <rect key="frame" x="0.0" y="6" width="534" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -317,11 +317,11 @@
             </objects>
             <point key="canvasLocation" x="-2611" y="-1884"/>
         </scene>
-        <!--Flickr Photo Tab Bar Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="IxW-mz-jXP">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Svy-8N-s3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tabBarController id="5vx-03-7pq" customClass="FlickrPhotoTabBarController" sceneMemberID="viewController">
+                <tabBarController id="5vx-03-7pq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="A4K-az-znR">
@@ -355,7 +355,7 @@
                                             <rect key="frame" x="117" y="6" width="534" height="33"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0oZ-wc-LTc">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="0oZ-wc-LTc">
                                                     <rect key="frame" x="0.0" y="6" width="534" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -420,20 +420,17 @@
                 <relationship kind="outlet" name="toolbarTitle" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="FlickrPhotoTabBarController" superclassName="UITabBarController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTabBarController.h"/>
-        </class>
-        <class className="FlickrPhotoTableViewController" superclassName="RotatableViewController">
+        <class className="FlickrPhotoTableViewController" superclassName="PhotoTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTableViewController.h"/>
+        </class>
+        <class className="PhotoTableViewController" superclassName="RotatableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoTableViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
             </relationships>
         </class>
-        <class className="RecentPhotoTableViewController" superclassName="RotatableViewController">
+        <class className="RecentPhotoTableViewController" superclassName="PhotoTableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
         </class>
         <class className="RotatableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>

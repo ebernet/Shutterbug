@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SplitViewBarButtonItemPresenter.h"
 
-// Part of the favorites TableViewController
-#define RECENTS_KEY @"DetailViewController.Recents"
-
 @interface DetailViewController : UIViewController <SplitViewBarButtonItemPresenter>
 @property (nonatomic, strong) NSDictionary *photoDictionary;
 @end
