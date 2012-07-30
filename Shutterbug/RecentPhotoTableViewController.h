@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
-#import "RotatableViewController.h"
+#import "PhotoTableViewController.h"
 
-@interface RecentPhotoTableViewController : RotatableViewController
-@property (nonatomic, strong) NSArray *photos;  // of Flickr photo dictionaries
+@interface RecentPhotoTableViewController : PhotoTableViewController
 @end

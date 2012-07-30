@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RotatableViewController.h"
+#import "PhotoTableViewController.h"
 
 @class FlickrPhotoTableViewController;
 
@@ -16,8 +16,7 @@
 - (void)FlickrPhotoTableViewController:(FlickrPhotoTableViewController *)sender chosePhoto:(id)photo;
 @end
 
-@interface FlickrPhotoTableViewController : RotatableViewController
-@property (nonatomic, strong) NSArray *photos;  // of Flickr photo dictionaries
+@interface FlickrPhotoTableViewController : PhotoTableViewController
 @property (nonatomic, strong) NSDictionary *topPlaceToSearch; // passed in city to search for places
 @property (nonatomic, weak) id <FlickrPhotoTableViewControllerDelegate> delegate;
 @end

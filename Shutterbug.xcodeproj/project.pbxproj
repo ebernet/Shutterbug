@@ -23,6 +23,7 @@
 		A0A7C4D715C0BB6200A83C26 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7C4D615C0BB6200A83C26 /* DetailViewController.m */; };
 		A0F6385515C3207E0067B162 /* Countries.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6385415C3207E0067B162 /* Countries.m */; };
 		A0F6386D15C625D80067B162 /* RecentPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6386C15C625D80067B162 /* RecentPhotoTableViewController.m */; };
+		A0F6387415C63A2A0067B162 /* PhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6387315C63A2A0067B162 /* PhotoTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,8 @@
 		A0F6385415C3207E0067B162 /* Countries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countries.m; sourceTree = "<group>"; };
 		A0F6386B15C625D80067B162 /* RecentPhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotoTableViewController.h; sourceTree = "<group>"; };
 		A0F6386C15C625D80067B162 /* RecentPhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotoTableViewController.m; sourceTree = "<group>"; };
+		A0F6387215C63A130067B162 /* PhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTableViewController.h; sourceTree = "<group>"; };
+		A0F6387315C63A2A0067B162 /* PhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 				A0682F9615C1F71F00542099 /* TopPlacesTableViewController.m */,
 				A0F6385315C3207E0067B162 /* Countries.h */,
 				A0F6385415C3207E0067B162 /* Countries.m */,
+				A0F6387215C63A130067B162 /* PhotoTableViewController.h */,
+				A0F6387315C63A2A0067B162 /* PhotoTableViewController.m */,
 				A0A7C4B615C0A8CB00A83C26 /* FlickrPhotoTableViewController.h */,
 				A0A7C4B715C0A8CB00A83C26 /* FlickrPhotoTableViewController.m */,
 				A0F6386B15C625D80067B162 /* RecentPhotoTableViewController.h */,
@@ -214,6 +219,7 @@
 				A0682F9F15C1FF0B00542099 /* FlickrPhotoTabBarController.m in Sources */,
 				A0F6385515C3207E0067B162 /* Countries.m in Sources */,
 				A0F6386D15C625D80067B162 /* RecentPhotoTableViewController.m in Sources */,
+				A0F6387415C63A2A0067B162 /* PhotoTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
