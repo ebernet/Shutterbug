@@ -27,7 +27,20 @@
 - (IBAction)refresh:(id)sender {
     // Replace the button with a spinner. Made it white so as it will look good
     // in popovers
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+
+    UIActivityIndicatorViewStyle whichColor = UIActivityIndicatorViewStyleGray;
+    
+    // If we are on the iPad...
+    if (self.splitViewController) {
+        // and the iOS is < 5.1 (does not respond to presentsWityGesture) then we want a WHITE activity indicator
+        // because the popOvers are black. Otherwise the grey is better
+        if (![self.splitViewController respondsToSelector:@selector(presentsWithGesture)]) {
+            whichColor = UIActivityIndicatorViewStyleWhite;
+        }
+    }
+    
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:whichColor];
+    
     [spinner startAnimating];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];

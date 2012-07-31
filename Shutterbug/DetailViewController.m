@@ -40,7 +40,7 @@
     }
 }
 
-// Needed for scrolling, this is the delegate method
+// Needed for scrolling and zooming, this is the delegate method
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     return self.imageView;
@@ -106,34 +106,50 @@
 - (void)layoutImage
 {
     if (self.imageView.image) {
-        // Set the default zoom scale
+
+        // Set the default zoom scale to 1 so as we can't make it smaller once
+        // we have the full image
         self.scrollView.zoomScale = 1;
         
-        // And we want to be able to scroll to the full dimensions of the image. It may be
-        //  SMALLER then the actual allowed width
-        
-        self.scrollView.contentSize = self.imageView.image.size;
+        // Figure out scaling on x and y
+        CGFloat xScale = (self.scrollView.bounds.size.width / self.imageView.image.size.width);
+        CGFloat yScale = (self.scrollView.bounds.size.height / self.imageView.image.size.height);
 
-        // Need to make sure we get the right title
+        // Decide which of the sides to scale to...
+        // What we do is the LARGER side becomes a scale of 1,
+        // the other side gets scaled by that side's scale
+
+        NSLog(@"xScale: %g, yScale: %g", xScale, yScale);
+        NSLog(@"height before: %g, width before: %g",self.imageView.image.size.height, self.imageView.image.size.width);
+        
+        NSLog(@"height after: %g, width after: %g",self.imageView.image.size.height * yScale, self.imageView.image.size.width *xScale);
+        
+        if (xScale > yScale) {
+            [self.scrollView zoomToRect:CGRectMake(0, 0, 1.0, self.imageView.image.size.height * xScale) animated:NO];
+            self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width *yScale, self.imageView.image.size.height * xScale);
+        } else {
+            [self.scrollView zoomToRect:CGRectMake(0, 0, self.imageView.image.size.width * yScale, 1.0) animated:NO];
+           self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width * xScale, self.imageView.image.size.height * yScale);
+        }
+
+        // ARGGGGGGGGGGGGGG!!G!G!GG!G!G!G!G!G!GG
+
+        // Set the title appropriately
         NSString *photoTitle = [_photoDictionary objectForKey:FLICKR_PHOTO_TITLE];
         NSString *photoDescription = [_photoDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
         
+        // If we don't have a title yet, set it from the descrtiption. Or unknown if there is no description
         if ([photoTitle isEqualToString:@""]) {
             photoTitle = ([photoDescription isEqualToString:@""])?@"Unknown":photoDescription;
         }
         
+        // Set the appropriate laeble field for iPad/iPhone
         if (self.splitViewController) {
             self.toolbarTitle.text = photoTitle;
         } else {
             self.title = photoTitle;
         }
-
-        self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
-        CGFloat xScale = (self.scrollView.bounds.size.width / self.imageView.image.size.width);
-        CGFloat yScale = (self.scrollView.bounds.size.height / self.imageView.image.size.height);
-        self.scrollView.zoomScale = (xScale < yScale)?yScale:xScale;  // Pick the larger size to zoom to
     }
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -153,6 +169,4 @@
     self.imageView = nil;
     [super viewDidUnload];
 }
-
-
 @end

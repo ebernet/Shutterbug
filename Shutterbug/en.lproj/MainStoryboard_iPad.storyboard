@@ -256,11 +256,11 @@
                                 </items>
                             </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" id="Dgt-QC-4hU">
-                                <rect key="frame" x="0.0" y="44" width="814" height="931"/>
+                                <rect key="frame" x="0.0" y="44" width="768" height="911"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="3C6-XK-lEm">
-                                        <rect key="frame" x="0.0" y="0.0" width="774" height="911"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="3C6-XK-lEm">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="911"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                 </subviews>
@@ -381,11 +381,11 @@
                                 </items>
                             </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" id="Ipl-Zs-tCQ">
-                                <rect key="frame" x="0.0" y="44" width="814" height="931"/>
+                                <rect key="frame" x="0.0" y="44" width="768" height="911"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="K5q-Vs-p0z">
-                                        <rect key="frame" x="0.0" y="0.0" width="774" height="911"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="K5q-Vs-p0z">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="911"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                 </subviews>
