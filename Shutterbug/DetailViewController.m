@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *toolbarTitle;
 @property (nonatomic) CGSize startingImageSize;
 @property (strong, nonatomic) NSURL *imageURL;
+@property (nonatomic) BOOL alreadyAppeared;
 @end
 
 @implementation DetailViewController
@@ -34,6 +35,7 @@
 @synthesize imageURL = _imageURL;
 @synthesize startingImageSize = _startingImageSize;
 @synthesize myPopoverController = _myPopoverController;
+@synthesize alreadyAppeared = _alreadyAppeared;
 
 #pragma mark - Setters and getters
 
@@ -304,6 +306,19 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadImage];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    // Show the masterViewController on initial showing, but only on initial
+    if (self.splitViewController) {
+        if (!self.alreadyAppeared) {
+            if ([_splitViewBarButtonItem.target respondsToSelector:_splitViewBarButtonItem.action]) {
+                [_splitViewBarButtonItem.target performSelector:_splitViewBarButtonItem.action withObject: _splitViewBarButtonItem];
+            }
+            self.alreadyAppeared = YES;
+        }
+    }
 }
 
 - (void)viewWillLayoutSubviews
