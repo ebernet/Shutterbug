@@ -85,11 +85,11 @@
         NSMutableDictionary *thisEntry = [element mutableCopy];
         
         // split on comma, and start with unknown values for 3 fields
-        [thisEntry setValue:@"Unknown" forKey:FLICKR_DICT_KEY_CITY];
+        [thisEntry setValue:@"" forKey:FLICKR_DICT_KEY_CITY];
         [thisEntry setValue:@"" forKey:FLICKR_DICT_KEY_STATE];
         [thisEntry setValue:@"" forKey:FLICKR_DICT_KEY_COUNTRY];
         
-        // Get the -content field from API. This SHOULD contain city, state, country but
+        // Get the _content field from API. This SHOULD contain city, state, country but
         // any or all of the fields can be empty
         NSArray *locationParts = [[thisEntry objectForKey:@"_content"] componentsSeparatedByString:@", "];
         switch ([locationParts count]) {
@@ -112,7 +112,6 @@
     }];
     
     // Okay, so now we have a list of places, not sorted yet (despite name) that have entries for all the fields
-    
     
     // now sort by country, city, state (in that order)
     

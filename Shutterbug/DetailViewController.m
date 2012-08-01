@@ -2,6 +2,8 @@
 //  DetailViewController.m
 //  Shutterbug
 //
+//  This class handles the image panning and zooming and sixing and centering
+//
 //  Created by Eytan Bernet on 7/25/12.
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
@@ -26,10 +28,12 @@
 @synthesize spinner = _spinner;
 @synthesize toolbar = _toolbar;
 @synthesize toolbarTitle = _toolbarTitle;
-@synthesize photoDictionary = _photoDictionary;
+@synthesize photo = _photo;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 @synthesize imageURL = _imageURL;
 @synthesize startingImageSize = _startingImageSize;
+
+#pragma mark - Setters and getters
 
 // This will be needed for iPad bar
 - (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
@@ -43,18 +47,36 @@
     }
 }
 
-// Needed for scrolling and zooming, this is the delegate method
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+// Gets all the information about the photo
+- (void)setPhoto:(NSDictionary *)photo
 {
-    return self.imageView;
+    if (![_photo isEqual:photo]) {
+        _photo = photo;
+        self.imageURL = [FlickrFetcher urlForPhoto:_photo format:FlickrPhotoFormatLarge];
+        if (self.imageView.window) {    // we're on screen, so update the image
+            [self loadImage];
+        }
+    }
 }
+
+// We can be gray here. Have to be white for popOvers in iOS 5, might as well be white for these
+// indicators on iPad
+- (UIActivityIndicatorView *)spinner
+{
+    if (_spinner == nil) {
+        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    }
+    return _spinner;
+}
+
+#pragma mark - Image handeling
 
 // Load the image on another thread
 - (void)loadImage
 {
     if (self.imageView) {
         if (self.imageURL) {
-
+            
             [self.spinner startAnimating];
             dispatch_queue_t imageDownloadQ = dispatch_queue_create("ShutterbugViewController image downloader", NULL);
             dispatch_async(imageDownloadQ, ^{
@@ -74,36 +96,6 @@
         } else {
             self.imageView.image = nil;
         }
-    }
-}
-
-- (void)setPhotoDictionary:(NSDictionary *)photoDictionary
-{
-    if (![_photoDictionary isEqual:photoDictionary]) {
-        _photoDictionary = photoDictionary;
-        self.imageURL = [FlickrFetcher urlForPhoto:_photoDictionary format:FlickrPhotoFormatLarge];
-        if (self.imageView.window) {    // we're on screen, so update the image
-            [self loadImage];
-        }
-    }
-}
-
-// We can be gray here. Have to be white for popOvers in iOS 5, might as well be white for these
-// indicators on iPad
-- (UIActivityIndicatorView *)spinner
-{
-    if (_spinner == nil) {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    }
-    return _spinner;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
     }
 }
 
@@ -136,14 +128,6 @@
     // Do the insetting
     self.scrollView.contentInset = edgeInset;
 }
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
-    //properly sets the scrolling bounds.
-    scrollView.contentSize = CGSizeMake(self.startingImageSize.width *scale, self.startingImageSize.height *scale);
-
-    [self recenterView];
-}
-
 
 - (void)layoutImage
 {
@@ -203,8 +187,8 @@
         [self recenterView];
         
         // Set the title appropriately
-        NSString *photoTitle = [_photoDictionary objectForKey:FLICKR_PHOTO_TITLE];
-        NSString *photoDescription = [_photoDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+        NSString *photoTitle = [self.photo objectForKey:FLICKR_PHOTO_TITLE];
+        NSString *photoDescription = [self.photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
         
         // If we don't have a title yet, set it from the descrtiption. Or unknown if there is no description
         if ([photoTitle isEqualToString:@""]) {
@@ -220,12 +204,50 @@
     }
 }
 
+// Only want to display button in portrait
+- (BOOL)splitViewController:(UISplitViewController *)svc
+   shouldHideViewController:(UIViewController *)vc
+              inOrientation:(UIInterfaceOrientation)orientation
+{
+    return YES;
+}
+
+#pragma mark - UIScrollViewDelegate methods
+
+
+// Needed for scrolling and zooming, this is the delegate method
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
+
+// recenter everything after zooming
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
+    //properly sets the scrolling bounds.
+    scrollView.contentSize = CGSizeMake(self.startingImageSize.width *scale, self.startingImageSize.height *scale);
+    [self recenterView];
+}
+
+
+
+#pragma mark - Gesture recognizers
+
+
 // If we double tap with two fingers, reset to original layout
 - (void)tap:(UITapGestureRecognizer *)gesture
 {
     if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)) {
         [self layoutImage];
     }
+}
+
+
+#pragma mark - View lifecycle
+
+// Just not upsidedown on iPhone
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 - (void)viewDidLoad
@@ -246,6 +268,7 @@
 
 - (void)viewWillLayoutSubviews
 {
+    // Force a reset of the scaling for orientation switch
     [self layoutImage];
 }
 

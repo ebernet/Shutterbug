@@ -10,6 +10,7 @@
 #import "SplitViewBarButtonItemPresenter.h"
 
 @implementation RotatableViewController
+@synthesize popoverController;
 
 - (void)awakeFromNib
 {
@@ -35,7 +36,13 @@
               inOrientation:(UIInterfaceOrientation)orientation
 {
     return YES;
-//    return [self splitViewBarButtonItemPresenter] ? UIInterfaceOrientationIsPortrait(orientation) : NO;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+          popoverController:(UIPopoverController *)pc
+  willPresentViewController:(UIViewController *)aViewController
+{
+    self.popoverController = pc;
 }
 
 - (void)splitViewController:(UISplitViewController *)svc
@@ -52,14 +59,14 @@
      willShowViewController:(UIViewController *)aViewController
   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
+    self.popoverController = nil;
     // tell detail view to take button away
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if (self.splitViewController) return YES;
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 @end

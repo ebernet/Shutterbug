@@ -17,15 +17,10 @@
 @implementation FlickrPhotoTableViewController
 
 @synthesize topPlaceToSearch = _topPlaceToSearch;
-
 @synthesize photoToDisplay = _photoToDisplay;
-@synthesize photos = _photos;
 
-
-// Load photos to bring in photos from the TopPlacesToSearch dictionary. Note we don't need
-// to do a network fetch with the recents, we just load the array stored in defaults.
-// See this difference in RecentPhotoTableViewController
-- (void)loadPhotosFromDefaults {
+// Load photos to bring in photos from the TopPlacesToSearch dictionary.
+- (void)loadTopPhotos {
 
     [self startSpinner];
     
@@ -40,16 +35,6 @@
         });
     });
     dispatch_release(downloadQueue);
-}
-
-// Need to do this uniquely for recents and for top places photos or else
-// We don't get the update. Unsure why not.
-- (void)setPhotos:(NSArray *)photos
-{
-    if (_photos != photos) {
-        _photos = photos;
-        if (self.tableView.window) [self.tableView reloadData];
-    }
 }
 
 // Store photo in recents
@@ -82,18 +67,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadPhotosFromDefaults];
+    [self loadTopPhotos];
 }
 
 #pragma mark - Table view delegate
 
-// We need to do this uniquely because we only want to add to recents when viewing images
-// from the FlickrPhotoTableViewController, not from RecentPhotoTableViewController
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Set the current photo from the DB
-    self.photoToDisplay = [self.photos objectAtIndex:indexPath.row];
-    [self showPhoto];
+    // Call the inherited...
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     // Unique to this class
     [self addToRecents];
 }

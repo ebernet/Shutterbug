@@ -146,18 +146,12 @@
                             <view key="customView" autoresizesSubviews="NO" contentMode="TopLeft" id="l6i-bL-zt3">
                                 <rect key="frame" x="295" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="ACk-Ad-rIV">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </activityIndicatorView>
-                                </subviews>
                             </view>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="spinnerGray" destination="ACk-Ad-rIV" id="qKz-AD-poz"/>
+                        <outlet property="spinnerContainer" destination="l6i-bL-zt3" id="Xtv-Ev-uSW"/>
                         <segue destination="oG0-9x-GcT" kind="push" identifier="Show Photo" id="iJ7-pq-kRW"/>
                     </connections>
                 </tableViewController>
@@ -232,18 +226,12 @@
                             <view key="customView" autoresizesSubviews="NO" contentMode="TopLeft" id="Sfr-wW-bY0">
                                 <rect key="frame" x="295" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="Ou3-vN-GE9">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </activityIndicatorView>
-                                </subviews>
                             </view>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="spinnerGray" destination="Ou3-vN-GE9" id="s6Y-ae-Jco"/>
+                        <outlet property="spinnerContainer" destination="Sfr-wW-bY0" id="edv-X0-fcT"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -281,7 +269,7 @@
                                 <rect key="frame" x="295" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="p6U-Ic-mSJ">
+                                    <activityIndicatorView hidden="YES" opaque="NO" tag="20" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="p6U-Ic-mSJ">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
@@ -367,6 +355,7 @@
         <class className="PhotoTableViewController" superclassName="RotatableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoTableViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>
                 <relationship kind="outlet" name="spinnerGray" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="spinnerWhite" candidateClass="UIActivityIndicatorView"/>
             </relationships>

@@ -107,22 +107,11 @@
                             <view key="customView" autoresizesSubviews="NO" tag="10" contentMode="scaleToFill" id="JXa-pI-fbZ">
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="white" id="06i-Tl-Sep">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </activityIndicatorView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="N6o-MP-lIf">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </activityIndicatorView>
-                                </subviews>
                             </view>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="spinnerGray" destination="N6o-MP-lIf" id="EK1-oT-MZK"/>
-                        <outlet property="spinnerWhite" destination="06i-Tl-Sep" id="91B-yA-a9W"/>
+                        <outlet property="spinnerContainer" destination="JXa-pI-fbZ" id="Ofm-vQ-PvW"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -170,22 +159,11 @@
                             <view key="customView" autoresizesSubviews="NO" tag="10" contentMode="scaleToFill" id="oWs-Kw-e36">
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="white" id="fm7-qu-rny">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </activityIndicatorView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="bRQ-ha-ZlI">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </activityIndicatorView>
-                                </subviews>
                             </view>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="spinnerGray" destination="bRQ-ha-ZlI" id="vg7-YF-G49"/>
-                        <outlet property="spinnerWhite" destination="fm7-qu-rny" id="fZu-LN-QW9"/>
+                        <outlet property="spinnerContainer" destination="oWs-Kw-e36" id="qBN-Yu-b5o"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -419,41 +397,6 @@
             <point key="canvasLocation" x="-1401" y="1162"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="DetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="toolbarTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FlickrPhotoTableViewController" superclassName="PhotoTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTableViewController.h"/>
-        </class>
-        <class className="PhotoTableViewController" superclassName="RotatableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinnerGray" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="spinnerWhite" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="RecentPhotoTableViewController" superclassName="PhotoTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoTableViewController.h"/>
-        </class>
-        <class className="RotatableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
-        </class>
-        <class className="TopPlacesTableViewController" superclassName="RotatableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="refresh:"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
