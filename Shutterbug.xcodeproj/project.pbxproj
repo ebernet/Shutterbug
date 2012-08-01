@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A0682F9715C1F72000542099 /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0682F9615C1F71F00542099 /* TopPlacesTableViewController.m */; };
-		A06E7D8815C9F3CF00D8932B /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A06E7D8715C9F3CF00D8932B /* Settings.bundle */; };
 		A0A7C49715C0A83600A83C26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A7C49615C0A83600A83C26 /* UIKit.framework */; };
 		A0A7C49915C0A83600A83C26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A7C49815C0A83600A83C26 /* Foundation.framework */; };
 		A0A7C49B15C0A83600A83C26 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A7C49A15C0A83600A83C26 /* CoreGraphics.framework */; };
@@ -20,6 +19,7 @@
 		A0A7C4B815C0A8CB00A83C26 /* FlickrPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7C4B715C0A8CB00A83C26 /* FlickrPhotoTableViewController.m */; };
 		A0A7C4BC15C0A9CC00A83C26 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7C4BB15C0A9CC00A83C26 /* FlickrFetcher.m */; };
 		A0A7C4D715C0BB6200A83C26 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7C4D615C0BB6200A83C26 /* DetailViewController.m */; };
+		A0D73D9215C9F7EE00E33887 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0D73D9115C9F7EE00E33887 /* Settings.bundle */; };
 		A0F6385515C3207E0067B162 /* Countries.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6385415C3207E0067B162 /* Countries.m */; };
 		A0F6386D15C625D80067B162 /* RecentPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6386C15C625D80067B162 /* RecentPhotoTableViewController.m */; };
 		A0F6387415C63A2A0067B162 /* PhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6387315C63A2A0067B162 /* PhotoTableViewController.m */; };
@@ -33,7 +33,6 @@
 		A0682F9515C1F71F00542099 /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		A0682F9615C1F71F00542099 /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		A0682F9B15C1FD8B00542099 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
-		A06E7D8715C9F3CF00D8932B /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A0A7C49215C0A83600A83C26 /* Shutterbug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shutterbug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A7C49615C0A83600A83C26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A0A7C49815C0A83600A83C26 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,6 +52,7 @@
 		A0A7C4BB15C0A9CC00A83C26 /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		A0A7C4D515C0BB6200A83C26 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		A0A7C4D615C0BB6200A83C26 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		A0D73D9115C9F7EE00E33887 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A0F6385315C3207E0067B162 /* Countries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countries.h; sourceTree = "<group>"; };
 		A0F6385415C3207E0067B162 /* Countries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countries.m; sourceTree = "<group>"; };
 		A0F6386B15C625D80067B162 /* RecentPhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotoTableViewController.h; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 		A0A7C49D15C0A83600A83C26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A06E7D8715C9F3CF00D8932B /* Settings.bundle */,
+				A0D73D9115C9F7EE00E33887 /* Settings.bundle */,
 				A0FB160915C7287300ED5294 /* iPadIcon.png */,
 				A0FB160A15C7287300ED5294 /* iPadIcon@2x.png */,
 				A0FB160B15C7287300ED5294 /* iPhoneIcon.png */,
@@ -208,7 +208,7 @@
 				A0FB160E15C7287300ED5294 /* iPadIcon@2x.png in Resources */,
 				A0FB160F15C7287300ED5294 /* iPhoneIcon.png in Resources */,
 				A0FB161015C7287300ED5294 /* iPhoneIcon@2x.png in Resources */,
-				A06E7D8815C9F3CF00D8932B /* Settings.bundle in Resources */,
+				A0D73D9215C9F7EE00E33887 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
