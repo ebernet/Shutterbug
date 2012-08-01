@@ -16,11 +16,11 @@
 
 // Made this public so as I could do an addToRecents when doing a showPhoto when showing 1st time
 - (void)showPhoto;
+- (void)startSpinner;
+- (void)stopSpinner;
 
 @property (nonatomic, strong) NSArray *photos;  // of Flickr photo dictionaries
 @property (nonatomic, strong) NSDictionary *photoToDisplay;
 
-// We want all our decendents to have visible spinners
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end

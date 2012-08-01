@@ -104,11 +104,15 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Photos" id="1E2-f3-8SE">
                         <barButtonItem key="rightBarButtonItem" id="Wzs-s7-yeD">
-                            <view key="customView" autoresizesSubviews="NO" contentMode="TopLeft" id="JXa-pI-fbZ">
+                            <view key="customView" autoresizesSubviews="NO" tag="10" contentMode="scaleToFill" id="JXa-pI-fbZ">
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="white" id="06i-Tl-Sep">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </activityIndicatorView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="N6o-MP-lIf">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </activityIndicatorView>
@@ -117,7 +121,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="spinner" destination="06i-Tl-Sep" id="uyV-kB-C3C"/>
+                        <outlet property="spinnerGray" destination="N6o-MP-lIf" id="EK1-oT-MZK"/>
+                        <outlet property="spinnerWhite" destination="06i-Tl-Sep" id="91B-yA-a9W"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -162,11 +167,15 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Photos" id="RYj-DG-5ca">
                         <barButtonItem key="rightBarButtonItem" id="zce-9Y-IwA">
-                            <view key="customView" autoresizesSubviews="NO" contentMode="TopLeft" id="oWs-Kw-e36">
+                            <view key="customView" autoresizesSubviews="NO" tag="10" contentMode="scaleToFill" id="oWs-Kw-e36">
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="white" id="fm7-qu-rny">
+                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </activityIndicatorView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="bRQ-ha-ZlI">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </activityIndicatorView>
@@ -175,7 +184,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="spinner" destination="fm7-qu-rny" id="zjK-ZE-2ZN"/>
+                        <outlet property="spinnerGray" destination="bRQ-ha-ZlI" id="vg7-YF-G49"/>
+                        <outlet property="spinnerWhite" destination="fm7-qu-rny" id="fZu-LN-QW9"/>
                     </connections>
                 </tableViewController>
             </objects>
@@ -259,7 +269,7 @@
                                 <rect key="frame" x="0.0" y="44" width="768" height="911"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="3C6-XK-lEm">
+                                    <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="3C6-XK-lEm">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="911"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
@@ -381,10 +391,10 @@
                                 </items>
                             </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" id="Ipl-Zs-tCQ">
-                                <rect key="frame" x="0.0" y="44" width="768" height="911"/>
+                                <rect key="frame" x="0.0" y="44" width="777" height="911"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="K5q-Vs-p0z">
+                                    <imageView userInteractionEnabled="NO" contentMode="TopLeft" id="K5q-Vs-p0z">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="911"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
@@ -426,7 +436,8 @@
         <class className="PhotoTableViewController" superclassName="RotatableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoTableViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="spinnerGray" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="spinnerWhite" candidateClass="UIActivityIndicatorView"/>
             </relationships>
         </class>
         <class className="RecentPhotoTableViewController" superclassName="PhotoTableViewController">

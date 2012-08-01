@@ -20,7 +20,6 @@
 
 @synthesize photoToDisplay = _photoToDisplay;
 @synthesize photos = _photos;
-@synthesize spinner = _spinner;
 
 
 // Load photos to bring in photos from the TopPlacesToSearch dictionary. Note we don't need
@@ -28,12 +27,15 @@
 // See this difference in RecentPhotoTableViewController
 - (void)loadPhotosFromDefaults {
 
-    [self.spinner startAnimating];
+    [self startSpinner];
+    
     dispatch_queue_t downloadQueue = dispatch_queue_create("flickr downloader", NULL);
     dispatch_async(downloadQueue, ^{
         NSArray *photos = [FlickrFetcher photosInPlace:self.topPlaceToSearch maxResults:50];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.spinner stopAnimating];
+
+            [self stopSpinner];
+
             self.photos = photos;
         });
     });

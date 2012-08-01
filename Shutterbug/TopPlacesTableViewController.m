@@ -86,8 +86,8 @@
         
         // split on comma, and start with unknown values for 3 fields
         [thisEntry setValue:@"Unknown" forKey:FLICKR_DICT_KEY_CITY];
-        [thisEntry setValue:@"Unknown" forKey:FLICKR_DICT_KEY_STATE];
-        [thisEntry setValue:@"Unknown" forKey:FLICKR_DICT_KEY_COUNTRY];
+        [thisEntry setValue:@"" forKey:FLICKR_DICT_KEY_STATE];
+        [thisEntry setValue:@"" forKey:FLICKR_DICT_KEY_COUNTRY];
         
         // Get the -content field from API. This SHOULD contain city, state, country but
         // any or all of the fields can be empty
@@ -206,7 +206,6 @@
 {
     [super viewDidLoad];
     [self refresh:self.refreshButton];
-
 }
 
 - (void)viewDidUnload

@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UILabel *toolbarTitle;
+@property (nonatomic) CGSize startingImageSize;
 @property (strong, nonatomic) NSURL *imageURL;
 @end
 
@@ -27,6 +28,8 @@
 @synthesize toolbarTitle = _toolbarTitle;
 @synthesize photoDictionary = _photoDictionary;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+@synthesize imageURL = _imageURL;
+@synthesize startingImageSize = _startingImageSize;
 
 // This will be needed for iPad bar
 - (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
@@ -60,8 +63,10 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // We have the image, stop the animating
                     [self.spinner stopAnimating];
-                    // And set the imageView to the image we loaded
+                    // And set the imageView to the image we loaded,
                     self.imageView.image = image;
+                    // and back up the initial dimensions
+                    self.startingImageSize = image.size;
                     [self layoutImage];
                 });
             });
@@ -91,7 +96,6 @@
         _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     }
     return _spinner;
-
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -103,37 +107,101 @@
     }
 }
 
+// Recenter the view if it is smaller than the full scroll area
+- (void)recenterView
+{
+    // If we end up making the full image fit with space around it, we want to inset
+    // it properly so as it is centered within the scrollView
+    
+    // Get the width and height of the actual image based on scale
+    CGFloat currentImageWidth = self.startingImageSize.width * self.scrollView.zoomScale;
+    CGFloat currentImageHeight = self.startingImageSize.height * self.scrollView.zoomScale;
+    
+    // We need to inset it if it is too small for the screen
+    UIEdgeInsets edgeInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    // Will it get padding on either side?
+    if (self.scrollView.bounds.size.width > currentImageWidth)
+    {
+        edgeInset.left = (self.scrollView.bounds.size.width - currentImageWidth) / 2;
+        edgeInset.right = -edgeInset.left;  // Right is inset in - values (so if we want to go in 5 on every side, 5 from left, -5 is added to right, etc.
+    }
+    
+    // Will it get padding on the top and bottom?
+    if ( self.scrollView.bounds.size.height > currentImageHeight )
+    {
+        edgeInset.top = (self.scrollView.bounds.size.height - currentImageHeight) / 2;
+        edgeInset.bottom = -edgeInset.top; // Top is inset in - values (so if we want to go in 5 on every side, 5 from top, -5 is added to bottom, etc.
+    }
+    // Do the insetting
+    self.scrollView.contentInset = edgeInset;
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
+    //properly sets the scrolling bounds.
+    scrollView.contentSize = CGSizeMake(self.startingImageSize.width *scale, self.startingImageSize.height *scale);
+
+    [self recenterView];
+}
+
+
 - (void)layoutImage
 {
     if (self.imageView.image) {
-
+        // NOTE! This is all with view mode set to top left!!!
+        // It will not work with other view modes!
+        
         // Set the default zoom scale to 1 so as we can't make it smaller once
         // we have the full image
         self.scrollView.zoomScale = 1;
         
-        // Figure out scaling on x and y
-        CGFloat xScale = (self.scrollView.bounds.size.width / self.imageView.image.size.width);
-        CGFloat yScale = (self.scrollView.bounds.size.height / self.imageView.image.size.height);
+        // 1st figure out the aspect ration - of image, and of scrollRect
+        // Depending on which has the aspect ration that fills the screen, that is the one we want to scale to
 
-        // Decide which of the sides to scale to...
-        // What we do is the LARGER side becomes a scale of 1,
-        // the other side gets scaled by that side's scale
-
-        NSLog(@"xScale: %g, yScale: %g", xScale, yScale);
-        NSLog(@"height before: %g, width before: %g",self.imageView.image.size.height, self.imageView.image.size.width);
+        CGFloat scrollRectRatio = self.scrollView.bounds.size.width / self.scrollView.bounds.size.height;
+        CGFloat imageRatio = self.startingImageSize.width / self.startingImageSize.height;
         
-        NSLog(@"height after: %g, width after: %g",self.imageView.image.size.height * yScale, self.imageView.image.size.width *xScale);
+        CGFloat zoomingRatio;
         
-        if (xScale > yScale) {
-            [self.scrollView zoomToRect:CGRectMake(0, 0, 1.0, self.imageView.image.size.height * xScale) animated:NO];
-            self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width *yScale, self.imageView.image.size.height * xScale);
+        if (scrollRectRatio > imageRatio) {
+            //Portrait image, so size to width and allow scrolling on top and bottom
+            zoomingRatio = self.scrollView.bounds.size.width / self.startingImageSize.width;
+            
+            // Zoom to that rectangle, keeping the height at 1
+            [self.scrollView zoomToRect:CGRectMake(0, 0, zoomingRatio, 1.0) animated:NO];
+            
+            // Set the minimum scale so as we can shrink it down to see the full image. Base it on the height
+            self.scrollView.minimumZoomScale = self.scrollView.bounds.size.height / self.startingImageSize.height;
+            
+            // Now set the zoomScale to match that ratio
+            self.scrollView.zoomScale = zoomingRatio;
+            
+            // And zoom the frame to match the alloted space
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, self.startingImageSize.height * zoomingRatio);
         } else {
-            [self.scrollView zoomToRect:CGRectMake(0, 0, self.imageView.image.size.width * yScale, 1.0) animated:NO];
-           self.scrollView.contentSize = CGSizeMake(self.imageView.image.size.width * xScale, self.imageView.image.size.height * yScale);
+            //Landscape image, so size to height and allow scrolling left and right
+            zoomingRatio = self.scrollView.bounds.size.height / self.startingImageSize.height;
+
+            // Zoom to that rectangle, keeping the width at 1
+            [self.scrollView zoomToRect:CGRectMake(0, 0, 1.0, zoomingRatio) animated:NO];
+            
+            // Set the minimum scale so as we can shrink it down to see the full image. Base it on the width
+            self.scrollView.minimumZoomScale = self.scrollView.bounds.size.width / self.startingImageSize.width;
+            
+            // Now set the zoomScale to match that ratio
+            self.scrollView.zoomScale = zoomingRatio;
+            
+            // And zoom the frame to match the alloted space
+            self.scrollView.contentSize = CGSizeMake(self.startingImageSize.width * zoomingRatio, self.scrollView.bounds.size.height);
+
         }
+        // The maximum ratio can be set after, and we can do the same setting for both scales
+        self.scrollView.maximumZoomScale = self.scrollView.minimumZoomScale*5;
 
-        // ARGGGGGGGGGGGGGG!!G!G!GG!G!G!G!G!G!GG
-
+        // Recenter the view - will not actually do anything on initial drawing, but subsequent
+        // calls to layoutImage (called when rotating) will take care of buffering if scale changed
+        [self recenterView];
+        
         // Set the title appropriately
         NSString *photoTitle = [_photoDictionary objectForKey:FLICKR_PHOTO_TITLE];
         NSString *photoDescription = [_photoDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
@@ -152,11 +220,29 @@
     }
 }
 
+// If we double tap with two fingers, reset to original layout
+- (void)tap:(UITapGestureRecognizer *)gesture
+{
+    if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)) {
+        [self layoutImage];
+    }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    // Added the ability to zoom back to initial scale with double tap with two fingers
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    doubleTap.numberOfTouchesRequired = 2;
+    doubleTap.numberOfTapsRequired = 2;
+    [self.scrollView addGestureRecognizer:doubleTap];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadImage];
 }
-
 
 - (void)viewWillLayoutSubviews
 {

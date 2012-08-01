@@ -11,13 +11,20 @@
 
 @interface PhotoTableViewController ()
 @property (nonatomic, weak) DetailViewController *detailViewController;
+
+// Next step is to load these dynamically and install them depending on which platform I am on
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinnerWhite;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinnerGray;
+//@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @end
 
 @implementation PhotoTableViewController
 @synthesize photos = _photos;
 
 @synthesize detailViewController = _detailViewController;
-@synthesize spinner = _spinner;
+@synthesize spinnerWhite = _spinnerWhite;
+@synthesize spinnerGray = _spinnerGray;
+//@synthesize spinner = _spinner;
 
 - (void)setDetailViewController:(DetailViewController *)detailViewController
 {
@@ -26,14 +33,55 @@
     }
 }
 
-- (UIActivityIndicatorView *)spinner
+- (void)startSpinner
 {
-    if (_spinner == nil) {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//    [self.spinner startAnimating];
+    if (self.splitViewController) {
+        // and the iOS is < 5.1 (does not respond to presentsWityGesture) then we want a WHITE activity indicator
+        // because the popOvers are black. Otherwise the grey is better
+        if ([self.splitViewController respondsToSelector:@selector(presentsWithGesture)]) {
+            [self.spinnerGray startAnimating];
+        } else {
+            [self.spinnerWhite startAnimating];
+        }
+    } else {
+        [self.spinnerGray startAnimating];
     }
-    return _spinner;
-    
 }
+
+- (void)stopSpinner
+{
+//    [self.spinner stopAnimating];
+    if (self.splitViewController) {
+        // and the iOS is < 5.1 (does not respond to presentsWityGesture) then we want a WHITE activity indicator
+        // because the popOvers are black. Otherwise the grey is better
+        if ([self.splitViewController respondsToSelector:@selector(presentsWithGesture)]) {
+            [self.spinnerGray stopAnimating];
+        } else {
+            [self.spinnerWhite stopAnimating];
+        }
+    } else {
+        [self.spinnerGray stopAnimating];
+    }
+}
+
+//- (void)viewDidLoad
+//{
+//    if (self.splitViewController) {
+//        // and the iOS is < 5.1 (does not respond to presentsWityGesture) then we want a WHITE activity indicator
+//        // because the popOvers are black. Otherwise the grey is better
+//        if ([self.splitViewController respondsToSelector:@selector(presentsWithGesture)]) {
+//            self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+//        } else {
+//            self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//        }
+//    } else {
+//        self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+//    }
+//    UIView *spinnerHolder = [(UIView *)self.navigationItem. viewWithTag:10];
+//    [spinnerHolder addSubview:self.spinner];
+//}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
