@@ -36,35 +36,6 @@
     dispatch_release(downloadQueue);
 }
 
-// Store photo in recents
-// COULD store just the photo ID, but the entire record is not very large
-// And like this I don't need to retrieve name informatio again, etc.
-- (void)addToRecents {
-    // Get recents array from defaults
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *recents = [[defaults objectForKey:RECENTS_KEY] mutableCopy];
-    // If we don't have one, create one
-    if (!recents) recents = [NSMutableArray array];
-    
-    // So the code below works. Question, should I have iterrated through he list
-    // and used the isEqualToDictionary: call on each element? How could these two be the same?
-    
-    // If there, move it to top
-    if ([recents containsObject:self.photoToDisplay]) {
-        // by deleting the old one
-        [recents removeObject:self.photoToDisplay];
-    }
-    // Now add it at the top
-    [recents insertObject:self.photoToDisplay atIndex:0];
-
-    // However, if we have more than 20 now, delete the last one
-    if ([recents count] > 20) [recents removeObject:[recents lastObject]];
-
-    // And synchronize the saving
-    [defaults setObject:recents forKey:RECENTS_KEY];
-    [defaults synchronize];
-}
-
 // For recents, we load the settings from defaults. We can load them as the NIB is loading
 // because we are not actually showing them just yet
 - (void)viewDidLoad

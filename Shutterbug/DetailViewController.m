@@ -319,6 +319,8 @@
     if (self.splitViewController) {
         if ((!self.alreadyAppeared) || self.shouldAlwaysAppear) {
             if ([_splitViewBarButtonItem.target respondsToSelector:_splitViewBarButtonItem.action]) {
+                // Unsure how else to initiate the splitViewController button action. Don't know what it is that calls out the
+                // masterviewcontroller, so I am just performing the action assigned the button, and am stuck with this warning
                 [_splitViewBarButtonItem.target performSelector:_splitViewBarButtonItem.action withObject: _splitViewBarButtonItem];
             }
             self.alreadyAppeared = YES;

@@ -17,6 +17,7 @@
 - (void)showPhoto;
 - (void)startSpinner;
 - (void)stopSpinner;
+- (void)addToRecents;
 
 @property (nonatomic, strong) NSArray *photos;  // of Flickr photo dictionaries
 @property (nonatomic, strong) NSDictionary *photoToDisplay;

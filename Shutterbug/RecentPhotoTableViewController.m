@@ -36,4 +36,15 @@
     [self loadDefaults];
 }
 
+
+#define SORT_RECENTS_ON_VIEW @"sort_recents_on_view"
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Call the inherited...
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    // Unique to this class
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:SORT_RECENTS_ON_VIEW]) [self addToRecents];
+}
 @end

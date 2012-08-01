@@ -34,14 +34,36 @@
     }
 }
 
-#pragma mark - Spinner components
-
-// viewDidLoad is overridden to add in the spinner
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self.spinnerContainer addSubview:self.spinner];
+// Store photo in recents
+// COULD store just the photo ID, but the entire record is not very large
+// And like this I don't need to retrieve name informatio again, etc.
+- (void)addToRecents {
+    // Get recents array from defaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *recents = [[defaults objectForKey:RECENTS_KEY] mutableCopy];
+    // If we don't have one, create one
+    if (!recents) recents = [NSMutableArray array];
+    
+    // So the code below works. Question, should I have iterrated through he list
+    // and used the isEqualToDictionary: call on each element? How could these two be the same?
+    
+    // If there, move it to top
+    if ([recents containsObject:self.photoToDisplay]) {
+        // by deleting the old one
+        [recents removeObject:self.photoToDisplay];
+    }
+    // Now add it at the top
+    [recents insertObject:self.photoToDisplay atIndex:0];
+    
+    // However, if we have more than 20 now, delete the last one
+    if ([recents count] > 20) [recents removeObject:[recents lastObject]];
+    
+    // And synchronize the saving
+    [defaults setObject:recents forKey:RECENTS_KEY];
+    [defaults synchronize];
 }
+
+#pragma mark - Spinner components
 
 // Create the appropriate spinner depending on platform
 - (UIActivityIndicatorView *)spinner
@@ -148,9 +170,18 @@
     }
 }
 
+#pragma mark - view lifecycle
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+// viewDidLoad is overridden to add in the spinner
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self.spinnerContainer addSubview:self.spinner];
 }
 
 - (void)viewDidUnload {
