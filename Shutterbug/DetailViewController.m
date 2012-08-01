@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *toolbarTitle;
 @property (nonatomic) CGSize startingImageSize;
 @property (strong, nonatomic) NSURL *imageURL;
+@property (nonatomic) BOOL shouldAlwaysAppear;
 @property (nonatomic) BOOL alreadyAppeared;
 @end
 
@@ -35,6 +36,7 @@
 @synthesize imageURL = _imageURL;
 @synthesize startingImageSize = _startingImageSize;
 @synthesize myPopoverController = _myPopoverController;
+@synthesize shouldAlwaysAppear = _shouldAlwaysAppear;
 @synthesize alreadyAppeared = _alreadyAppeared;
 
 #pragma mark - Setters and getters
@@ -292,6 +294,8 @@
     return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+#define SHOW_LIST_ENABLED_PREFERENCES @"show_list_enabled_preference"
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -306,13 +310,14 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadImage];
+    self.shouldAlwaysAppear = [[NSUserDefaults standardUserDefaults] boolForKey:SHOW_LIST_ENABLED_PREFERENCES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // Show the masterViewController on initial showing, but only on initial
     if (self.splitViewController) {
-        if (!self.alreadyAppeared) {
+        if ((!self.alreadyAppeared) || self.shouldAlwaysAppear) {
             if ([_splitViewBarButtonItem.target respondsToSelector:_splitViewBarButtonItem.action]) {
                 [_splitViewBarButtonItem.target performSelector:_splitViewBarButtonItem.action withObject: _splitViewBarButtonItem];
             }
