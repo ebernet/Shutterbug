@@ -45,6 +45,10 @@
     NSMutableArray *recents = [[defaults objectForKey:RECENTS_KEY] mutableCopy];
     // If we don't have one, create one
     if (!recents) recents = [NSMutableArray array];
+    
+    // So the code below works. Question, should I have iterrated through he list
+    // and used the isEqualToDictionary: call on each element? How could these two be the same?
+    
     // If there, move it to top
     if ([recents containsObject:self.photoToDisplay]) {
         // by deleting the old one
