@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface RotatableViewController : UITableViewController <UISplitViewControllerDelegate>
-@property (nonatomic, strong) UIPopoverController *popoverController;
 @end

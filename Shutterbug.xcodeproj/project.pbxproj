@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A0682F9715C1F72000542099 /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0682F9615C1F71F00542099 /* TopPlacesTableViewController.m */; };
-		A0682F9C15C1FD8B00542099 /* RotatableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0682F9A15C1FD8B00542099 /* RotatableViewController.m */; };
 		A0A7C49715C0A83600A83C26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A7C49615C0A83600A83C26 /* UIKit.framework */; };
 		A0A7C49915C0A83600A83C26 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A7C49815C0A83600A83C26 /* Foundation.framework */; };
 		A0A7C49B15C0A83600A83C26 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A7C49A15C0A83600A83C26 /* CoreGraphics.framework */; };
@@ -32,8 +31,6 @@
 /* Begin PBXFileReference section */
 		A0682F9515C1F71F00542099 /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		A0682F9615C1F71F00542099 /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
-		A0682F9915C1FD8B00542099 /* RotatableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotatableViewController.h; sourceTree = "<group>"; };
-		A0682F9A15C1FD8B00542099 /* RotatableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotatableViewController.m; sourceTree = "<group>"; };
 		A0682F9B15C1FD8B00542099 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
 		A0A7C49215C0A83600A83C26 /* Shutterbug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shutterbug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A7C49615C0A83600A83C26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -112,8 +109,6 @@
 			children = (
 				A0A7C4A815C0A83600A83C26 /* MainStoryboard_iPhone.storyboard */,
 				A0A7C4AB15C0A83600A83C26 /* MainStoryboard_iPad.storyboard */,
-				A0682F9915C1FD8B00542099 /* RotatableViewController.h */,
-				A0682F9A15C1FD8B00542099 /* RotatableViewController.m */,
 				A0682F9B15C1FD8B00542099 /* SplitViewBarButtonItemPresenter.h */,
 				A0682F9515C1F71F00542099 /* TopPlacesTableViewController.h */,
 				A0682F9615C1F71F00542099 /* TopPlacesTableViewController.m */,
@@ -226,7 +221,6 @@
 				A0A7C4BC15C0A9CC00A83C26 /* FlickrFetcher.m in Sources */,
 				A0A7C4D715C0BB6200A83C26 /* DetailViewController.m in Sources */,
 				A0682F9715C1F72000542099 /* TopPlacesTableViewController.m in Sources */,
-				A0682F9C15C1FD8B00542099 /* RotatableViewController.m in Sources */,
 				A0F6385515C3207E0067B162 /* Countries.m in Sources */,
 				A0F6386D15C625D80067B162 /* RecentPhotoTableViewController.m in Sources */,
 				A0F6387415C63A2A0067B162 /* PhotoTableViewController.m in Sources */,

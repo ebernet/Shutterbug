@@ -9,6 +9,7 @@
 //
 
 #import "DetailViewController.h"
+#import "SplitViewBarButtonItemPresenter.h"
 #import "FlickrFetcher.h"
 
 @interface DetailViewController () <UIScrollViewDelegate>
@@ -32,20 +33,9 @@
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 @synthesize imageURL = _imageURL;
 @synthesize startingImageSize = _startingImageSize;
+@synthesize myPopoverController = _myPopoverController;
 
 #pragma mark - Setters and getters
-
-// This will be needed for iPad bar
-- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
-{
-    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
-        NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
-        if (_splitViewBarButtonItem) [toolBarItems removeObject:_splitViewBarButtonItem];
-        if (splitViewBarButtonItem) [toolBarItems insertObject:splitViewBarButtonItem atIndex:0];
-        self.toolbar.items = toolBarItems;
-        _splitViewBarButtonItem = splitViewBarButtonItem;
-    }
-}
 
 // Gets all the information about the photo
 - (void)setPhoto:(NSDictionary *)photo
@@ -204,6 +194,30 @@
     }
 }
 
+#pragma mark - UISplitViewControllerDelagate stuff
+
+// Get the detail view, since it will be presenting the button. Only if it implements the button
+- (id <SplitViewBarButtonItemPresenter>)splitViewBarButtonItemPresenter
+{
+    id detailVC = [self.splitViewController.viewControllers lastObject];
+    if (![detailVC conformsToProtocol:@protocol(SplitViewBarButtonItemPresenter)]) {
+        detailVC = nil;
+    }
+    return detailVC;
+}
+
+// This will be needed for iPad bar
+- (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem
+{
+    if (_splitViewBarButtonItem != splitViewBarButtonItem) {
+        NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
+        if (_splitViewBarButtonItem) [toolBarItems removeObject:_splitViewBarButtonItem];
+        if (splitViewBarButtonItem) [toolBarItems insertObject:splitViewBarButtonItem atIndex:0];
+        self.toolbar.items = toolBarItems;
+        _splitViewBarButtonItem = splitViewBarButtonItem;
+    }
+}
+
 // Only want to display button in portrait
 - (BOOL)splitViewController:(UISplitViewController *)svc
    shouldHideViewController:(UIViewController *)vc
@@ -211,6 +225,26 @@
 {
     return YES;
 }
+
+- (void)splitViewController:(UISplitViewController *)svc
+          popoverController:(UIPopoverController *)pc
+  willPresentViewController:(UIViewController *)aViewController
+{
+    // We save this so as we can dismiss it when we select a picture
+    self.myPopoverController = pc;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
+{
+    barButtonItem.title = [aViewController title];
+    // tell detail view to put up
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
+    self.myPopoverController = nil;
+}
+
 
 #pragma mark - UIScrollViewDelegate methods
 
@@ -229,7 +263,6 @@
 }
 
 
-
 #pragma mark - Gesture recognizers
 
 
@@ -243,6 +276,13 @@
 
 
 #pragma mark - View lifecycle
+
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.splitViewController.delegate = self;
+}
 
 // Just not upsidedown on iPhone
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

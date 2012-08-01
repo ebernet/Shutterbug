@@ -10,7 +10,6 @@
 #import "FlickrFetcher.h"
 
 @interface PhotoTableViewController ()
-@property (nonatomic, weak) DetailViewController *detailViewController;
 
 // I load a White or Gray spinner, depending on whether I am on an iPhone or an iPad,
 // and on the iPad on iOS 5 or 5.1 because they have different colored toolbars and
@@ -24,16 +23,8 @@
 @implementation PhotoTableViewController
 @synthesize photos = _photos;
 
-@synthesize detailViewController = _detailViewController;
 @synthesize spinner = _spinner;
 @synthesize spinnerContainer = _spinnerContainer;
-
-- (void)setDetailViewController:(DetailViewController *)detailViewController
-{
-    if (_detailViewController != detailViewController) {
-        _detailViewController = detailViewController;
-    }
-}
 
 - (void)setPhotos:(NSArray *)photos
 {
@@ -42,7 +33,6 @@
         if (self.tableView.window) [self.tableView reloadData];
     }
 }
-
 
 #pragma mark - Spinner components
 
@@ -151,13 +141,20 @@
     // iPad? Just set the image
     if ([self splitViewDetailViewController]) {
         [[self splitViewDetailViewController] setPhoto:self.photoToDisplay];
+        // And dismiss the popOver/slideOut
+        [[[self splitViewDetailViewController] myPopoverController] dismissPopoverAnimated:YES];
     } else { // iPhone? Transition to image
         [self performSegueWithIdentifier:@"Show Photo" sender:self];
     }
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
 - (void)viewDidUnload {
-    [self setSpinnerContainer:nil];
+    [self setSpinner:nil];
     [super viewDidUnload];
 }
 @end

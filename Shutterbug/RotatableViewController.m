@@ -10,15 +10,14 @@
 #import "SplitViewBarButtonItemPresenter.h"
 
 @implementation RotatableViewController
-@synthesize popoverController;
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    
-    // I am the delagate for the splitview I am in
-    self.splitViewController.delegate = self;
-}
+//- (void)awakeFromNib
+//{
+//    [super awakeFromNib];
+//    
+//    // I am the delagate for the splitview I am in
+//    self.splitViewController.delegate = self;
+//}
 
 // Get the detail view, since it will be presenting the button. Only if it implements the button
 - (id <SplitViewBarButtonItemPresenter>)splitViewBarButtonItemPresenter
@@ -42,7 +41,6 @@
           popoverController:(UIPopoverController *)pc
   willPresentViewController:(UIViewController *)aViewController
 {
-    self.popoverController = pc;
 }
 
 - (void)splitViewController:(UISplitViewController *)svc
@@ -59,7 +57,6 @@
      willShowViewController:(UIViewController *)aViewController
   invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
-    self.popoverController = nil;
     // tell detail view to take button away
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = nil;
 }

@@ -169,11 +169,11 @@
             </objects>
             <point key="canvasLocation" x="-1021" y="117"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Recents-->
         <scene sceneID="f1y-Ga-pgq">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGJ-aH-qyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="2yf-cp-bH9" sceneMemberID="viewController">
+                <navigationController title="Recents" id="2yf-cp-bH9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="njx-ft-MOl">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -271,11 +271,11 @@
             </objects>
             <point key="canvasLocation" x="-1469" y="-1070"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Top Places-->
         <scene sceneID="f2o-UM-s0s">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dqP-w8-fZq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationController id="m2I-gm-7Od" sceneMemberID="viewController">
+                <navigationController title="Top Places" id="m2I-gm-7Od" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fB3-ZZ-mEh">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -397,6 +397,37 @@
             <point key="canvasLocation" x="-1401" y="1162"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="toolbarTitle" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="FlickrPhotoTableViewController" superclassName="PhotoTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTableViewController.h"/>
+        </class>
+        <class className="PhotoTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoTableViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="RecentPhotoTableViewController" superclassName="PhotoTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoTableViewController.h"/>
+        </class>
+        <class className="TopPlacesTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="refresh:"/>
+                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

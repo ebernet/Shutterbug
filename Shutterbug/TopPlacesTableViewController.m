@@ -197,32 +197,6 @@
     }
 }
 
-// Force a refresh. Trying to get data before the interface is even up...
-// This is why I made th refreshButton an outles - since the code that gets called to refresh
-// is usually from a button, and I replace the button with the spinner, I need to explicitly send
-// it the button. By making it an outlet and declaring it I have access to it here.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    [self refresh:self.refreshButton];
-}
-
-- (void)viewDidUnload
-{
-    [self setRefreshButton:nil];
-    [super viewDidUnload];
-}
-
-// We want to work in all orientatins on iPad, and not upsidedown on iPhone
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
-        return YES;
-    }
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -291,5 +265,30 @@
     // Now do segue to bring up the a list of photos at the current location
     [self performSegueWithIdentifier:@"Show Photos At Place" sender:self];
 }
+
+#pragma mark - UIViewController lifecycle
+
+// Force a refresh. Trying to get data before the interface is even up...
+// This is why I made th refreshButton an outles - since the code that gets called to refresh
+// is usually from a button, and I replace the button with the spinner, I need to explicitly send
+// it the button. By making it an outlet and declaring it I have access to it here.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self refresh:self.refreshButton];
+}
+
+- (void)viewDidUnload
+{
+    [self setRefreshButton:nil];
+    [super viewDidUnload];
+}
+
+// Just not upsidedown on iPhone
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
 
 @end

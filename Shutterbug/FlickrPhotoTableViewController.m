@@ -8,7 +8,6 @@
 
 #import "FlickrPhotoTableViewController.h"
 #import "FlickrFetcher.h"
-#import "DetailViewController.h"
 
 @interface FlickrPhotoTableViewController ()
 @property (nonatomic, strong) NSDictionary *photoToDisplay;
