@@ -52,7 +52,7 @@
 		A0A7C4BB15C0A9CC00A83C26 /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		A0A7C4D515C0BB6200A83C26 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		A0A7C4D615C0BB6200A83C26 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		A0D73D9115C9F7EE00E33887 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = Shutterbug/Settings.bundle; sourceTree = "<group>"; };
+		A0D73D9115C9F7EE00E33887 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A0F6385315C3207E0067B162 /* Countries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countries.h; sourceTree = "<group>"; };
 		A0F6385415C3207E0067B162 /* Countries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countries.m; sourceTree = "<group>"; };
 		A0F6386B15C625D80067B162 /* RecentPhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotoTableViewController.h; sourceTree = "<group>"; };
@@ -82,7 +82,6 @@
 		A0A7C48715C0A83600A83C26 = {
 			isa = PBXGroup;
 			children = (
-				A0D73D9115C9F7EE00E33887 /* Settings.bundle */,
 				A0A7C49C15C0A83600A83C26 /* Shutterbug */,
 				A0A7C49515C0A83600A83C26 /* Frameworks */,
 				A0A7C49315C0A83600A83C26 /* Products */,
@@ -136,6 +135,7 @@
 		A0A7C49D15C0A83600A83C26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A0D73D9115C9F7EE00E33887 /* Settings.bundle */,
 				A0FB160915C7287300ED5294 /* iPadIcon.png */,
 				A0FB160A15C7287300ED5294 /* iPadIcon@2x.png */,
 				A0FB160B15C7287300ED5294 /* iPhoneIcon.png */,
