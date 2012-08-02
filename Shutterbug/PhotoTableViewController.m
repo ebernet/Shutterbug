@@ -47,6 +47,8 @@
     // So the code below works. Question, should I have iterrated through he list
     // and used the isEqualToDictionary: call on each element? How could these two be the same?
     
+    // NOTE: sontainsObject does an isEqual, NOT a ==
+    
     // If there, move it to top
     if ([recents containsObject:self.photoToDisplay]) {
         // by deleting the old one
@@ -150,7 +152,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        DetailViewController *destVC = segue.destinationViewController;
+        DetailViewController *destVC = (DetailViewController *)segue.destinationViewController;
         destVC.photo = self.photoToDisplay;
     }
 }
@@ -171,6 +173,7 @@
 }
 
 #pragma mark - view lifecycle
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

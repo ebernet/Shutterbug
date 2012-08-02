@@ -59,7 +59,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-1056" y="-2292"/>
+            <point key="canvasLocation" x="-5360" y="-2988"/>
         </scene>
         <!--Flickr Photo Table View Controller - Photos-->
         <scene sceneID="JyR-W4-UA9">
@@ -115,7 +115,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-643" y="-2292"/>
+            <point key="canvasLocation" x="-4947" y="-2988"/>
         </scene>
         <!--Recent Photo Table View Controller - Recents-->
         <scene sceneID="u7T-JE-gvC">
@@ -167,7 +167,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-1021" y="117"/>
+            <point key="canvasLocation" x="-5325" y="-579"/>
         </scene>
         <!--Navigation Controller - Recents-->
         <scene sceneID="f1y-Ga-pgq">
@@ -182,7 +182,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1407" y="117"/>
+            <point key="canvasLocation" x="-5711" y="-579"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="FlJ-St-Ngg">
@@ -197,7 +197,7 @@
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="-2611" y="485"/>
+            <point key="canvasLocation" x="-6915" y="-211"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="55i-ZQ-5Ru">
@@ -269,7 +269,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-1469" y="-1070"/>
+            <point key="canvasLocation" x="-5773" y="-1766"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="f2o-UM-s0s">
@@ -288,7 +288,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-1477" y="-2292"/>
+            <point key="canvasLocation" x="-5781" y="-2988"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="xqD-xD-F9G">
@@ -303,7 +303,7 @@
                     </connections>
                 </splitViewController>
             </objects>
-            <point key="canvasLocation" x="-2611" y="-1884"/>
+            <point key="canvasLocation" x="-6915" y="-2580"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="IxW-mz-jXP">
@@ -322,7 +322,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="-3662" y="-882"/>
+            <point key="canvasLocation" x="-7966" y="-1578"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="2Pa-kp-8wL">
@@ -394,40 +394,9 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-1401" y="1162"/>
+            <point key="canvasLocation" x="-5705" y="466"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="DetailViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="spinner" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="toolbarTitle" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="FlickrPhotoTableViewController" superclassName="PhotoTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTableViewController.h"/>
-        </class>
-        <class className="PhotoTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="RecentPhotoTableViewController" superclassName="PhotoTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoTableViewController.h"/>
-        </class>
-        <class className="TopPlacesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="refresh:"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

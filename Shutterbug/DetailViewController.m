@@ -14,14 +14,13 @@
 
 @interface DetailViewController () <UIScrollViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UILabel *toolbarTitle;
 @property (nonatomic) CGSize startingImageSize;
 @property (strong, nonatomic) NSURL *imageURL;
-@property (nonatomic) BOOL shouldAlwaysAppear;
 @property (nonatomic) BOOL alreadyAppeared;
 @end
 
@@ -36,7 +35,6 @@
 @synthesize imageURL = _imageURL;
 @synthesize startingImageSize = _startingImageSize;
 @synthesize myPopoverController = _myPopoverController;
-@synthesize shouldAlwaysAppear = _shouldAlwaysAppear;
 @synthesize alreadyAppeared = _alreadyAppeared;
 
 #pragma mark - Setters and getters
@@ -51,16 +49,6 @@
             [self loadImage];
         }
     }
-}
-
-// We can be gray here. Have to be white for popOvers in iOS 5, might as well be white for these
-// indicators on iPad
-- (UIActivityIndicatorView *)spinner
-{
-    if (_spinner == nil) {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    }
-    return _spinner;
 }
 
 #pragma mark - Image handeling
@@ -282,12 +270,6 @@
 #pragma mark - View lifecycle
 
 
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-    self.splitViewController.delegate = self;
-}
-
 // Just not upsidedown on iPhone
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -295,6 +277,13 @@
 }
 
 #define SHOW_LIST_ENABLED_PREFERENCES @"show_list_enabled_preference"
+
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.splitViewController.delegate = self;
+}
 
 - (void)viewDidLoad
 {
@@ -310,14 +299,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self loadImage];
-    self.shouldAlwaysAppear = [[NSUserDefaults standardUserDefaults] boolForKey:SHOW_LIST_ENABLED_PREFERENCES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     // Show the masterViewController on initial showing, but only on initial
     if (self.splitViewController) {
-        if ((!self.alreadyAppeared) || self.shouldAlwaysAppear) {
+        if ((!self.alreadyAppeared) || [[NSUserDefaults standardUserDefaults] boolForKey:SHOW_LIST_ENABLED_PREFERENCES]) {
             if ([_splitViewBarButtonItem.target respondsToSelector:_splitViewBarButtonItem.action]) {
                 // Unsure how else to initiate the splitViewController button action. Don't know what it is that calls out the
                 // masterviewcontroller, so I am just performing the action assigned the button, and am stuck with this warning

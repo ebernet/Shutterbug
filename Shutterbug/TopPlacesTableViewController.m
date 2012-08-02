@@ -193,7 +193,7 @@
 {
     if (_places != places) {
         _places = places;
-        [self.tableView reloadData];
+            if (self.tableView.window) [self.tableView reloadData];
     }
 }
 
