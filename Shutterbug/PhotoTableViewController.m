@@ -152,7 +152,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        DetailViewController *destVC = (DetailViewController *)segue.destinationViewController;
+        DetailViewController *destVC = segue.destinationViewController;
         destVC.photo = self.photoToDisplay;
     }
 }
