@@ -6,81 +6,50 @@
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
-#import "TopPlacesTableViewController.h"
+#import "TopPlacesViewController.h"
+#import "FlickrPhotoViewController.h"
 #import "FlickrFetcher.h"
 #import "Countries.h"
-#import "FlickrPhotoTableViewController.h"
+#import "FlickrPlaceAnnotation.h"
+#import <MapKit/MapKit.h>
 
-@interface TopPlacesTableViewController ()
+@interface TopPlacesViewController ()
 @property (nonatomic, weak) NSDictionary *localeToDisplay;                  // What place do we want to show photos for
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;        // Need this for spinner reverting to refresh. See viewDidLoad
+@property (nonatomic,weak) IBOutlet UITableView *tableView;
+@property (nonatomic,weak) IBOutlet MKMapView *mapView;
+@property (nonatomic,strong) NSArray *places;  // of Flickr places
+@property (nonatomic,strong) NSArray *placesForMaps;  // of Flickr places
+@property (weak, nonatomic) IBOutlet UISwitch *showMapsToggle;
+@property (nonatomic) BOOL currentlyShowingMap;
 @end
 
-@implementation TopPlacesTableViewController
+@implementation TopPlacesViewController
 
 @synthesize places = _places;
+@synthesize placesForMaps = _placesForMaps;
 @synthesize localeToDisplay = _localeToDisplay;
 @synthesize refreshButton = _refreshButton;
+@synthesize mapView = _mapView;
+@synthesize annotations = _annotations;
+@synthesize showMapsToggle = _showMapsToggle;
+@synthesize currentlyShowingMap = _currentlyShowingMap;
+
 
 // This is called when you hit the refresh button. Also called 1st time you open
 // up the top places panel on iPad or when launching on iPhone
-- (IBAction)refresh:(id)sender {
-    // Replace the button with a spinner. Made it white so as it will look good
-    // in popovers
+- (void)loadTopPlaces {
 
-    UIActivityIndicatorViewStyle whichColor = UIActivityIndicatorViewStyleGray;
-    
-    // If we are on the iPad...
-    if (self.splitViewController) {
-        // and the iOS is < 5.1 (does not respond to presentsWityGesture) then we want a WHITE activity indicator
-        // because the popOvers are black. Otherwise the grey is better
-        if (![self.splitViewController respondsToSelector:@selector(presentsWithGesture)]) {
-            whichColor = UIActivityIndicatorViewStyleWhite;
-        }
-    }
-    
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:whichColor];
-    
-    [spinner startAnimating];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-    
-    dispatch_queue_t downloadQueue = dispatch_queue_create("flickr places downloader", NULL);
-    dispatch_async(downloadQueue, ^{
+    // Get top places
+    NSArray *places = [FlickrFetcher topPlaces];
 
-        // Get top places
-        NSArray *places = [FlickrFetcher topPlaces];
+    // Now modify it to have location info broken out
+    NSMutableArray *enhancedPlacesList = [[NSMutableArray alloc] init];
+
+    // This will execute this code on each element in the array. It will modify the data structure
+    // to have better (easier to parse) location info (in regards to country, city, state)
+    [places enumerateObjectsUsingBlock:^(id element, NSUInteger idx, BOOL *stop) {
         
-        // Parse and sort places, still on another thread. This will return an array
-        // of countries rather than of all the locations. Each country will have an
-        // array of cities
-        NSArray *finalizedPlaces = [TopPlacesTableViewController sortFlickrTopPlaces:places];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.navigationItem.rightBarButtonItem = sender;
-            self.places = finalizedPlaces;
-        });
-    });
-    dispatch_release(downloadQueue);
-}
-
-// Bulk of work happens here after retrieving TopPlaces
-+ (NSArray *)sortFlickrTopPlaces:(NSArray *)retrievedPlaces
-{
-    // If the call to the API failed and we got nothing back, do not try and sort it
-    // and just return a blank list
-    if (!retrievedPlaces) return nil;
-    
-    NSMutableArray *sortedPlacesList = [[NSMutableArray alloc] init];
-    NSMutableArray *countryList = [[NSMutableArray alloc] init];
-    
-    // Trying to use blocks. Sadly this was not covered in
-    // class although he was going to. Maybe next lecture? Still confused...
-    // BUT got it to work...
-    
-    // This will execute this code on each element in the array
-    [retrievedPlaces enumerateObjectsUsingBlock:^(id element, NSUInteger idx, BOOL *stop) {
-
         // Get the current entry
         NSMutableDictionary *thisEntry = [element mutableCopy];
         
@@ -108,11 +77,54 @@
                 [thisEntry setValue:[locationParts objectAtIndex:2] forKey:FLICKR_DICT_KEY_COUNTRY];
         }
         
-        [sortedPlacesList addObject:thisEntry];
+        [enhancedPlacesList addObject:thisEntry];
     }];
     
-    // Okay, so now we have a list of places, not sorted yet (despite name) that have entries for all the fields
+    // Okay, so now we have a list of places, not sorted yet. We use it for the annotations!
+   
     
+    // Parse and sort places, still on another thread. This will return an array
+    // of countries rather than of all the locations. Each country will have an
+    // array of cities
+    NSArray *finalizedPlaces = [TopPlacesViewController sortFlickrTopPlaces:enhancedPlacesList];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.places = finalizedPlaces;              // Sorted list, with countries
+        self.placesForMaps = enhancedPlacesList;    // Sorted list, no countries, but city/country/state broken out
+    });
+}
+
+
+// This is called when you hit the refresh button. Also called 1st time you open
+// up the top places panel on iPad or when launching on iPhone
+- (IBAction)refresh:(id)sender {
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+
+    [spinner startAnimating];
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+
+    dispatch_queue_t downloadQueue = dispatch_queue_create("flickr places downloader", NULL);
+    dispatch_async(downloadQueue, ^{
+        [self loadTopPlaces];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.rightBarButtonItem = sender;
+        });
+    });
+    dispatch_release(downloadQueue);
+}
+
+// Bulk of work happens here after retrieving TopPlaces
++ (NSArray *)sortFlickrTopPlaces:(NSArray *)enhancedPlacesList
+{
+    // If the call to the API failed and we got nothing back, do not try and sort it
+    // and just return a blank list
+    if (!enhancedPlacesList) return nil;
+    
+    // Otherwise, make a mutable copy that we can sort
+    NSMutableArray *sortedPlacesList = [enhancedPlacesList mutableCopy];
+    NSMutableArray *countryList = [[NSMutableArray alloc] init];
+        
     // now sort by country, city, state (in that order)
     
     // The arguments to the block are two objects to compare.
@@ -147,7 +159,7 @@
     
     // Okay, at this point we have sorted all the places by country. We need to split
     // the list into a list of countries that each has a list of cities for sections in table view
-    
+        
     // So these block variables can be modified in the scope of the block
     // and be accessed outside the block as well. We need to do this to keep
     // track of the country we are on, and to create the country chunks
@@ -193,7 +205,22 @@
 {
     if (_places != places) {
         _places = places;
-            if (self.tableView.window) [self.tableView reloadData];
+        if (self.tableView.window) {
+                [self.tableView reloadData];
+        }
+        if (self.mapView.window) {
+            [self updateMapView];
+        }
+    }
+}
+
+// Set the top places after the thread has copleted, and update the map if it changes
+- (void)setPlacesForMaps:(NSArray *)placesForMaps
+{
+    if (_placesForMaps != placesForMaps) {
+        _placesForMaps = placesForMaps;
+        self.annotations = [self mapAnnotations];
+        if (self.mapView.window) [self.mapView setNeedsDisplay];
     }
 }
 
@@ -243,9 +270,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Photos At Place"]) {
-        FlickrPhotoTableViewController *destVC = segue.destinationViewController;
+        FlickrPhotoViewController *destVC = segue.destinationViewController;
         destVC.title = [self.localeToDisplay valueForKey:FLICKR_DICT_KEY_CITY];
         destVC.topPlaceToSearch = self.localeToDisplay;
+        destVC.currentlyShowingMap = self.currentlyShowingMap;
     }
 }
 
@@ -266,6 +294,84 @@
     [self performSegueWithIdentifier:@"Show Photos At Place" sender:self];
 }
 
+- (NSArray *)mapAnnotations
+{
+    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[_placesForMaps count]];
+    for (NSDictionary *place in _placesForMaps) {
+        [annotations addObject:[FlickrPlaceAnnotation annotationForPlace:place]];
+    }
+    return annotations;
+}
+
+
+#pragma mark - Synchronize Model and View
+
+- (void)updateMapView
+{
+    if (self.mapView.annotations) [self.mapView removeAnnotations:self.mapView.annotations];
+    if (self.annotations) [self.mapView addAnnotations:self.annotations];
+}
+
+- (void)setMapView:(MKMapView *)mapView
+{
+    _mapView = mapView;
+    [self updateMapView];
+}
+
+- (void)setAnnotations:(NSArray *)annotations
+{
+    _annotations = annotations;
+    [self updateMapView];
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"MapVC"];
+    if (!aView) {
+        aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapVC"];
+        aView.canShowCallout = YES;
+        aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        // could put a rightCalloutAccessoryView here
+    }
+    
+    aView.annotation = annotation;
+    
+    return aView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    
+
+    NSDictionary *locale = [self.placesForMaps objectAtIndex:[self.annotations indexOfObject:[view annotation]]];
+    
+    self.localeToDisplay = locale;
+    
+    // Now do segue to bring up the a list of photos at the current location
+    [self performSegueWithIdentifier:@"Show Photos At Place" sender:self];
+}
+
+
+#pragma mark - MapViewControllerDelegate
+
+
+- (IBAction)toggleMaps:(UISwitch *)sender {
+    if ([sender isOn]) {
+        [self.tableView setHidden:YES];
+        [self.mapView setHidden:NO];
+        self.mapView.delegate = self;
+        self.annotations = [self mapAnnotations];
+        self.currentlyShowingMap = YES;
+    } else {
+        [self.tableView setHidden:NO];
+        [self.mapView setHidden:YES];
+        self.tableView.delegate = self;
+        self.currentlyShowingMap = NO;
+    }
+}
+
 #pragma mark - UIViewController lifecycle
 
 // Force a refresh. Trying to get data before the interface is even up...
@@ -275,12 +381,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.mapView.delegate = self;
     [self refresh:self.refreshButton];
+    [self.showMapsToggle setOn:self.currentlyShowingMap];
 }
 
 - (void)viewDidUnload
 {
     [self setRefreshButton:nil];
+    [self setShowMapsToggle:nil];
     [super viewDidUnload];
 }
 

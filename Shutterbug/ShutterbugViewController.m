@@ -1,15 +1,17 @@
 //
-//  RecentPhotoTableViewController.m
+//  ShutterbugViewController.m
 //  Shutterbug
 //
 //  Created by Eytan Bernet on 7/29/12.
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
-#import "PhotoTableViewController.h"
+#import "ShutterbugViewController.h"
 #import "FlickrFetcher.h"
+#import "FlickrPhotoAnnotation.h"
+#import <MapKit/MapKit.h>
 
-@interface PhotoTableViewController ()
+@interface ShutterbugViewController () <MapViewControllerDelegate>
 
 // I load a White or Gray spinner, depending on whether I am on an iPhone or an iPad,
 // and on the iPad on iOS 5 or 5.1 because they have different colored toolbars and
@@ -18,18 +20,30 @@
 //the right one and embed it in the container.
 @property (strong, nonatomic) UIActivityIndicatorView *spinner; // Strong because I place it, it is not in a NIB!
 @property (weak, nonatomic) IBOutlet UIView *spinnerContainer;  // Weak because it is in the storyboard!
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UISwitch *showMapsToggle;
 @end
 
-@implementation PhotoTableViewController
+@implementation ShutterbugViewController
 @synthesize photos = _photos;
+@synthesize currentlyShowingMap = _currentlyShowingMap;
 
 @synthesize spinner = _spinner;
 @synthesize spinnerContainer = _spinnerContainer;
+@synthesize photoToDisplay = _photoToDisplay;
+
+@synthesize mapView = _mapView;
+@synthesize showMapsToggle = _showMapsToggle;
+@synthesize annotations = _annotations;
+@synthesize delegate = _delegate;
 
 - (void)setPhotos:(NSArray *)photos
 {
     if (_photos != photos) {
         _photos = photos;
+        self.annotations = [self mapAnnotations];
+        if (self.mapView.window) [self.mapView setNeedsDisplay];
         if (self.tableView.window) [self.tableView reloadData];
     }
 }
@@ -71,12 +85,7 @@
 - (UIActivityIndicatorView *)spinner
 {
     if (_spinner == nil) {
-        // Are you on an iPad, AND running 5.1 (presentsWithGesture arrives with 5.1)
-        if ((self.splitViewController) && (![self.splitViewController respondsToSelector:@selector(presentsWithGesture)])) {
-            _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        } else {
-            _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        }
+        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     }
     return _spinner;
 }
@@ -162,6 +171,7 @@
 // to recents and one not
 - (void)showPhoto
 {
+
     // iPad? Just set the image
     if ([self splitViewDetailViewController]) {
         [[self splitViewDetailViewController] setPhoto:self.photoToDisplay];
@@ -169,6 +179,127 @@
         [[[self splitViewDetailViewController] myPopoverController] dismissPopoverAnimated:YES];
     } else { // iPhone? Transition to image
         [self performSegueWithIdentifier:@"Show Photo" sender:self];
+    }
+}
+
+
+#pragma mark - Synchronize Model and View
+
+- (void)updateMapView
+{
+    if (self.mapView.annotations) [self.mapView removeAnnotations:self.mapView.annotations];
+    if (self.annotations) [self.mapView addAnnotations:self.annotations];
+
+    
+    if (self.annotations && self.mapView.window) {
+        // Need to figure algorithm for span
+        
+        __block CLLocationCoordinate2D min = [[self.annotations objectAtIndex:0] coordinate];
+        __block CLLocationCoordinate2D max = min;
+        
+        
+        [self.annotations enumerateObjectsUsingBlock:^(id element, NSUInteger idx, BOOL *stop){
+            // We want to throw an error if it is not a dictionary
+            assert([element isKindOfClass:[FlickrPhotoAnnotation class]]);
+            FlickrPhotoAnnotation *location = element;
+            
+            // Get the country name for each element
+            CLLocationCoordinate2D currentCcoordinate = location.coordinate;
+            
+            min.latitude = MIN(min.latitude, currentCcoordinate.latitude);
+            min.longitude = MIN(min.longitude, currentCcoordinate.longitude);
+            
+            max.latitude = MAX(max.latitude, currentCcoordinate.latitude);
+            max.longitude = MAX(max.longitude, currentCcoordinate.longitude);
+        }];
+        
+        
+        
+        CLLocationCoordinate2D center = CLLocationCoordinate2DMake((max.latitude + min.latitude) / 2.0, (max.longitude + min.longitude) / 2.0);
+        MKCoordinateSpan span = MKCoordinateSpanMake(max.latitude - min.latitude, max.longitude - min.longitude);
+        MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
+        
+        [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+        
+    }
+}
+
+- (void)setMapView:(MKMapView *)mapView
+{
+    _mapView = mapView;
+    [self updateMapView];
+}
+
+- (void)setAnnotations:(NSArray *)annotations
+{
+    _annotations = annotations;
+    [self updateMapView];
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"MapVC"];
+    if (!aView) {
+        aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapVC"];
+        aView.canShowCallout = YES;
+        aView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    }
+    
+    aView.annotation = annotation;
+    [(UIImageView *)aView.leftCalloutAccessoryView setImage:nil];
+    
+    return aView;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)aView
+{
+    UIImage *image = [self.delegate PhotoTableViewController:self imageForAnnotation:aView.annotation];
+    [(UIImageView *)aView.leftCalloutAccessoryView setImage:image];
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    NSDictionary *photo = [self.photos objectAtIndex:[self.annotations indexOfObject:[view annotation]]];
+    
+    self.photoToDisplay = photo;
+    
+    [self showPhoto];
+}
+
+- (NSArray *)mapAnnotations
+{
+    if (self.photos) {
+        NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[self.photos count]];
+        for (NSDictionary *photo in self.photos) {
+            [annotations addObject:[FlickrPhotoAnnotation annotationForPhoto:photo]];
+        }
+        return annotations;
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - MapViewControllerDelegate
+
+- (UIImage *)PhotoTableViewController:(ShutterbugViewController *)sender imageForAnnotation:(id <MKAnnotation>)annotation
+{
+    FlickrPhotoAnnotation *fpa = (FlickrPhotoAnnotation *)annotation;
+    NSURL *url = [FlickrFetcher urlForPhoto:fpa.photo format:FlickrPhotoFormatSquare];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    return data ? [UIImage imageWithData:data] : nil;
+}
+
+- (IBAction)toggleMaps:(UISwitch *)sender {
+    if ([sender isOn]) {
+        [self.tableView setHidden:YES];
+        [self.mapView setHidden:NO];
+        self.annotations = [self mapAnnotations];
+    } else {
+        [self.tableView setHidden:NO];
+        [self.mapView setHidden:YES];
     }
 }
 
@@ -184,11 +315,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.delegate = self;
+    self.mapView.delegate = self;
+    self.tableView.delegate = self;
     [self.spinnerContainer addSubview:self.spinner];
+    [self.showMapsToggle setOn:self.currentlyShowingMap];
+    if (self.currentlyShowingMap) {
+        [self.tableView setHidden:YES];
+        [self.mapView setHidden:NO];
+        self.annotations = [self mapAnnotations];
+    }
 }
 
 - (void)viewDidUnload {
     [self setSpinner:nil];
+    [self setShowMapsToggle:nil];
     [super viewDidUnload];
 }
 @end

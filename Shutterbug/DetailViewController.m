@@ -8,11 +8,12 @@
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "DetailViewController.h"
 #import "SplitViewBarButtonItemPresenter.h"
 #import "FlickrFetcher.h"
 
-@interface DetailViewController () <UIScrollViewDelegate>
+@interface DetailViewController () <UIScrollViewDelegate, UITabBarControllerDelegate, NSFileManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -22,6 +23,9 @@
 @property (nonatomic) CGSize startingImageSize;
 @property (strong, nonatomic) NSURL *imageURL;
 @property (nonatomic) BOOL alreadyAppeared;
+
+@property (nonatomic, strong) NSURL *cacheDirectory;
+@property (nonatomic, strong) NSFileManager *myFileManager;
 @end
 
 @implementation DetailViewController
@@ -37,6 +41,10 @@
 @synthesize myPopoverController = _myPopoverController;
 @synthesize alreadyAppeared = _alreadyAppeared;
 
+@synthesize cacheDirectory = _cacheDirectory;
+@synthesize myFileManager = _myFileManager;
+
+#define MAX_CACHE_SIZE 10000000
 #pragma mark - Setters and getters
 
 // Gets all the information about the photo
@@ -59,10 +67,31 @@
     if (self.imageView) {
         if (self.imageURL) {
             
+           
             [self.spinner startAnimating];
             dispatch_queue_t imageDownloadQ = dispatch_queue_create("ShutterbugViewController image downloader", NULL);
             dispatch_async(imageDownloadQ, ^{
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];
+                UIImage *image;
+                
+                NSURL *fileReference = [self.cacheDirectory URLByAppendingPathComponent:[[self imageURL] lastPathComponent]];
+
+                if ([[NSFileManager defaultManager] fileExistsAtPath:[fileReference path]]) {
+                    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:fileReference]];
+                } else {
+                    NSData *imageData = [NSData dataWithContentsOfURL:self.imageURL];
+                    image = [UIImage imageWithData:imageData];
+                    [imageData writeToURL:fileReference atomically:NO];
+                }
+                
+                if ([DetailViewController folderSize:[self.cacheDirectory path]] > MAX_CACHE_SIZE) {
+                    NSURL *fileToDelete = [DetailViewController returnOldestFile:[[self cacheDirectory] path]];
+                    // Okay, delete oldest!!
+                    [self.myFileManager removeItemAtURL:fileToDelete error:nil];
+                }
+                
+                // Save image to cache and clear out oldest if there is no room
+                
+                
                 // All image manipulation on main thread
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // We have the image, stop the animating
@@ -224,6 +253,9 @@
 {
     // We save this so as we can dismiss it when we select a picture
     self.myPopoverController = pc;
+    // Set self as the delegate for the UITabBarController so as we can be notified when a different tab is selected
+    ((UITabBarController *)self.myPopoverController.contentViewController).delegate = self;
+
 }
 
 - (void)splitViewController:(UISplitViewController *)svc
@@ -231,12 +263,31 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
-    barButtonItem.title = [aViewController title];
+    if ([aViewController isKindOfClass:[UITabBarController class]]) {
+        // Set the title based on which UITabBarController view is selected
+        UINavigationController *currentlySelectedController = (UINavigationController *)[(UITabBarController *)aViewController selectedViewController];
+        NSString *tabBarItemTitle;
+        if (!currentlySelectedController) {
+            tabBarItemTitle = [[[(UITabBarController *)aViewController viewControllers] objectAtIndex:0] title];
+        } else {
+            tabBarItemTitle = [[(UITabBarController *)aViewController selectedViewController] title];
+        }
+        barButtonItem.title = tabBarItemTitle;
+    } else {
+        barButtonItem.title = [aViewController title];
+    }
     // tell detail view to put up
     [self splitViewBarButtonItemPresenter].splitViewBarButtonItem = barButtonItem;
     self.myPopoverController = nil;
 }
 
+#pragma mark - UITabBarControllerDelegate method
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)aViewController
+{
+    // Each time you choose a new tab, set the button title based on the selected tab
+    [self splitViewBarButtonItemPresenter].splitViewBarButtonItem.title = aViewController.title;
+}
 
 #pragma mark - UIScrollViewDelegate methods
 
@@ -276,6 +327,75 @@
     return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
++ (NSURL *)returnOldestFile:(NSString *)folderPath
+{
+    NSURL *returnPath = [[NSURL alloc] init];
+    
+    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:folderPath error:nil];
+    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
+    NSString *fileName;
+    NSDate *earliestDate = [[NSDate alloc] init]; // Get current date
+
+    while (fileName = [filesEnumerator nextObject]) {
+        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:[folderPath stringByAppendingPathComponent:fileName] error:nil];
+        NSDate *modificationDate = [fileDictionary fileModificationDate];
+        // new file earliest?
+        if  ([[modificationDate earlierDate:earliestDate] isEqualToDate:modificationDate]) {
+            earliestDate = modificationDate;
+            returnPath = [NSURL fileURLWithPath:[folderPath stringByAppendingPathComponent:fileName]];
+        }
+    }
+    return returnPath;
+    
+}
+
++ (NSUInteger)folderSize:(NSString *)folderPath
+{
+    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:folderPath error:nil];
+    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
+    NSString *fileName;
+    NSUInteger fileSize = 0;
+    
+    while (fileName = [filesEnumerator nextObject]) {
+        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:[folderPath stringByAppendingPathComponent:fileName] error:nil];
+        fileSize += [fileDictionary fileSize];
+    }
+    
+    NSLog(@"folderSize: %u", fileSize);
+    return fileSize;
+}
+
+- (NSFileManager *)myFileManager
+{
+    if (_myFileManager == nil) {
+        _myFileManager = [[NSFileManager alloc] init];
+    }
+    return _myFileManager;
+}
+
+- (NSURL *)cacheDirectory
+{
+    if (_cacheDirectory == nil) {
+
+        // Get the caches directory
+        NSURL *cacheDirectory = [[self myFileManager] URLForDirectory:NSCachesDirectory
+                                                             inDomain:NSUserDomainMask
+                                                    appropriateForURL:nil
+                                                               create:NO
+                                                                error:nil];
+            
+        // append folder name
+        cacheDirectory = [cacheDirectory URLByAppendingPathComponent:@"Shutterbug"];
+
+        // Will either reate it or it exists already...
+        [self.myFileManager createDirectoryAtURL:cacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+ 
+    
+        _cacheDirectory = cacheDirectory;
+    }
+    return _cacheDirectory;
+}
+
 #define SHOW_LIST_ENABLED_PREFERENCES @"show_list_enabled_preference"
 
 
@@ -283,6 +403,7 @@
 {
     [super awakeFromNib];
     self.splitViewController.delegate = self;
+    
 }
 
 - (void)viewDidLoad
@@ -294,6 +415,9 @@
     doubleTap.numberOfTouchesRequired = 2;
     doubleTap.numberOfTapsRequired = 2;
     [self.scrollView addGestureRecognizer:doubleTap];
+    
+    NSLog(@"cacheDirectory: %@", [self cacheDirectory]);
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {

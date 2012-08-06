@@ -6,16 +6,10 @@
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
-#import "RecentPhotoTableViewController.h"
+#import "RecentFlickrPhotoViewController.h"
 #import "FlickrFetcher.h"
 
-@interface RecentPhotoTableViewController ()
-@property (nonatomic, strong) NSDictionary *photoToDisplay;
-@end
-
-@implementation RecentPhotoTableViewController
-@synthesize photoToDisplay = _photoToDisplay;
-
+@implementation RecentFlickrPhotoViewController
 
 // Load in the defaults from the 
 - (void)loadDefaults

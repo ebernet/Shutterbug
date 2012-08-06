@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
 // some defines to get at key values
 #define FLICKR_DICT_KEY_CITY    @"_content.city"
 #define FLICKR_DICT_KEY_STATE   @"_content.state"
 #define FLICKR_DICT_KEY_COUNTRY @"_content.country"
 
-@interface TopPlacesTableViewController : UITableViewController
-@property (nonatomic, strong) NSArray *places;  // of Flickr places
+@interface TopPlacesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate>
+@property (nonatomic,strong) NSArray *annotations; // of id <MKAnnotation>
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
-#import "PhotoTableViewController.h"
+#import "ShutterbugViewController.h"
 
-@interface RecentPhotoTableViewController : PhotoTableViewController
+@interface RecentFlickrPhotoViewController : ShutterbugViewController
 @end

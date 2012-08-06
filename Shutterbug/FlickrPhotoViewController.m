@@ -6,17 +6,12 @@
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
-#import "FlickrPhotoTableViewController.h"
+#import "FlickrPhotoViewController.h"
 #import "FlickrFetcher.h"
 
-@interface FlickrPhotoTableViewController ()
-@property (nonatomic, strong) NSDictionary *photoToDisplay;
-@end
-
-@implementation FlickrPhotoTableViewController
+@implementation FlickrPhotoViewController
 
 @synthesize topPlaceToSearch = _topPlaceToSearch;
-@synthesize photoToDisplay = _photoToDisplay;
 
 // Load photos to bring in photos from the TopPlacesToSearch dictionary.
 - (void)loadTopPhotos {
@@ -42,6 +37,12 @@
 {
     [super viewDidLoad];
     [self loadTopPhotos];
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    [super mapView:mapView annotationView:view calloutAccessoryControlTapped:control];
+    [self addToRecents];
 }
 
 #pragma mark - Table view delegate

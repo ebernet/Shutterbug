@@ -99,11 +99,11 @@
             </objects>
             <point key="canvasLocation" x="230" y="2018"/>
         </scene>
-        <!--Recent Photo Table View Controller - Recents-->
+        <!--Recent Flickr Photo View Controller - Recents-->
         <scene sceneID="eHZ-mQ-v1o">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NyJ-ct-9Wz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="DWU-ki-snz" customClass="RecentPhotoTableViewController" sceneMemberID="viewController">
+                <tableViewController id="DWU-ki-snz" customClass="RecentFlickrPhotoViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ttO-JH-3lV">
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -177,11 +177,11 @@
             </objects>
             <point key="canvasLocation" x="1010" y="2424"/>
         </scene>
-        <!--Flickr Photo Table View Controller - Photos-->
+        <!--Flickr Photo View Controller - Photos-->
         <scene sceneID="zT0-zw-AOM">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hP4-M4-ch4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="apR-YA-vem" customClass="FlickrPhotoTableViewController" sceneMemberID="viewController">
+                <tableViewController id="apR-YA-vem" customClass="FlickrPhotoViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="LaP-gc-7CP">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -349,27 +349,9 @@
                 <relationship kind="outlet" name="toolbarTitle" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="FlickrPhotoTableViewController" superclassName="PhotoTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTableViewController.h"/>
-        </class>
-        <class className="PhotoTableViewController" superclassName="RotatableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoTableViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>
-                <relationship kind="outlet" name="spinnerGray" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="spinnerWhite" candidateClass="UIActivityIndicatorView"/>
-            </relationships>
-        </class>
-        <class className="RecentPhotoTableViewController" superclassName="PhotoTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoTableViewController.h"/>
-        </class>
-        <class className="RotatableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RotatableViewController.h"/>
-        </class>
-        <class className="TopPlacesTableViewController" superclassName="RotatableViewController">
+        <class className="TopPlacesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
             <relationships>
-                <relationship kind="action" name="refresh:"/>
                 <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PhotoTableViewController.h"
+#import "ShutterbugViewController.h"
 
-@interface FlickrPhotoTableViewController : PhotoTableViewController
+@interface FlickrPhotoViewController : ShutterbugViewController
 @property (nonatomic, strong) NSDictionary *topPlaceToSearch; // passed in city to search for places
 @end
