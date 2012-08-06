@@ -256,18 +256,31 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)aView
 {
-    // Need to move this to do on a thread
+    // Unsure how to test this, because it is so fast!, I am assuming that despite dequeue and
+    // reuse of Annotation Views, the pointer to the leftCallOutAccessoryView changes with different
+    // callouts...
     
-    UIImage *image = [self.delegate PhotoTableViewController:self imageForAnnotation:aView.annotation];
-    [(UIImageView *)aView.leftCalloutAccessoryView setImage:image];
+    __block UIImage *image;
+    __block UIImageView *currentImageViewPointer = (UIImageView *)aView.leftCalloutAccessoryView;
+
+    dispatch_queue_t downloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
+    dispatch_async(downloadQueue, ^{
+        image = [self.delegate PhotoTableViewController:self imageForAnnotation:aView.annotation];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // If the left call out accessory at this point is the same as the one before we made the call,
+            // then set the imageon the main thread.
+            if ([(UIImageView *)aView.leftCalloutAccessoryView isEqual:currentImageViewPointer]) {
+                [(UIImageView *)aView.leftCalloutAccessoryView setImage:image];
+            }
+        });
+    });
+    dispatch_release(downloadQueue);
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     NSDictionary *photo = [self.photos objectAtIndex:[self.annotations indexOfObject:[view annotation]]];
-    
     self.photoToDisplay = photo;
-    
     [self showPhoto];
 }
 
