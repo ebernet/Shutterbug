@@ -256,6 +256,8 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)aView
 {
+    // Need to move this to do on a thread
+    
     UIImage *image = [self.delegate PhotoTableViewController:self imageForAnnotation:aView.annotation];
     [(UIImageView *)aView.leftCalloutAccessoryView setImage:image];
 }

@@ -12,6 +12,7 @@
 #import "DetailViewController.h"
 #import "SplitViewBarButtonItemPresenter.h"
 #import "FlickrFetcher.h"
+#import "FileOperations.h"
 
 @interface DetailViewController () <UIScrollViewDelegate, UITabBarControllerDelegate, NSFileManagerDelegate>
 
@@ -26,6 +27,7 @@
 
 @property (nonatomic, strong) NSURL *cacheDirectory;
 @property (nonatomic, strong) NSFileManager *myFileManager;
+@property (nonatomic) NSUInteger cacheSize;
 @end
 
 @implementation DetailViewController
@@ -43,6 +45,7 @@
 
 @synthesize cacheDirectory = _cacheDirectory;
 @synthesize myFileManager = _myFileManager;
+@synthesize cacheSize = _cacheSize;
 
 #define MAX_CACHE_SIZE 10000000
 #pragma mark - Setters and getters
@@ -73,23 +76,42 @@
             dispatch_async(imageDownloadQ, ^{
                 UIImage *image;
                 
+                // Pull off the file name for the name we will store
                 NSURL *fileReference = [self.cacheDirectory URLByAppendingPathComponent:[[self imageURL] lastPathComponent]];
 
+                // Do we have the file already stored in cache?
                 if ([[NSFileManager defaultManager] fileExistsAtPath:[fileReference path]]) {
+                    // YES, load from cache folder
                     image = [UIImage imageWithData:[NSData dataWithContentsOfURL:fileReference]];
                 } else {
+                    // NO, load data and create image
                     NSData *imageData = [NSData dataWithContentsOfURL:self.imageURL];
                     image = [UIImage imageWithData:imageData];
+                    
+                    // Get the list of files in the cache, from newest to oldest
+                    NSMutableArray *filesToDeleteFrom = [[FileOperations filesInReverseDateOrder:[[self cacheDirectory] path]] mutableCopy];
+
+                    // Delete until we have room to add the new file
+                    while (([imageData length] + self.cacheSize) > MAX_CACHE_SIZE) {
+                        
+                        // Get the URL for the oldest file in the cache
+                        NSURL *lastFile = [self.cacheDirectory URLByAppendingPathComponent:[filesToDeleteFrom lastObject]];
+                        
+                        // Get its size, and remove it from the cache size
+                        NSDictionary *lastFileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[lastFile path] error:nil];
+                        self.cacheSize -= [lastFileAttributes fileSize];
+
+                        // Delete the file. Notice we may want to use error checking...
+                        [self.myFileManager removeItemAtURL:lastFile error:nil];
+                        
+                        // And remove it from the array of files
+                        [filesToDeleteFrom removeLastObject];
+                        NSLog(@"cacheSize: %u", self.cacheSize);
+
+                    }
+                    // We have enough space to write the file out, so do it!
                     [imageData writeToURL:fileReference atomically:NO];
                 }
-                
-                if ([DetailViewController folderSize:[self.cacheDirectory path]] > MAX_CACHE_SIZE) {
-                    NSURL *fileToDelete = [DetailViewController returnOldestFile:[[self cacheDirectory] path]];
-                    // Okay, delete oldest!!
-                    [self.myFileManager removeItemAtURL:fileToDelete error:nil];
-                }
-                
-                // Save image to cache and clear out oldest if there is no room
                 
                 
                 // All image manipulation on main thread
@@ -327,75 +349,6 @@
     return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-+ (NSURL *)returnOldestFile:(NSString *)folderPath
-{
-    NSURL *returnPath = [[NSURL alloc] init];
-    
-    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:folderPath error:nil];
-    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
-    NSString *fileName;
-    NSDate *earliestDate = [[NSDate alloc] init]; // Get current date
-
-    while (fileName = [filesEnumerator nextObject]) {
-        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:[folderPath stringByAppendingPathComponent:fileName] error:nil];
-        NSDate *modificationDate = [fileDictionary fileModificationDate];
-        // new file earliest?
-        if  ([[modificationDate earlierDate:earliestDate] isEqualToDate:modificationDate]) {
-            earliestDate = modificationDate;
-            returnPath = [NSURL fileURLWithPath:[folderPath stringByAppendingPathComponent:fileName]];
-        }
-    }
-    return returnPath;
-    
-}
-
-+ (NSUInteger)folderSize:(NSString *)folderPath
-{
-    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:folderPath error:nil];
-    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
-    NSString *fileName;
-    NSUInteger fileSize = 0;
-    
-    while (fileName = [filesEnumerator nextObject]) {
-        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:[folderPath stringByAppendingPathComponent:fileName] error:nil];
-        fileSize += [fileDictionary fileSize];
-    }
-    
-    NSLog(@"folderSize: %u", fileSize);
-    return fileSize;
-}
-
-- (NSFileManager *)myFileManager
-{
-    if (_myFileManager == nil) {
-        _myFileManager = [[NSFileManager alloc] init];
-    }
-    return _myFileManager;
-}
-
-- (NSURL *)cacheDirectory
-{
-    if (_cacheDirectory == nil) {
-
-        // Get the caches directory
-        NSURL *cacheDirectory = [[self myFileManager] URLForDirectory:NSCachesDirectory
-                                                             inDomain:NSUserDomainMask
-                                                    appropriateForURL:nil
-                                                               create:NO
-                                                                error:nil];
-            
-        // append folder name
-        cacheDirectory = [cacheDirectory URLByAppendingPathComponent:@"Shutterbug"];
-
-        // Will either reate it or it exists already...
-        [self.myFileManager createDirectoryAtURL:cacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
- 
-    
-        _cacheDirectory = cacheDirectory;
-    }
-    return _cacheDirectory;
-}
-
 #define SHOW_LIST_ENABLED_PREFERENCES @"show_list_enabled_preference"
 
 
@@ -416,8 +369,9 @@
     doubleTap.numberOfTapsRequired = 2;
     [self.scrollView addGestureRecognizer:doubleTap];
     
-    NSLog(@"cacheDirectory: %@", [self cacheDirectory]);
-
+    // Stash the size for quicker manipulation, only query size ONCE, then just the size of the files we delete!
+    self.cacheSize = [FileOperations folderSize:[self.cacheDirectory path]];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -452,4 +406,40 @@
     self.imageView = nil;
     [super viewDidUnload];
 }
+
+#pragma mark - File operations
+
+// If I decide to add error checking to file operations
+- (NSFileManager *)myFileManager
+{
+    if (_myFileManager == nil) {
+        _myFileManager = [[NSFileManager alloc] init];
+    }
+    return _myFileManager;
+}
+
+// Returns a subfolder in the cache directory called Shutterbug, creates and returns it if it is not there
+- (NSURL *)cacheDirectory
+{
+    if (_cacheDirectory == nil) {
+        
+        // Get the caches directory
+        NSURL *cacheDirectory = [[self myFileManager] URLForDirectory:NSCachesDirectory
+                                                             inDomain:NSUserDomainMask
+                                                    appropriateForURL:nil
+                                                               create:NO
+                                                                error:nil];
+        
+        // append folder name
+        cacheDirectory = [cacheDirectory URLByAppendingPathComponent:@"Shutterbug"];
+        
+        // Will either create it or it exists already...
+        [self.myFileManager createDirectoryAtURL:cacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+
+        _cacheDirectory = cacheDirectory;
+    }
+    return _cacheDirectory;
+}
+
+
 @end
