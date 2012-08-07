@@ -235,7 +235,27 @@
     }
 }
 
-
+//// For pressing an image from list item in table.
+//// Each subclass handles it a little differently, one adding it
+//// to recents and one not
+//- (void)showPlace
+//{
+//    if (self.currentlyShowingMap) {
+//        self.localeToDisplay = self.mapViewController.localeToDisplay;
+//    } else {
+//        self.localeToDisplay = self.tableViewController.localeToDisplay;
+//    }
+//    
+//    // iPad? Just set the image
+//    if ([self splitViewDetailViewController]) {
+//        [[self splitViewDetailViewController] setPhoto:self.photoToDisplay];
+//        // And dismiss the popOver/slideOut
+//        [[[self splitViewDetailViewController] myPopoverController] dismissPopoverAnimated:YES];
+//    } else { // iPhone? Transition to image
+//        [self performSegueWithIdentifier:@"Show Photo" sender:self];
+//    }
+//}
+//
 
 - (TopPlacesMapViewController *)mapViewController
 {

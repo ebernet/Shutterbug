@@ -7,8 +7,8 @@
 //
 
 #import "MapViewController.h"
-#import "FlickrPlaceAnnotation.h"
 #import "FlickrPhotoAnnotation.h"
+#import "FlickrViewController.h"
 #import "FlickrFetcher.h"
 #import <MapKit/MapKit.h>
 
@@ -20,8 +20,6 @@
 @synthesize annotations = _annotations;
 @synthesize photos = _photos;
 @synthesize photoToDisplay = _photoToDisplay;
-
-#pragma mark - MKMapViewDelegate
 
 #pragma mark - MKMapViewDelegate
 
@@ -68,7 +66,18 @@
 {
     NSDictionary *photo = [self.photos objectAtIndex:[self.annotations indexOfObject:[view annotation]]];
     self.photoToDisplay = photo;
-    [self.parentViewController performSegueWithIdentifier:@"Show Photo" sender:self];
+    [(FlickrViewController *)self.parentViewController showPhoto];
+//    [self.parentViewController performSegueWithIdentifier:@"Show Photo" sender:self];
+}
+
+- (void)setPhotos:(NSArray *)photos
+{
+    if (_photos != photos) {
+        _photos = photos;
+        self.annotations = [self mapAnnotations];
+        if (self.mapView.window)
+            [self.mapView setNeedsDisplay];
+    }
 }
 
 - (NSArray *)mapAnnotations
@@ -91,7 +100,6 @@
 {
     if (self.mapView.annotations) [self.mapView removeAnnotations:self.mapView.annotations];
     if (self.annotations) [self.mapView addAnnotations:self.annotations];
-    
     
     if (self.annotations) {
         // Need to figure algorithm for span

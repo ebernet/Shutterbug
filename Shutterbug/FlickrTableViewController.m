@@ -7,6 +7,7 @@
 //
 
 #import "FlickrTableViewController.h"
+#import "FlickrViewController.h"
 #import "FlickrFetcher.h"
 #import "Countries.h"
 
@@ -66,7 +67,8 @@
     self.photoToDisplay = [self.photos objectAtIndex:indexPath.row];
     
     // Now do segue to bring up the a list of photos at the current location
-    [self.parentViewController performSegueWithIdentifier:@"Show Photo" sender:self];
+    [(FlickrViewController *)self.parentViewController showPhoto];
+//    [self.parentViewController performSegueWithIdentifier:@"Show Photo" sender:self];
 }
 
 

@@ -110,12 +110,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        if (self.currentlyShowingMap) {
-            self.photoToDisplay = self.mapViewController.photoToDisplay;
-        } else {
-            self.photoToDisplay = self.tableViewController.photoToDisplay;
-        }
-        [self addToRecents];
         DetailViewController *destVC = segue.destinationViewController;
         destVC.photo = self.photoToDisplay;
     }
@@ -126,6 +120,13 @@
 // to recents and one not
 - (void)showPhoto
 {
+    if (self.currentlyShowingMap) {
+        self.photoToDisplay = self.mapViewController.photoToDisplay;
+    } else {
+        self.photoToDisplay = self.tableViewController.photoToDisplay;
+    }
+    [self addToRecents];
+
     // iPad? Just set the image
     if ([self splitViewDetailViewController]) {
         [[self splitViewDetailViewController] setPhoto:self.photoToDisplay];
@@ -140,12 +141,12 @@
 {
     if (_photos != photos) {
         _photos = photos;
-        if (self.tableViewController.tableView.window) {
+        if (self.currentlyShowingMap) {
+            self.mapViewController.photos = _photos;
+            [self.mapViewController updateMapView];
+        } else {
             self.tableViewController.photos = _photos;
             [self.tableViewController.tableView reloadData];
-        } else if (self.mapViewController.mapView.window) {
-            self.mapViewController.photos = self.photos;
-            [self.mapViewController updateMapView];
         }
     }
 }

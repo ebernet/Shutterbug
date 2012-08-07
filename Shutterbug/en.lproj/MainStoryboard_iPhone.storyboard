@@ -26,12 +26,12 @@
                                 <segment title="Map"/>
                             </segments>
                             <connections>
-                                <action selector="segmentChanged:" destination="Dub-eY-q4r" eventType="valueChanged" id="r9P-e3-5TI"/>
+                                <action selector="segmentChanged:" destination="Dub-eY-q4r" eventType="valueChanged" id="Y6f-uT-y12"/>
                             </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Refresh" id="Gg8-KZ-FhM">
                             <connections>
-                                <action selector="refresh:" destination="Dub-eY-q4r" id="xyw-XP-cOo"/>
+                                <action selector="refresh:" destination="Dub-eY-q4r" id="zTC-4D-VuB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -43,7 +43,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1494" y="1640"/>
+            <point key="canvasLocation" x="1356" y="1762"/>
         </scene>
         <!--Top Places Map View Controller-->
         <scene sceneID="D1u-FL-k39">
@@ -69,7 +69,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1045" y="894"/>
+            <point key="canvasLocation" x="1313" y="970"/>
         </scene>
         <!--Top Places Table View Controller-->
         <scene sceneID="oXt-mN-Pcg">
@@ -114,7 +114,7 @@
                     </tableView>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1425" y="894"/>
+            <point key="canvasLocation" x="1693" y="970"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OrM-gW-DKI">
@@ -133,7 +133,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="1018" y="1640"/>
+            <point key="canvasLocation" x="957" y="1762"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hHy-WM-qz3">
@@ -171,7 +171,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="1065" y="2418"/>
+            <point key="canvasLocation" x="957" y="2400"/>
         </scene>
         <!--Photos View Controller-->
         <scene sceneID="xcj-Jy-dZR">
@@ -193,7 +193,7 @@
                                 <segment title="Map"/>
                             </segments>
                             <connections>
-                                <action selector="segmentChanged:" destination="i0z-2P-5G4" eventType="valueChanged" id="flB-BT-w0u"/>
+                                <action selector="segmentChanged:" destination="i0z-2P-5G4" eventType="valueChanged" id="Bn6-Rn-uZU"/>
                             </connections>
                         </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" id="1I0-o9-vbQ">
@@ -206,112 +206,12 @@
                     <connections>
                         <outlet property="contentView" destination="VLn-C2-w2f" id="ld4-0W-ggI"/>
                         <outlet property="listOrMap" destination="S4f-LJ-yAX" id="IrB-wM-l91"/>
-                        <outlet property="spinnerContainer" destination="fyB-Bc-kWM" id="gts-er-V2D"/>
+                        <outlet property="spinnerContainer" destination="fyB-Bc-kWM" id="qgx-9w-vvW"/>
                         <segue destination="Hfc-DI-Z6C" kind="push" identifier="Show Photo" id="Pnz-xg-LMH"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1957" y="1648"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="62S-3H-MLA">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ETP-ph-Fds" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="BMj-At-yUm" customClass="DetailViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RTn-Si-3ih">
-                        <rect key="frame" x="0.0" y="20" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" id="I2G-ab-eVj">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="TopLeft" id="LOB-Fb-4M1">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </imageView>
-                                </subviews>
-                                <connections>
-                                    <outlet property="delegate" destination="BMj-At-yUm" id="ZOY-yn-qP7"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="El0-Zi-np0">
-                        <barButtonItem key="rightBarButtonItem" style="done" id="k0g-B6-rIh">
-                            <view key="customView" contentMode="scaleToFill" id="RGd-bs-W4C">
-                                <rect key="frame" x="295" y="12" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" tag="20" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="p6U-Ic-mSJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                            </view>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="imageView" destination="LOB-Fb-4M1" id="0xA-Jp-IoZ"/>
-                        <outlet property="scrollView" destination="I2G-ab-eVj" id="azS-SN-MCM"/>
-                        <outlet property="spinner" destination="p6U-Ic-mSJ" id="ctc-EV-bTm"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="4304" y="1648"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="GcL-O9-jt3">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="iqy-JU-twm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="oG0-9x-GcT" customClass="DetailViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Jxp-5l-rfO">
-                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" id="GiB-yt-dCP">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="376"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="TopLeft" id="x6k-s6-Om5">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="376"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </imageView>
-                                </subviews>
-                                <connections>
-                                    <outlet property="delegate" destination="oG0-9x-GcT" id="0Ib-dF-1go"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="pUr-MN-koG">
-                        <barButtonItem key="rightBarButtonItem" style="done" id="8t7-he-1or">
-                            <view key="customView" contentMode="scaleToFill" id="jPi-FF-ppj">
-                                <rect key="frame" x="295" y="12" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="s0b-xj-Fw3">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                            </view>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="imageView" destination="x6k-s6-Om5" id="MIl-gq-0rl"/>
-                        <outlet property="scrollView" destination="GiB-yt-dCP" id="xt2-0l-OcM"/>
-                        <outlet property="spinner" destination="s0b-xj-Fw3" id="mDw-Q8-h9x"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1957" y="2424"/>
+            <point key="canvasLocation" x="1758" y="1762"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="hpV-QA-EyV">
@@ -337,7 +237,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1865" y="903"/>
+            <point key="canvasLocation" x="2210" y="1762"/>
         </scene>
         <!--Flickr Table View Controller-->
         <scene sceneID="Xmd-w6-BYC">
@@ -382,7 +282,7 @@
                     </tableView>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="2263" y="903"/>
+            <point key="canvasLocation" x="2606" y="1762"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Fcf-io-fyD">
@@ -432,7 +332,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2421" y="1648"/>
+            <point key="canvasLocation" x="2097" y="2400"/>
         </scene>
         <!--Recents Flickr View Controller-->
         <scene sceneID="EzG-oo-bj2">
@@ -469,11 +369,11 @@
                         <outlet property="contentView" destination="B41-Kv-tjR" id="GB9-7Q-fin"/>
                         <outlet property="listOrMap" destination="AN2-j3-YPR" id="Civ-Yb-wh2"/>
                         <outlet property="spinnerContainer" destination="Jfw-oM-Eno" id="Y3d-89-29a"/>
-                        <segue destination="oG0-9x-GcT" kind="push" identifier="Show Photo" id="kjq-GS-NCn"/>
+                        <segue destination="Hfc-DI-Z6C" kind="push" identifier="Show Photo" id="Dc8-F1-L80"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1494" y="2418"/>
+            <point key="canvasLocation" x="1356" y="2400"/>
         </scene>
     </scenes>
     <classes>
@@ -536,4 +436,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Pnz-xg-LMH"/>
+    </inferredMetricsTieBreakers>
 </document>

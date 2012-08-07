@@ -10,4 +10,5 @@
 
 @interface TopPlacesFlickrViewController : UIViewController
 @property (nonatomic, strong) NSDictionary *localeToDisplay;                  // What place do we want to show photos for
+
 @end
