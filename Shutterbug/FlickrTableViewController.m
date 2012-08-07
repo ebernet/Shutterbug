@@ -52,9 +52,32 @@
         cell.textLabel.text = photoTitle;
         cell.detailTextLabel.text = photoDescription;
     }
-    
+ 
+//    __block UIImage *image;
+//    __block UIImageView *currentImageViewPointer = cell.imageView;
+//    
+//    dispatch_queue_t downloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
+//    dispatch_async(downloadQueue, ^{
+//        image = [self imageForCell:indexPath.row];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            // If the left call out accessory at this point is the same as the one before we made the call,
+//            // then set the imageon the main thread.
+// //           if ([(UIImageView *)cell.imageView isEqual:currentImageViewPointer]) {
+//                [(UIImageView *)cell.imageView setImage:image];
+// //           }
+//        });
+//    });
+//    dispatch_release(downloadQueue);
+   
     return cell;
 }
+
+//- (UIImage *)imageForCell:(NSInteger)row
+//{
+//    NSURL *url = [FlickrFetcher urlForPhoto:[self.photos objectAtIndex:row] format:FlickrPhotoFormatSquare];
+//    NSData *data = [NSData dataWithContentsOfURL:url];
+//    return data ? [UIImage imageWithData:data] : nil;
+//}
 
 #pragma mark - Table view delegate
 
@@ -70,7 +93,6 @@
     [(FlickrViewController *)self.parentViewController showPhoto];
 //    [self.parentViewController performSegueWithIdentifier:@"Show Photo" sender:self];
 }
-
 
 // Just not upsidedown on iPhone
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

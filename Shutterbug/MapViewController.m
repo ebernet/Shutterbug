@@ -67,7 +67,6 @@
     NSDictionary *photo = [self.photos objectAtIndex:[self.annotations indexOfObject:[view annotation]]];
     self.photoToDisplay = photo;
     [(FlickrViewController *)self.parentViewController showPhoto];
-//    [self.parentViewController performSegueWithIdentifier:@"Show Photo" sender:self];
 }
 
 - (void)setPhotos:(NSArray *)photos
