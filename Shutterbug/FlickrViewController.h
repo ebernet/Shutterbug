@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+// To store/retrieve the recents
+#define RECENTS_KEY @"DetailViewController.Recents"
 
 @interface FlickrViewController : UIViewController
 @property (nonatomic, strong) NSArray *photos;  // of Flickr photo dictionaries

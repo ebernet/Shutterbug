@@ -13,7 +13,6 @@
 #import "MapViewController.h"
 #import "FlickrFetcher.h"
 #import "Countries.h"
-#import "FlickrPhotoViewController.h"
 
 @interface TopPlacesFlickrViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;        // Need this for spinner reverting to refresh. See viewDidLoad
@@ -224,38 +223,16 @@
 {
     if ([segue.identifier isEqualToString:@"Show Photos At Place"]) {
         PhotosViewController *destVC = segue.destinationViewController;
-        destVC.title = [self.localeToDisplay valueForKey:FLICKR_DICT_KEY_CITY];
         if (self.currentlyShowingMap) {
             self.localeToDisplay = self.mapViewController.localeToDisplay;
         } else {
             self.localeToDisplay = self.tableViewController.localeToDisplay;
         }
+        destVC.title = [self.localeToDisplay valueForKey:FLICKR_DICT_KEY_CITY];
         destVC.localeToDisplay = self.localeToDisplay;
         destVC.currentlyShowingMap = self.currentlyShowingMap;
     }
 }
-
-//// For pressing an image from list item in table.
-//// Each subclass handles it a little differently, one adding it
-//// to recents and one not
-//- (void)showPlace
-//{
-//    if (self.currentlyShowingMap) {
-//        self.localeToDisplay = self.mapViewController.localeToDisplay;
-//    } else {
-//        self.localeToDisplay = self.tableViewController.localeToDisplay;
-//    }
-//    
-//    // iPad? Just set the image
-//    if ([self splitViewDetailViewController]) {
-//        [[self splitViewDetailViewController] setPhoto:self.photoToDisplay];
-//        // And dismiss the popOver/slideOut
-//        [[[self splitViewDetailViewController] myPopoverController] dismissPopoverAnimated:YES];
-//    } else { // iPhone? Transition to image
-//        [self performSegueWithIdentifier:@"Show Photo" sender:self];
-//    }
-//}
-//
 
 - (TopPlacesMapViewController *)mapViewController
 {
@@ -332,6 +309,7 @@
     [self.contentView addSubview:self.tableViewController.view];
     self.currentViewController = self.tableViewController;
     self.currentlyShowingMap = NO;
+    self.title = @"Top Places";  // I think I need this because there is no visible title!
     [self refresh:self.refreshButton];
 }
 

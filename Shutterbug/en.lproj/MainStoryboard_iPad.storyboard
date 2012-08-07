@@ -5,11 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
-        <!--Top Places Flickr View Controller-->
+        <!--Top Places Flickr View Controller - Top Places-->
         <scene sceneID="kZD-Dh-77z">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jh9-VJ-uFk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="p6R-Qq-jeV" customClass="TopPlacesFlickrViewController" sceneMemberID="viewController">
+                <viewController title="Top Places" id="p6R-Qq-jeV" customClass="TopPlacesFlickrViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RTu-Yz-ROf">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -271,7 +271,7 @@
                 <viewController storyboardIdentifier="TopPlacesMapViewControllerID" id="Q3p-AG-16Q" customClass="TopPlacesMapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IaD-5j-b3g">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="S3N-Ph-mQH">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
@@ -280,6 +280,18 @@
                                     <outlet property="delegate" destination="Q3p-AG-16Q" id="8CL-Ye-fbQ"/>
                                 </connections>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Gvq-fh-w6s">
+                                <rect key="frame" x="284" y="955" width="200" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeMapStyle:" destination="Q3p-AG-16Q" eventType="valueChanged" id="uw2-cN-oYi"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -344,7 +356,7 @@
                 <viewController storyboardIdentifier="mapViewControllerID" id="fEH-62-yey" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3ns-zo-Uso">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="nZC-hC-u7i">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1004"/>
@@ -353,6 +365,18 @@
                                     <outlet property="delegate" destination="fEH-62-yey" id="xej-18-uEy"/>
                                 </connections>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Lnx-cE-OdX">
+                                <rect key="frame" x="284" y="955" width="200" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changeMapStyle:" destination="fEH-62-yey" eventType="valueChanged" id="1jS-Fv-fYf"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -408,7 +432,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-4010" y="-1150"/>
+            <point key="canvasLocation" x="-4206" y="-1158"/>
         </scene>
     </scenes>
     <classes>
@@ -437,6 +461,7 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
@@ -459,6 +484,7 @@
         <class className="TopPlacesMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesMapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>

@@ -8,9 +8,9 @@
 
 #import "MapViewController.h"
 #import "FlickrViewController.h"
-#import "FlickrPhotoViewController.h"
 #import "FlickrTableViewController.h"
 #import "MapViewController.h"
+#import "DetailViewController.h"
 
 @interface FlickrViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;

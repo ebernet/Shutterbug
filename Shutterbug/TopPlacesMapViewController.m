@@ -45,6 +45,27 @@
     [self.parentViewController performSegueWithIdentifier:@"Show Photos At Place" sender:self.parentViewController];
 }
 
+- (IBAction)changeMapStyle:(id)sender {
+
+    switch ([sender selectedSegmentIndex]) {
+        case 0:
+        {
+            [self.mapView setMapType:MKMapTypeStandard];
+            break;
+        }
+        case 1:
+        {
+            [self.mapView setMapType:MKMapTypeSatellite];
+            break;
+        }
+        default:
+        {
+            [self.mapView setMapType:MKMapTypeHybrid];
+            break;
+        } 
+    }
+}
+
 
 #pragma mark - Synchronize Model and View
 
