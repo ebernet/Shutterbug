@@ -1,5 +1,5 @@
 //
-//  FlickrTableViewController.m
+//  TopPlacesTableViewController.m
 //  Shutterbug
 //
 //  Created by Eytan Bernet on 8/6/12.

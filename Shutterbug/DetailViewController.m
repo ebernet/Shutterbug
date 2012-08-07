@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *toolbarTitle;
 @property (nonatomic) CGSize startingImageSize;
 @property (strong, nonatomic) NSURL *imageURL;
-@property (nonatomic) BOOL alreadyAppeared;
 
 @property (nonatomic, strong) NSURL *cacheDirectory;
 @property (nonatomic, strong) NSFileManager *myFileManager;
@@ -41,7 +40,6 @@
 @synthesize imageURL = _imageURL;
 @synthesize startingImageSize = _startingImageSize;
 @synthesize myPopoverController = _myPopoverController;
-@synthesize alreadyAppeared = _alreadyAppeared;
 
 @synthesize cacheDirectory = _cacheDirectory;
 @synthesize myFileManager = _myFileManager;
@@ -349,8 +347,6 @@
     return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-#define SHOW_LIST_ENABLED_PREFERENCES @"show_list_enabled_preference"
-
 
 - (void)awakeFromNib
 {
@@ -383,13 +379,11 @@
     [super viewDidAppear:animated];
     // Show the masterViewController on initial showing, but only on initial
     if (self.splitViewController) {
-        if ((!self.alreadyAppeared) || [[NSUserDefaults standardUserDefaults] boolForKey:SHOW_LIST_ENABLED_PREFERENCES]) {
-            if ([_splitViewBarButtonItem.target respondsToSelector:_splitViewBarButtonItem.action]) {
-                // Unsure how else to initiate the splitViewController button action. Don't know what it is that calls out the
-                // masterviewcontroller, so I am just performing the action assigned the button, and am stuck with this warning
-                [_splitViewBarButtonItem.target performSelector:_splitViewBarButtonItem.action withObject: _splitViewBarButtonItem];
-            }
-            self.alreadyAppeared = YES;
+        if ([_splitViewBarButtonItem.target respondsToSelector:_splitViewBarButtonItem.action]) {
+            // Unsure how else to initiate the splitViewController button action. Don't know what it is that calls out the
+            // masterviewcontroller, so I am just performing the action assigned the button, and am stuck with this warning
+            [_splitViewBarButtonItem.target performSelector:_splitViewBarButtonItem.action withObject: _splitViewBarButtonItem];
+
         }
     }
 }

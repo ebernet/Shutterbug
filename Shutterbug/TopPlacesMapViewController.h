@@ -1,5 +1,5 @@
 //
-//  MapViewController.h
+//  TopPlacesMapViewController.h
 //  Shutterbug
 //
 //  Created by Eytan Bernet on 8/6/12.
@@ -11,10 +11,8 @@
 
 
 @interface TopPlacesMapViewController : UIViewController <MKMapViewDelegate>
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (nonatomic, strong) NSArray *annotations;             // of id <MKAnnotation>
-@property (nonatomic, strong) NSArray *placesForMaps;           // of id <NSDictionary>. This is a linear list
-@property (nonatomic, strong) NSDictionary *localeToDisplay;      // Advertise currently selected location
+@property (nonatomic, strong) NSArray *placesForMaps;               // of id <NSDictionary>. This is a linear list. Gets set by parent.
+@property (nonatomic, strong) NSDictionary *localeToDisplay;        // Advertise currently selected location, used by parent to pass on in nav.
 
 - (void)updateMapView;
 

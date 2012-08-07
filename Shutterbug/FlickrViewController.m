@@ -13,13 +13,13 @@
 #import "DetailViewController.h"
 
 @interface FlickrViewController ()
-@property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;
+@property (weak, nonatomic) IBOutlet UIView *spinnerContainer;          // Put a spinner in here when loading view
+@property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;     // Toggle between list/map
+@property (weak, nonatomic) IBOutlet UIView *contentView;               // Where to embed the subview Controllers
 @property (nonatomic,weak) FlickrTableViewController *tableViewController;
 @property (nonatomic,weak) MapViewController *mapViewController;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (nonatomic, strong) id currentViewController; // Holds the currently active view Controller
-@property (strong, nonatomic) UIActivityIndicatorView *spinner; // Strong because I place it, it is not in a NIB!
-@property (weak, nonatomic) IBOutlet UIView *spinnerContainer;  // Weak because it is in the storyboard!
+@property (nonatomic, strong) id currentViewController;                 // Holds the currently active view Controller
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;         // Strong because I place it, it is not in a NIB!
 @end
 
 @implementation FlickrViewController
@@ -32,7 +32,9 @@
 @synthesize photoToDisplay = _photoToDisplay;
 @synthesize currentlyShowingMap = _currentlyShowingMap;
 
+#define SORT_RECENTS_ON_VIEW @"sort_recents_on_view"
 
+#pragma mark - Recents handeling
 
 // Store photo in recents
 // COULD store just the photo ID, but the entire record is not very large
@@ -51,6 +53,12 @@
     
     // If there, move it to top
     if ([recents containsObject:self.photoToDisplay]) {
+        
+        // Added the code to check the preferences for recent here....
+        // So if we are already there, and we were asked to not reorder, this will just exit without
+        // reordering the recents...
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:SORT_RECENTS_ON_VIEW]) return;
+        
         // by deleting the old one
         [recents removeObject:self.photoToDisplay];
     }
@@ -86,15 +94,6 @@
     [self.spinner stopAnimating];
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [self.photos count];
-}
-
-
 #pragma mark - Segue/Update methods
 
 // Are we in a split view controller? If so, return detail view controller if it is a DetailViewController
@@ -115,6 +114,9 @@
     }
 }
 
+#pragma mark - Setters and getters
+#define DISMISS_LIST_ON_SELECT @"dismiss_list_on_select"
+
 // For pressing an image from list item in table.
 // Each subclass handles it a little differently, one adding it
 // to recents and one not
@@ -125,13 +127,18 @@
     } else {
         self.photoToDisplay = self.tableViewController.photoToDisplay;
     }
+    // addToRecents now checks for settings to decide if it should move to the top
     [self addToRecents];
 
     // iPad? Just set the image
     if ([self splitViewDetailViewController]) {
         [[self splitViewDetailViewController] setPhoto:self.photoToDisplay];
-        // And dismiss the popOver/slideOut
-        [[[self splitViewDetailViewController] myPopoverController] dismissPopoverAnimated:YES];
+        
+        // And dismiss the popOver/slideOut, if the preference is set...
+
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:DISMISS_LIST_ON_SELECT]) {
+            [[[self splitViewDetailViewController] myPopoverController] dismissPopoverAnimated:YES];
+        }
     } else { // iPhone? Transition to image
         [self performSegueWithIdentifier:@"Show Photo" sender:self];
     }
@@ -150,6 +157,8 @@
         }
     }
 }
+
+#pragma mark - Logic for embedded UIViewControllers
 
 - (MapViewController *)mapViewController
 {

@@ -8,9 +8,9 @@
 			<key>DefaultValue</key>
 			<false/>
 			<key>Key</key>
-			<string>show_list_enabled_preference</string>
+			<string>dismiss_list_on_select</string>
 			<key>Title</key>
-			<string>Show list every time you switch tabs?</string>
+			<string>Dismiss the list when updating photo?</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface FlickrTableViewController : UITableViewController
-@property (nonatomic,strong) NSArray *photos;           // of Flickr photos, when used inside image viewers
+@property (nonatomic,strong) NSArray *photos;                   // of Flickr photos, when used inside image viewers
 @property (nonatomic, weak) NSDictionary *localeToDisplay;      // Advertise currently selected location
 @property (nonatomic, strong) NSDictionary *photoToDisplay;
 @end

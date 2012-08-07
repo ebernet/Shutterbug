@@ -23,14 +23,11 @@
     }
 }
 
-// Have to do on viewDidAppear so as we reload the recents list when using the
-// TabBarController. Otherwise we don't get the latest added picture when we switch back
-// and forth. Does this have to do with weak/strong? How does the UITableViewController for the other
+// Lod the photos from the recents stored in NSUserDefaults. No threading necessary (FAST)
 // TabBar View Controller stay in memory?
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self loadDefaults];
 }
-
 @end

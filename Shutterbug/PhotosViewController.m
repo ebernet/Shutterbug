@@ -33,12 +33,10 @@
     dispatch_release(downloadQueue);
 }
 
-// For recents, we load the settings from defaults. We can load them as the NIB is loading
-// because we are not actually showing them just yet
+// Load up top photos from Flickr on a thread
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self loadTopPhotos];
 }
-
 @end

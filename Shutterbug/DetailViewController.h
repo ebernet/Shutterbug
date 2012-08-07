@@ -10,6 +10,6 @@
 #import "SplitViewBarButtonItemPresenter.h"
 
 @interface DetailViewController : UIViewController <SplitViewBarButtonItemPresenter, UISplitViewControllerDelegate>
-@property (nonatomic, strong) UIPopoverController *myPopoverController;
+@property (nonatomic, strong) UIPopoverController *myPopoverController;     // Public so as we can dismiss master from master
 @property (nonatomic, strong) NSDictionary *photo;
 @end

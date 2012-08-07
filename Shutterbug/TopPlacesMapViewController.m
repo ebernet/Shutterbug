@@ -12,6 +12,8 @@
 #import <MapKit/MapKit.h>
 
 @interface TopPlacesMapViewController ()
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (nonatomic, strong) NSArray *annotations;             // of id <MKAnnotation>
 @end
 
 @implementation TopPlacesMapViewController
@@ -66,27 +68,18 @@
     }
 }
 
-
 #pragma mark - Synchronize Model and View
-
-
-- (NSArray *)mapAnnotations
-{
-    NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[_placesForMaps count]];
-    for (NSDictionary *place in _placesForMaps) {
-        [annotations addObject:[FlickrPlaceAnnotation annotationForPlace:place]];
-    }
-    return annotations;
-}
 
 // Set the top places after the thread has copleted, and update the map if it changes
 - (void)setPlacesForMaps:(NSArray *)placesForMaps
 {
     if (_placesForMaps != placesForMaps) {
         _placesForMaps = placesForMaps;
-        self.annotations = [self mapAnnotations];
-        if (self.mapView.window)
-            [self.mapView setNeedsDisplay];
+        NSMutableArray *annotations = [NSMutableArray arrayWithCapacity:[_placesForMaps count]];
+        for (NSDictionary *place in _placesForMaps) {
+            [annotations addObject:[FlickrPlaceAnnotation annotationForPlace:place]];
+        }
+        self.annotations = annotations;
     }
 }
 
@@ -109,7 +102,7 @@
 }
 
 
-#pragma mark - MapViewControllerDelegate
+#pragma mark - View Lifecycle
 
 - (void)viewDidUnload
 {

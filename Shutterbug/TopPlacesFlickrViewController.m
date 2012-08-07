@@ -16,14 +16,15 @@
 
 @interface TopPlacesFlickrViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;        // Need this for spinner reverting to refresh. See viewDidLoad
-@property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;
-@property (nonatomic,weak) TopPlacesTableViewController *tableViewController;
-@property (nonatomic,weak) TopPlacesMapViewController *mapViewController;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;         // The segmented control used to choose ViewControllers to embed
+@property (weak, nonatomic) IBOutlet UIView *contentView;                   // Where we embed the controllers
+@property (nonatomic,weak) TopPlacesTableViewController *tableViewController;   // The TableViewController...
+@property (nonatomic,weak) TopPlacesMapViewController *mapViewController;       // And the MapViewController
 @property (nonatomic, strong) id currentViewController; // Holds the currently active view Controller
 @property (nonatomic,strong) NSArray *places;           // of Flickr places, grouped by countries
-@property (nonatomic,strong) NSArray *placesForMaps;    // of Flickr places - linear list
-@property (nonatomic) BOOL currentlyShowingMap;
+@property (nonatomic,strong) NSArray *placesForMaps;    // of Flickr places - linear list, for maps
+@property (nonatomic) BOOL currentlyShowingMap;         // Bool to keep track of what is currently showing
+@property (nonatomic, weak) NSDictionary *localeToDisplay;                  // What place do we want to show photos for
 @end
 
 @implementation TopPlacesFlickrViewController
@@ -37,6 +38,8 @@
 @synthesize tableViewController = _tableViewController;
 @synthesize listOrMap = _listOrMap;
 @synthesize currentlyShowingMap = _currentlyShowingMap;
+
+#pragma mark - TopPlaces loading and sorting
 
 // This is called when you hit the refresh button. Also called 1st time you open
 // up the top places panel on iPad or when launching on iPhone
@@ -82,38 +85,16 @@
         [enhancedPlacesList addObject:thisEntry];
     }];
     
-    // Okay, so now we have a list of places, not sorted yet. We use it for the annotations!
-    
+    // Okay, so now we have a list of places, not sorted yet. We use it for the annotations (maps)!
+    NSArray *finalizedPlaces = [TopPlacesFlickrViewController sortFlickrTopPlaces:enhancedPlacesList];
     
     // Parse and sort places, still on another thread. This will return an array
     // of countries rather than of all the locations. Each country will have an
     // array of cities
-    NSArray *finalizedPlaces = [TopPlacesFlickrViewController sortFlickrTopPlaces:enhancedPlacesList];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         self.placesForMaps = enhancedPlacesList;    // Sorted list, no countries, but city/country/state broken out
         self.places = finalizedPlaces;              // Sorted list, with countries
     });
-}
-
-
-// This is called when you hit the refresh button. Also called 1st time you open
-// up the top places panel on iPad or when launching on iPhone
-- (IBAction)refresh:(id)sender {
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    
-    [spinner startAnimating];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-    
-    dispatch_queue_t downloadQueue = dispatch_queue_create("flickr places downloader", NULL);
-    dispatch_async(downloadQueue, ^{
-        [self loadTopPlaces];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.navigationItem.rightBarButtonItem = sender;
-        });
-    });
-    dispatch_release(downloadQueue);
 }
 
 // Bulk of work happens here after retrieving TopPlaces
@@ -218,22 +199,49 @@
 }
 
 
+// This is called when you hit the refresh button. Also called 1st time you open
+// up the top places panel on iPad or when launching on iPhone
+- (IBAction)refresh:(id)sender {
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    [spinner startAnimating];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+    
+    dispatch_queue_t downloadQueue = dispatch_queue_create("flickr places downloader", NULL);
+    dispatch_async(downloadQueue, ^{
+        [self loadTopPlaces];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.rightBarButtonItem = sender;
+        });
+    });
+    dispatch_release(downloadQueue);
+}
+
+#pragma mark - NavigationController stuff
+
 // This segue is called for both iPhone AND iPad since it is in the masterController on the iPad
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Photos At Place"]) {
         PhotosViewController *destVC = segue.destinationViewController;
+        // Kind of weird, I know. I am being called by the child ViewController, and then I extract from it the
+        // Chosen locale since the TableView or the MapAnnotations are what set the locale....
         if (self.currentlyShowingMap) {
             self.localeToDisplay = self.mapViewController.localeToDisplay;
         } else {
             self.localeToDisplay = self.tableViewController.localeToDisplay;
         }
+        // The place will not get seen because we now have the maps/list toggle. Is this important?
         destVC.title = [self.localeToDisplay valueForKey:FLICKR_DICT_KEY_CITY];
         destVC.localeToDisplay = self.localeToDisplay;
         destVC.currentlyShowingMap = self.currentlyShowingMap;
     }
 }
 
+#pragma mark - Logic for embedded UIViewControllers
+
+// Getters for the sub view controllers
 - (TopPlacesMapViewController *)mapViewController
 {
     if (_mapViewController == nil) {
@@ -308,7 +316,7 @@
     [self.contentView addSubview:self.tableViewController.view];
     self.currentViewController = self.tableViewController;
     self.currentlyShowingMap = NO;
-    self.title = @"Top Places";  // I think I need this because there is no visible title!
+    self.title = @"Top Places";  // I think I need this because there is no visible title, and this is used for back button!
     [self refresh:self.refreshButton];
 }
 

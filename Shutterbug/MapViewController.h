@@ -16,8 +16,6 @@
 @end
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (nonatomic, strong) NSArray *annotations;             // of id <MKAnnotation>
 @property (nonatomic, strong) NSArray *photos;                  // of id <NSDictionary>. List of photos
 @property (nonatomic, strong) NSDictionary *photoToDisplay;
 
