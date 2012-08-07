@@ -52,7 +52,7 @@
         cell.textLabel.text = photoTitle;
         cell.detailTextLabel.text = photoDescription;
     }
-
+    [(UIImageView *)cell.imageView setImage:[UIImage imageNamed:@"blank.png"]];
     return cell;
 }
 

@@ -386,7 +386,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-5062" y="-1158"/>
+            <point key="canvasLocation" x="-4882" y="-2198"/>
         </scene>
         <!--Flickr Table View Controller-->
         <scene sceneID="cNo-k2-6LJ">
@@ -436,7 +436,7 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="-4206" y="-1158"/>
+            <point key="canvasLocation" x="-4026" y="-2198"/>
         </scene>
     </scenes>
     <resources>

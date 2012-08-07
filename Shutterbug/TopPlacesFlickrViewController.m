@@ -310,7 +310,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableViewController = [self viewControllerForSegmentIndex:self.listOrMap.selectedSegmentIndex];
     [self addChildViewController:self.tableViewController];
     self.tableViewController.view.frame = self.contentView.bounds;
     [self.contentView addSubview:self.tableViewController.view];

@@ -231,7 +231,6 @@
 
     if (self.currentlyShowingMap) {
         self.listOrMap.selectedSegmentIndex = 1;
-        self.mapViewController = [self viewControllerForSegmentIndex:1];
         [self addChildViewController:self.mapViewController];
         self.mapViewController.view.frame = self.contentView.bounds;
         [self.contentView addSubview:self.mapViewController.view];
@@ -239,7 +238,6 @@
         self.currentlyShowingMap = YES;
     } else {
         self.listOrMap.selectedSegmentIndex = 0;
-        self.tableViewController = [self viewControllerForSegmentIndex:0];
         [self addChildViewController:self.tableViewController];
         self.tableViewController.view.frame = self.contentView.bounds;
         [self.contentView addSubview:self.tableViewController.view];
