@@ -15,5 +15,4 @@
 
 @property (nonatomic, strong) NSMutableArray *cities;   // Array of cities to store in the country
 @property (nonatomic, strong) NSString *country;        // and the name of the country
-
 @end

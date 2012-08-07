@@ -23,5 +23,4 @@
 - (void)showPhoto;
 - (void)startSpinner;
 - (void)stopSpinner;
-
 @end

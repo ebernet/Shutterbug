@@ -39,5 +39,4 @@
     coordinate.longitude = [[self.place objectForKey:FLICKR_LONGITUDE] doubleValue];
     return coordinate;
 }
-
 @end

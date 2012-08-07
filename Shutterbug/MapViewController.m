@@ -178,5 +178,4 @@
 {
     return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
-
 @end

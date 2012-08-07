@@ -25,7 +25,6 @@
 @property (strong, nonatomic) NSURL *imageURL;
 
 @property (nonatomic, strong) NSURL *cacheDirectory;
-@property (nonatomic, strong) NSFileManager *myFileManager;
 @property (nonatomic) NSUInteger cacheSize;
 @end
 
@@ -42,11 +41,11 @@
 @synthesize myPopoverController = _myPopoverController;
 
 @synthesize cacheDirectory = _cacheDirectory;
-@synthesize myFileManager = _myFileManager;
 @synthesize cacheSize = _cacheSize;
 
 #define MAX_CACHE_SIZE 10000000
-#pragma mark - Setters and getters
+
+#pragma mark - Image handeling
 
 // Gets all the information about the photo
 - (void)setPhoto:(NSDictionary *)photo
@@ -59,8 +58,6 @@
         }
     }
 }
-
-#pragma mark - Image handeling
 
 // Load the image on another thread
 - (void)loadImage
@@ -100,7 +97,7 @@
                         self.cacheSize -= [lastFileAttributes fileSize];
 
                         // Delete the file. Notice we may want to use error checking...
-                        [self.myFileManager removeItemAtURL:lastFile error:nil];
+                        [[NSFileManager defaultManager] removeItemAtURL:lastFile error:nil];
                         
                         // And remove it from the array of files
                         [filesToDeleteFrom removeLastObject];
@@ -337,9 +334,7 @@
     }
 }
 
-
 #pragma mark - View lifecycle
-
 
 // Just not upsidedown on iPhone
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -347,12 +342,10 @@
     return (self.splitViewController)?YES:(interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     self.splitViewController.delegate = self;
-    
 }
 
 - (void)viewDidLoad
@@ -367,7 +360,6 @@
     
     // Stash the size for quicker manipulation, only query size ONCE, then just the size of the files we delete!
     self.cacheSize = [FileOperations folderSize:[self.cacheDirectory path]];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -383,7 +375,6 @@
             // Unsure how else to initiate the splitViewController button action. Don't know what it is that calls out the
             // masterviewcontroller, so I am just performing the action assigned the button, and am stuck with this warning
             [_splitViewBarButtonItem.target performSelector:_splitViewBarButtonItem.action withObject: _splitViewBarButtonItem];
-
         }
     }
 }
@@ -403,22 +394,16 @@
 
 #pragma mark - File operations
 
-// If I decide to add error checking to file operations
-- (NSFileManager *)myFileManager
-{
-    if (_myFileManager == nil) {
-        _myFileManager = [[NSFileManager alloc] init];
-    }
-    return _myFileManager;
-}
-
 // Returns a subfolder in the cache directory called Shutterbug, creates and returns it if it is not there
+// Did not put this in FileOperations helper class because I return a cache folder with my application name.
+// Probably could have JUST returned the cache folder since each application has a unique one, but this
+// allows you to have multiple cache folders for EACH application
 - (NSURL *)cacheDirectory
 {
     if (_cacheDirectory == nil) {
         
         // Get the caches directory
-        NSURL *cacheDirectory = [[self myFileManager] URLForDirectory:NSCachesDirectory
+        NSURL *cacheDirectory = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory
                                                              inDomain:NSUserDomainMask
                                                     appropriateForURL:nil
                                                                create:NO
@@ -427,13 +412,11 @@
         // append folder name
         cacheDirectory = [cacheDirectory URLByAppendingPathComponent:@"Shutterbug"];
         
-        // Will either create it or it exists already...
-        [self.myFileManager createDirectoryAtURL:cacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
+        // Will either create it or it exists already, in which case I don't care about the error returned
+        [[NSFileManager defaultManager] createDirectoryAtURL:cacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
 
         _cacheDirectory = cacheDirectory;
     }
     return _cacheDirectory;
 }
-
-
 @end

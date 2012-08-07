@@ -14,5 +14,4 @@
 + (FlickrPlaceAnnotation *)annotationForPlace:(NSDictionary *)place; // Flickr place dictionary
 
 @property (nonatomic, strong) NSDictionary *place;
-
 @end

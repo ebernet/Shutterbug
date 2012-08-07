@@ -20,5 +20,4 @@
 @property (nonatomic, strong) NSDictionary *photoToDisplay;
 
 - (void)updateMapView;
-
 @end
