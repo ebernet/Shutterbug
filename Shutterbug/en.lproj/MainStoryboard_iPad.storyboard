@@ -435,7 +435,6 @@
         <class className="ShutterbugViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ShutterbugViewController.h"/>
             <relationships>
-                <relationship kind="action" name="toggleMaps:" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="showMapsToggle" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>

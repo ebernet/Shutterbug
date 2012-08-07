@@ -14,6 +14,10 @@
 #define FLICKR_PHOTO_OWNER @"ownername"
 #define FLICKR_LATITUDE @"latitude"
 #define FLICKR_LONGITUDE @"longitude"
+// some defines to get at key values
+#define FLICKR_DICT_KEY_CITY    @"_content.city"
+#define FLICKR_DICT_KEY_STATE   @"_content.state"
+#define FLICKR_DICT_KEY_COUNTRY @"_content.country"
 
 typedef enum {
 	FlickrPhotoFormatSquare = 1,
