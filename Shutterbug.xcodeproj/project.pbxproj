@@ -11,6 +11,8 @@
 		A01CE88F15CE5B3400FE7622 /* FlickrPhotoAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CE88C15CE5B3400FE7622 /* FlickrPhotoAnnotation.m */; };
 		A01CE89315CF016300FE7622 /* FlickrPlaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CE89215CF016300FE7622 /* FlickrPlaceAnnotation.m */; };
 		A040394D15D196AE0011D7B8 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = A040394C15D196AE0011D7B8 /* blank.png */; };
+		A04EE8F615D1B78400D4C5FC /* testSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A04EE8F515D1B78400D4C5FC /* testSettings.bundle */; };
+		A04EE8F815D1B8BC00D4C5FC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */; };
 		A06D719815D047FD00967CF3 /* FileOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D719715D047FD00967CF3 /* FileOperations.m */; };
 		A06D719C15D05B1E00967CF3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D719B15D05B1E00967CF3 /* MapViewController.m */; };
 		A06D719F15D094F500967CF3 /* FlickrTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D719E15D094F500967CF3 /* FlickrTableViewController.m */; };
@@ -31,7 +33,6 @@
 		A0A7C4A715C0A83600A83C26 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7C4A615C0A83600A83C26 /* AppDelegate.m */; };
 		A0A7C4BC15C0A9CC00A83C26 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7C4BB15C0A9CC00A83C26 /* FlickrFetcher.m */; };
 		A0A7C4D715C0BB6200A83C26 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A7C4D615C0BB6200A83C26 /* DetailViewController.m */; };
-		A0D73D9215C9F7EE00E33887 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A0D73D9115C9F7EE00E33887 /* Settings.bundle */; };
 		A0F6385515C3207E0067B162 /* Countries.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F6385415C3207E0067B162 /* Countries.m */; };
 		A0FB160D15C7287300ED5294 /* iPadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FB160915C7287300ED5294 /* iPadIcon.png */; };
 		A0FB160E15C7287300ED5294 /* iPadIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0FB160A15C7287300ED5294 /* iPadIcon@2x.png */; };
@@ -46,6 +47,8 @@
 		A01CE89115CF015500FE7622 /* FlickrPlaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPlaceAnnotation.h; sourceTree = "<group>"; };
 		A01CE89215CF016300FE7622 /* FlickrPlaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPlaceAnnotation.m; sourceTree = "<group>"; };
 		A040394C15D196AE0011D7B8 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
+		A04EE8F515D1B78400D4C5FC /* testSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = testSettings.bundle; sourceTree = "<group>"; };
+		A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A0682F9B15C1FD8B00542099 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
 		A06D719615D047FD00967CF3 /* FileOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileOperations.h; sourceTree = "<group>"; };
 		A06D719715D047FD00967CF3 /* FileOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileOperations.m; sourceTree = "<group>"; };
@@ -83,7 +86,6 @@
 		A0A7C4BB15C0A9CC00A83C26 /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		A0A7C4D515C0BB6200A83C26 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		A0A7C4D615C0BB6200A83C26 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		A0D73D9115C9F7EE00E33887 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A0F6385315C3207E0067B162 /* Countries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countries.h; sourceTree = "<group>"; };
 		A0F6385415C3207E0067B162 /* Countries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countries.m; sourceTree = "<group>"; };
 		A0FB160915C7287300ED5294 /* iPadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadIcon.png; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		A0A7C48715C0A83600A83C26 = {
 			isa = PBXGroup;
 			children = (
+				A04EE8F515D1B78400D4C5FC /* testSettings.bundle */,
 				A0A7C49C15C0A83600A83C26 /* Shutterbug */,
 				A0A7C49515C0A83600A83C26 /* Frameworks */,
 				A0A7C49315C0A83600A83C26 /* Products */,
@@ -218,10 +221,10 @@
 		A0A7C49D15C0A83600A83C26 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */,
 				A040394C15D196AE0011D7B8 /* blank.png */,
 				A06D71A015D0967F00967CF3 /* MainStoryboard_iPhone.storyboard */,
 				A011FC3915D0E2D20056B847 /* MainStoryboard_iPad.storyboard */,
-				A0D73D9115C9F7EE00E33887 /* Settings.bundle */,
 				A0FB160915C7287300ED5294 /* iPadIcon.png */,
 				A0FB160A15C7287300ED5294 /* iPadIcon@2x.png */,
 				A0FB160B15C7287300ED5294 /* iPhoneIcon.png */,
@@ -292,10 +295,11 @@
 				A0FB160E15C7287300ED5294 /* iPadIcon@2x.png in Resources */,
 				A0FB160F15C7287300ED5294 /* iPhoneIcon.png in Resources */,
 				A0FB161015C7287300ED5294 /* iPhoneIcon@2x.png in Resources */,
-				A0D73D9215C9F7EE00E33887 /* Settings.bundle in Resources */,
 				A06D71A215D0967F00967CF3 /* MainStoryboard_iPhone.storyboard in Resources */,
 				A011FC3B15D0E2D20056B847 /* MainStoryboard_iPad.storyboard in Resources */,
 				A040394D15D196AE0011D7B8 /* blank.png in Resources */,
+				A04EE8F615D1B78400D4C5FC /* testSettings.bundle in Resources */,
+				A04EE8F815D1B8BC00D4C5FC /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
