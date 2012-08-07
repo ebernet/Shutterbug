@@ -206,7 +206,6 @@
         [self.currentViewController removeFromParentViewController];
         self.currentViewController = vc;
     }];
-    self.navigationItem.title = vc.title;
 }
 
 #pragma mark - UIViewController lifecycle
