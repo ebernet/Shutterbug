@@ -125,7 +125,7 @@
         
         
         CLLocationCoordinate2D center = CLLocationCoordinate2DMake((max.latitude + min.latitude) / 2.0, (max.longitude + min.longitude) / 2.0);
-        MKCoordinateSpan span = MKCoordinateSpanMake(max.latitude - min.latitude, max.longitude - min.longitude);
+        MKCoordinateSpan span = MKCoordinateSpanMake((max.latitude - min.latitude) + (max.latitude - min.latitude)/5, (max.longitude - min.longitude) + (max.longitude - min.longitude)/5);
         MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
         
         [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];

@@ -280,8 +280,8 @@
     [self addChildViewController:vc];
     [self transitionFromViewController:self.currentViewController
                       toViewController:vc
-                              duration:0.2
-                               options:UIViewAnimationOptionLayoutSubviews
+                              duration:0
+                               options:UIViewAnimationOptionCurveLinear
                             animations:^{
                                 [((UIViewController *)self.currentViewController).view removeFromSuperview];
                                 vc.view.frame = self.contentView.bounds;

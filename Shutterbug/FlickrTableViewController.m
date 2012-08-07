@@ -32,7 +32,7 @@
 // Set the name of the photo and/or description
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Recent Photos Prototype";
+    static NSString *CellIdentifier = @"Flickr Photo";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
@@ -52,32 +52,40 @@
         cell.textLabel.text = photoTitle;
         cell.detailTextLabel.text = photoDescription;
     }
- 
-//    __block UIImage *image;
-//    __block UIImageView *currentImageViewPointer = cell.imageView;
-//    
-//    dispatch_queue_t downloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
-//    dispatch_async(downloadQueue, ^{
-//        image = [self imageForCell:indexPath.row];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            // If the left call out accessory at this point is the same as the one before we made the call,
-//            // then set the imageon the main thread.
-// //           if ([(UIImageView *)cell.imageView isEqual:currentImageViewPointer]) {
-//                [(UIImageView *)cell.imageView setImage:image];
-// //           }
-//        });
-//    });
-//    dispatch_release(downloadQueue);
-   
+
     return cell;
 }
 
-//- (UIImage *)imageForCell:(NSInteger)row
-//{
-//    NSURL *url = [FlickrFetcher urlForPhoto:[self.photos objectAtIndex:row] format:FlickrPhotoFormatSquare];
-//    NSData *data = [NSData dataWithContentsOfURL:url];
-//    return data ? [UIImage imageWithData:data] : nil;
-//}
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    __block UIImage *image;
+    __block UIImageView *currentImageViewPointer = cell.imageView;
+
+    dispatch_queue_t downloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
+    dispatch_async(downloadQueue, ^{
+        image = [self imageForCell:indexPath.row];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        // If the left call out accessory at this point is the same as the one before we made the call,
+        // then set the image on the main thread.
+            if ([(UIImageView *)cell.imageView isEqual:currentImageViewPointer]) {
+                [(UIImageView *)cell.imageView setImage:image];
+            }
+        });
+    });
+    dispatch_release(downloadQueue);
+}
+
+- (UIImage *)imageForCell:(NSInteger)row
+{
+    NSURL *url = [FlickrFetcher urlForPhoto:[self.photos objectAtIndex:row] format:FlickrPhotoFormatSquare];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    return data ? [UIImage imageWithData:data] : nil;
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 #pragma mark - Table view delegate
 

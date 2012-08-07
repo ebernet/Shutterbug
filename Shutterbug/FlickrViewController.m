@@ -195,7 +195,7 @@
     [self addChildViewController:vc];
     [self transitionFromViewController:self.currentViewController
                       toViewController:vc
-                              duration:0.2
+                              duration:0   //don't really want to see transition
                                options:UIViewAnimationOptionLayoutSubviews
                             animations:^{
         [((UIViewController *)self.currentViewController).view removeFromSuperview];
