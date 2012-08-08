@@ -8,7 +8,6 @@
         <!--Top Places Flickr View Controller - Top Places-->
         <scene sceneID="kZD-Dh-77z">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Jh9-VJ-uFk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Top Places" id="p6R-Qq-jeV" customClass="TopPlacesFlickrViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RTu-Yz-ROf">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
@@ -47,13 +46,13 @@
                         <segue destination="3jh-gq-YnY" kind="push" identifier="Show Photos At Place" id="UVd-3z-sXH"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jh9-VJ-uFk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5784" y="-2858"/>
         </scene>
         <!--Photos View Controller - City-->
         <scene sceneID="bgo-KR-Mdr">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Rg-Ow-3Qi" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="3jh-gq-YnY" customClass="PhotosViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0WX-Fn-8Ne">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
@@ -92,13 +91,13 @@
                         <outlet property="spinnerContainer" destination="2J8-zo-XdU" id="Nqq-6z-e6o"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Rg-Ow-3Qi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5394" y="-2858"/>
         </scene>
         <!--Navigation Controller - Recents-->
         <scene sceneID="f1y-Ga-pgq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JGJ-aH-qyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="Recents" id="2yf-cp-bH9" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="recents" id="ZZ0-hs-TzD"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="njx-ft-MOl">
@@ -108,13 +107,13 @@
                         <segue destination="20B-dY-XgT" kind="relationship" relationship="rootViewController" id="SZc-Ld-M7M"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JGJ-aH-qyt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6161" y="-1691"/>
         </scene>
         <!--Recents Flickr View Controller - Recents-->
         <scene sceneID="Ggm-S0-wOR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CGz-w4-6ce" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="20B-dY-XgT" customClass="RecentsFlickrViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ifV-Dh-l8x">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
@@ -153,13 +152,13 @@
                         <outlet property="spinnerContainer" destination="1Am-nc-gqv" id="I6I-GY-foa"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CGz-w4-6ce" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5784" y="-1691"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="55i-ZQ-5Ru">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cRS-gU-xZE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="RhZ-KP-6Ss" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t9w-ts-I4Y">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
@@ -186,18 +185,6 @@
                                         </view>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="wSE-nF-eaE"/>
-                                    <barButtonItem style="plain" id="7YR-gX-Cro">
-                                        <view key="customView" contentMode="scaleToFill" id="jQ0-dg-Bpl">
-                                            <rect key="frame" x="734" y="6" width="22" height="33"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <subviews>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="Kxa-fI-qGf">
-                                                    <rect key="frame" x="2" y="7" width="20" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </activityIndicatorView>
-                                            </subviews>
-                                        </view>
-                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" id="Dgt-QC-4hU">
@@ -213,8 +200,12 @@
                                     <outlet property="delegate" destination="RhZ-KP-6Ss" id="eo8-Bu-3UD"/>
                                 </connections>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="Kxa-fI-qGf">
+                                <rect key="frame" x="366" y="483" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725496529999996" green="0.94117653369999998" blue="0.95294123890000004" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <toolbarItems/>
                     <connections>
@@ -225,13 +216,13 @@
                         <outlet property="toolbarTitle" destination="Lcw-Za-Wch" id="R4m-Yr-Yuo"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cRS-gU-xZE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6211" y="-328"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="f2o-UM-s0s">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dqP-w8-fZq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController title="Top Places" id="m2I-gm-7Od" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="topRated" id="oov-fY-ytg"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fB3-ZZ-mEh">
@@ -245,13 +236,13 @@
                         <segue destination="p6R-Qq-jeV" kind="relationship" relationship="rootViewController" id="XVG-rF-eX6"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dqP-w8-fZq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6161" y="-2858"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="xqD-xD-F9G">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hjb-eF-FEQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <splitViewController id="LoZ-ZX-A3l" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="topRated" id="Vin-zb-fX5"/>
                     <toolbarItems/>
@@ -260,13 +251,13 @@
                         <segue destination="RhZ-KP-6Ss" kind="relationship" relationship="detailViewController" id="dqe-d7-Ya5"/>
                     </connections>
                 </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hjb-eF-FEQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-7943" y="-1912"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="L5K-c4-WKs">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OnS-rr-M8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController id="iM2-tG-PXC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -279,13 +270,13 @@
                         <segue destination="2yf-cp-bH9" kind="relationship" relationship="viewControllers" id="Bue-ba-hX4"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OnS-rr-M8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6879" y="-2072"/>
         </scene>
         <!--Top Places Map View Controller-->
         <scene sceneID="kLs-aA-4aa">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ec9-SD-Rw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="TopPlacesMapViewControllerID" id="Q3p-AG-16Q" customClass="TopPlacesMapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IaD-5j-b3g">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
@@ -318,13 +309,13 @@
                         <outlet property="mapView" destination="S3N-Ph-mQH" id="Ern-LT-0If"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ec9-SD-Rw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-6748" y="-4138"/>
         </scene>
         <!--Top Places Table View Controller-->
         <scene sceneID="ie2-EL-lu1">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Fl2-Lz-bw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="TopPlacesTableViewControllerID" id="eGM-O7-e9s" customClass="TopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="F0r-lm-I6n">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
@@ -364,13 +355,13 @@
                     </tableView>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fl2-Lz-bw8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5831" y="-4143"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="rcS-to-9t3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2iL-LS-1zE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="mapViewControllerID" id="fEH-62-yey" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3ns-zo-Uso">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
@@ -403,13 +394,13 @@
                         <outlet property="mapView" destination="nZC-hC-u7i" id="URA-Ex-15d"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2iL-LS-1zE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4882" y="-2198"/>
         </scene>
         <!--Flickr Table View Controller-->
         <scene sceneID="cNo-k2-6LJ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9V2-MN-Tux" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="tableViewControllerID" id="uKD-AD-a2w" customClass="FlickrTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="RNc-LH-lPX">
                         <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
@@ -453,6 +444,7 @@
                     </tableView>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9V2-MN-Tux" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-4026" y="-2198"/>
         </scene>
@@ -477,6 +469,7 @@
         <class className="FlickrViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrViewController.h"/>
             <relationships>
+                <relationship kind="action" name="segmentChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="listOrMap" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>
@@ -485,6 +478,7 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
@@ -497,6 +491,8 @@
         <class className="TopPlacesFlickrViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesFlickrViewController.h"/>
             <relationships>
+                <relationship kind="action" name="refresh:"/>
+                <relationship kind="action" name="segmentChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="listOrMap" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
@@ -505,6 +501,7 @@
         <class className="TopPlacesMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesMapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>

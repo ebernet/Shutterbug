@@ -349,24 +349,15 @@
                                     <outlet property="delegate" destination="Hfc-DI-Z6C" id="or7-33-6F4"/>
                                 </connections>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="2rT-fG-6rY">
+                                <rect key="frame" x="142" y="167" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93725496529999996" green="0.94117653369999998" blue="0.95294123890000004" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="L4r-RJ-JIJ">
-                        <barButtonItem key="rightBarButtonItem" style="done" id="bgX-9B-lTM">
-                            <view key="customView" contentMode="scaleToFill" id="Yoe-su-5au">
-                                <rect key="frame" x="295" y="12" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="2rT-fG-6rY">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                            </view>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="L4r-RJ-JIJ"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="pkZ-12-p56" id="xwt-7C-NDQ"/>
@@ -445,6 +436,7 @@
         <class className="FlickrViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrViewController.h"/>
             <relationships>
+                <relationship kind="action" name="segmentChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="listOrMap" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>
@@ -453,6 +445,7 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
@@ -465,6 +458,8 @@
         <class className="TopPlacesFlickrViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesFlickrViewController.h"/>
             <relationships>
+                <relationship kind="action" name="refresh:"/>
+                <relationship kind="action" name="segmentChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="listOrMap" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
@@ -473,6 +468,7 @@
         <class className="TopPlacesMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesMapViewController.h"/>
             <relationships>
+                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
