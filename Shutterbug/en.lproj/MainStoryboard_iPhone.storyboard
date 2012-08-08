@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="W8p-OU-3cy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2829" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="W8p-OU-3cy">
     <dependencies>
-        <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1914"/>
     </dependencies>
     <scenes>
         <!--Top Places Flickr View Controller - Top Places-->
         <scene sceneID="1ui-kH-wxY">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ues-ra-e8Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Top Places" id="Dub-eY-q4r" customClass="TopPlacesFlickrViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0B7-aa-7IM">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -49,13 +48,13 @@
                         <segue destination="i0z-2P-5G4" kind="push" identifier="Show Photos At Place" id="QK5-l8-QhI"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ues-ra-e8Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1356" y="1762"/>
         </scene>
         <!--Top Places Map View Controller-->
         <scene sceneID="D1u-FL-k39">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="z7Y-pa-2f6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="TopPlacesMapViewControllerID" id="wh8-CB-Lg2" customClass="TopPlacesMapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NF3-pf-ERL">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -87,13 +86,13 @@
                         <outlet property="mapView" destination="Iox-vj-g2o" id="mRk-EL-3Ry"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z7Y-pa-2f6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1313" y="970"/>
         </scene>
         <!--Top Places Table View Controller-->
         <scene sceneID="oXt-mN-Pcg">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8ks-vb-CZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="TopPlacesTableViewControllerID" id="7FD-cj-MDl" customClass="TopPlacesTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r7M-O9-k0m">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -107,19 +106,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yaz-AZ-ehh">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Title" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="Yaz-AZ-ehh">
                                             <rect key="frame" x="10" y="2" width="38" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cQJ-9e-Q6y">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Subtitle" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="cQJ-9e-Q6y">
                                             <rect key="frame" x="10" y="24" width="47" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -132,13 +131,13 @@
                         </connections>
                     </tableView>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8ks-vb-CZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1693" y="970"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="OrM-gW-DKI">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2g8-hK-ynL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="nXN-om-IPD" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="topRated" id="qnV-PQ-j79"/>
                     <toolbarItems/>
@@ -151,13 +150,13 @@
                         <segue destination="Dub-eY-q4r" kind="relationship" relationship="rootViewController" id="CTB-B1-5AZ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2g8-hK-ynL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="957" y="1762"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hHy-WM-qz3">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="edD-70-lhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController id="W8p-OU-3cy" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -170,13 +169,13 @@
                         <segue destination="wEv-8k-Hhg" kind="relationship" relationship="viewControllers" id="esR-De-QPT"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="edD-70-lhF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="230" y="2018"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="URL-Ki-QBK">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BcF-d5-CGv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="wEv-8k-Hhg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="recents" id="Rxi-zD-gXw"/>
                     <toolbarItems/>
@@ -189,13 +188,13 @@
                         <segue destination="s9u-2i-3we" kind="relationship" relationship="rootViewController" id="WWl-1K-fOZ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BcF-d5-CGv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="957" y="2400"/>
         </scene>
         <!--Photos View Controller-->
         <scene sceneID="xcj-Jy-dZR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bxP-cO-Acp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="i0z-2P-5G4" customClass="PhotosViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VLn-C2-w2f">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -236,13 +235,13 @@
                         <segue destination="Hfc-DI-Z6C" kind="push" identifier="Show Photo" id="Pnz-xg-LMH"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bxP-cO-Acp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1758" y="1762"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="hpV-QA-EyV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aek-tE-ENS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="mapViewControllerID" id="dDh-xq-4r7" customClass="MapViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Ur-XG-kL1">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -275,13 +274,13 @@
                         <outlet property="mapView" destination="dEc-18-YmW" id="gSQ-lE-5k9"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aek-tE-ENS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2210" y="1762"/>
         </scene>
         <!--Flickr Table View Controller-->
         <scene sceneID="Xmd-w6-BYC">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="grz-sq-b3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="tableViewControllerID" id="bDP-Wu-EtY" customClass="FlickrTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="TrR-ol-1va">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
@@ -295,19 +294,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HKB-Rd-Bvc">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Title" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="HKB-Rd-Bvc">
                                             <rect key="frame" x="51" y="2" width="38" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QHn-wz-MLf">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" text="Subtitle" adjustsFontSizeToFit="NO" autoshrinkMode="none" id="QHn-wz-MLf">
                                             <rect key="frame" x="51" y="24" width="47" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="blank.png" id="KQv-EK-Q0K">
                                             <rect key="frame" x="1" y="1" width="40" height="40"/>
@@ -324,13 +323,13 @@
                         </connections>
                     </tableView>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="grz-sq-b3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2606" y="1762"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Fcf-io-fyD">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6rw-Bf-uho" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Hfc-DI-Z6C" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ehW-v0-YKX">
                         <rect key="frame" x="0.0" y="64" width="320" height="372"/>
@@ -365,13 +364,13 @@
                         <outlet property="spinner" destination="2rT-fG-6rY" id="iey-dN-eaR"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6rw-Bf-uho" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2097" y="2400"/>
         </scene>
         <!--Recents Flickr View Controller - Recents-->
         <scene sceneID="EzG-oo-bj2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ghE-P1-Buk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Recents" id="s9u-2i-3we" customClass="RecentsFlickrViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B41-Kv-tjR">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
@@ -412,6 +411,7 @@
                         <segue destination="Hfc-DI-Z6C" kind="push" identifier="Show Photo" id="Dc8-F1-L80"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ghE-P1-Buk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1356" y="2400"/>
         </scene>
