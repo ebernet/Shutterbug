@@ -11,7 +11,6 @@
 		A01CE88F15CE5B3400FE7622 /* FlickrPhotoAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CE88C15CE5B3400FE7622 /* FlickrPhotoAnnotation.m */; };
 		A01CE89315CF016300FE7622 /* FlickrPlaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CE89215CF016300FE7622 /* FlickrPlaceAnnotation.m */; };
 		A040394D15D196AE0011D7B8 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = A040394C15D196AE0011D7B8 /* blank.png */; };
-		A04EE8F615D1B78400D4C5FC /* testSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A04EE8F515D1B78400D4C5FC /* testSettings.bundle */; };
 		A04EE8F815D1B8BC00D4C5FC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */; };
 		A06D719815D047FD00967CF3 /* FileOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D719715D047FD00967CF3 /* FileOperations.m */; };
 		A06D719C15D05B1E00967CF3 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D719B15D05B1E00967CF3 /* MapViewController.m */; };
@@ -47,7 +46,6 @@
 		A01CE89115CF015500FE7622 /* FlickrPlaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPlaceAnnotation.h; sourceTree = "<group>"; };
 		A01CE89215CF016300FE7622 /* FlickrPlaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPlaceAnnotation.m; sourceTree = "<group>"; };
 		A040394C15D196AE0011D7B8 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
-		A04EE8F515D1B78400D4C5FC /* testSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = testSettings.bundle; sourceTree = "<group>"; };
 		A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A0682F9B15C1FD8B00542099 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
 		A06D719615D047FD00967CF3 /* FileOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileOperations.h; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 		A0A7C48715C0A83600A83C26 = {
 			isa = PBXGroup;
 			children = (
-				A04EE8F515D1B78400D4C5FC /* testSettings.bundle */,
 				A0A7C49C15C0A83600A83C26 /* Shutterbug */,
 				A0A7C49515C0A83600A83C26 /* Frameworks */,
 				A0A7C49315C0A83600A83C26 /* Products */,
@@ -298,7 +295,6 @@
 				A06D71A215D0967F00967CF3 /* MainStoryboard_iPhone.storyboard in Resources */,
 				A011FC3B15D0E2D20056B847 /* MainStoryboard_iPad.storyboard in Resources */,
 				A040394D15D196AE0011D7B8 /* blank.png in Resources */,
-				A04EE8F615D1B78400D4C5FC /* testSettings.bundle in Resources */,
 				A04EE8F815D1B8BC00D4C5FC /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
