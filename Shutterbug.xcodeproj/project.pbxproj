@@ -10,6 +10,7 @@
 		A011FC3B15D0E2D20056B847 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A011FC3915D0E2D20056B847 /* MainStoryboard_iPad.storyboard */; };
 		A01CE88F15CE5B3400FE7622 /* FlickrPhotoAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CE88C15CE5B3400FE7622 /* FlickrPhotoAnnotation.m */; };
 		A01CE89315CF016300FE7622 /* FlickrPlaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = A01CE89215CF016300FE7622 /* FlickrPlaceAnnotation.m */; };
+		A02B9F6715D253AE00E98654 /* smallcallout.png in Resources */ = {isa = PBXBuildFile; fileRef = A02B9F6615D253AE00E98654 /* smallcallout.png */; };
 		A040394D15D196AE0011D7B8 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = A040394C15D196AE0011D7B8 /* blank.png */; };
 		A04EE8F815D1B8BC00D4C5FC /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */; };
 		A06D719815D047FD00967CF3 /* FileOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D719715D047FD00967CF3 /* FileOperations.m */; };
@@ -45,6 +46,7 @@
 		A01CE88C15CE5B3400FE7622 /* FlickrPhotoAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhotoAnnotation.m; sourceTree = "<group>"; };
 		A01CE89115CF015500FE7622 /* FlickrPlaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPlaceAnnotation.h; sourceTree = "<group>"; };
 		A01CE89215CF016300FE7622 /* FlickrPlaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPlaceAnnotation.m; sourceTree = "<group>"; };
+		A02B9F6615D253AE00E98654 /* smallcallout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallcallout.png; sourceTree = "<group>"; };
 		A040394C15D196AE0011D7B8 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
 		A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		A0682F9B15C1FD8B00542099 /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				A04EE8F715D1B8BC00D4C5FC /* Settings.bundle */,
 				A040394C15D196AE0011D7B8 /* blank.png */,
+				A02B9F6615D253AE00E98654 /* smallcallout.png */,
 				A06D71A015D0967F00967CF3 /* MainStoryboard_iPhone.storyboard */,
 				A011FC3915D0E2D20056B847 /* MainStoryboard_iPad.storyboard */,
 				A0FB160915C7287300ED5294 /* iPadIcon.png */,
@@ -296,6 +299,7 @@
 				A011FC3B15D0E2D20056B847 /* MainStoryboard_iPad.storyboard in Resources */,
 				A040394D15D196AE0011D7B8 /* blank.png in Resources */,
 				A04EE8F815D1B8BC00D4C5FC /* Settings.bundle in Resources */,
+				A02B9F6715D253AE00E98654 /* smallcallout.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

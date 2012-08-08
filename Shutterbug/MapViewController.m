@@ -12,7 +12,7 @@
 #import "FlickrFetcher.h"
 #import <MapKit/MapKit.h>
 
-@interface MapViewController () <FlickrMapViewControllerDelegate>
+@interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) NSArray *annotations;             // of id <MKAnnotation>
 @end
@@ -22,8 +22,12 @@
 @synthesize annotations = _annotations;
 @synthesize photos = _photos;
 @synthesize photoToDisplay = _photoToDisplay;
+@synthesize delegate = _delegate;
 
 #pragma mark - MKMapViewDelegate
+
+#define SHOW_IMAGES_FOR_PINS @"show_images_for_pins"
+#define PIN_DIMENSIONS 15
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
@@ -31,12 +35,43 @@
     if (!aView) {
         aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"MapVC"];
         aView.canShowCallout = YES;
-        // Allow space for thumbnail
+        // Allow space for thumbnail in left accessory view
         aView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+
+// Experimental image for pin
+
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:SHOW_IMAGES_FOR_PINS]) {
+            // This chunk of code below loads up the thumbnail as a pin. Might be nicer to put it in a grey rectangle or something.
+            // Right now I think a pin works better...
+            aView.image = [UIImage imageNamed:@"smallcallout.png"];
+            __block UIImage *pinImage;
+
+            aView.image = pinImage;
+            aView.opaque = NO;
+            dispatch_queue_t downloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
+            dispatch_async(downloadQueue, ^{
+                pinImage = [self.delegate mapViewController:self imageForAnnotation:aView.annotation];
+                dispatch_async(dispatch_get_main_queue(), ^{
+        
+                    // Resize the thumbnail into 15/15
+                    CGRect resizeRect = CGRectMake(0, 0, PIN_DIMENSIONS, PIN_DIMENSIONS);
+                    resizeRect.origin = CGPointZero;
+                    UIGraphicsBeginImageContext(resizeRect.size);
+                    [pinImage drawInRect:resizeRect];
+                    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+                    UIGraphicsEndImageContext();
+                    aView.image = resizedImage;
+                });
+            });
+            dispatch_release(downloadQueue);
+            
+            // This is the end of what you would cut out...
+        }
+//*** end of image pins
+
+    
     }
-    aView.annotation = annotation;
-    [(UIImageView *)aView.leftCalloutAccessoryView setImage:nil];
     return aView;
 }
 
@@ -51,7 +86,7 @@
     
     dispatch_queue_t downloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
     dispatch_async(downloadQueue, ^{
-        image = [self mapViewController:self imageForAnnotation:aView.annotation];
+        image = [self.delegate mapViewController:self imageForAnnotation:aView.annotation];
         dispatch_async(dispatch_get_main_queue(), ^{
             // If the left call out accessory at this point is the same as the one before we made the call,
             // then set the imageon the main thread.
@@ -156,16 +191,6 @@
     [self updateMapView];
 }
 
-#pragma mark - MapViewControllerDelegate
-
-- (UIImage *)mapViewController:(MapViewController *)sender imageForAnnotation:(id <MKAnnotation>)annotation
-{
-    FlickrPhotoAnnotation *fpa = (FlickrPhotoAnnotation *)annotation;
-    NSURL *url = [FlickrFetcher urlForPhoto:fpa.photo format:FlickrPhotoFormatSquare];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    return data ? [UIImage imageWithData:data] : nil;
-}
-
 #pragma mark - View lifecycle
 
 - (void)viewDidUnload
@@ -174,6 +199,11 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
+//- (void)applicationDidBecomeActive:(UIApplication *)application
+//{
+//    [self updateMapView];
+//}
 
 // Just not upsidedown on iPhone
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

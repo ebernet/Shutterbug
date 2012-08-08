@@ -9,8 +9,10 @@
 #import "FlickrViewController.h"
 #import "MapViewController.h"
 #import "DetailViewController.h"
+#import "FlickrPhotoAnnotation.h"
+#import "FlickrFetcher.h"
 
-@interface FlickrViewController ()
+@interface FlickrViewController ()  <MapViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *spinnerContainer;          // Put a spinner in here when loading view
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;     // Toggle between list/map
 @property (weak, nonatomic) IBOutlet UIView *contentView;               // Where to embed the subview Controllers
@@ -34,6 +36,14 @@
 
 
 #pragma mark - Custom Map and Table delegate actions
+
+- (UIImage *)mapViewController:(MapViewController *)sender imageForAnnotation:(id <MKAnnotation>)annotation
+{
+    FlickrPhotoAnnotation *fpa = (FlickrPhotoAnnotation *)annotation;
+    NSURL *url = [FlickrFetcher urlForPhoto:fpa.photo format:FlickrPhotoFormatSquare];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    return data ? [UIImage imageWithData:data] : nil;
+}
 
 // These two methods allow the locale to be set from the child controllers
 - (void)mapViewController:(MapViewController *)sender currentPhoto:(NSDictionary *)photo

@@ -16,7 +16,7 @@
 // To store/retrieve the recents
 #define RECENTS_KEY @"DetailViewController.Recents"
 
-@interface FlickrViewController : UIViewController <MapViewControllerDelegate, FlickrTableViewControllerDelegate>
+@interface FlickrViewController : UIViewController <FlickrTableViewControllerDelegate>
 @property (nonatomic, strong) NSArray *photos;          // of Flickr photo dictionaries
 @property (nonatomic, strong) NSDictionary *photoToDisplay;
 @property (nonatomic) BOOL currentlyShowingMap;
