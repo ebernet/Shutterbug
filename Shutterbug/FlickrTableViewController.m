@@ -52,27 +52,26 @@
         cell.textLabel.text = photoTitle;
         cell.detailTextLabel.text = photoDescription;
     }
-    [(UIImageView *)cell.imageView setImage:[UIImage imageNamed:@"blank.png"]];
-    return cell;
-}
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+    // Don't want to show an old picture while the new one is loading, so make it white...
+    [(UIImageView *)cell.imageView setImage:[UIImage imageNamed:@"blank.png"]];
+
     __block UIImage *image;
     __block UIImageView *currentImageViewPointer = cell.imageView;
-
+    
     dispatch_queue_t downloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
     dispatch_async(downloadQueue, ^{
         image = [self imageForCell:indexPath.row];
         dispatch_async(dispatch_get_main_queue(), ^{
-        // If the left call out accessory at this point is the same as the one before we made the call,
-        // then set the image on the main thread.
+            // If the left call out accessory at this point is the same as the one before we made the call,
+            // then set the image on the main thread.
             if ([(UIImageView *)cell.imageView isEqual:currentImageViewPointer]) {
                 [(UIImageView *)cell.imageView setImage:image];
             }
         });
     });
     dispatch_release(downloadQueue);
+    return cell;
 }
 
 - (UIImage *)imageForCell:(NSInteger)row
