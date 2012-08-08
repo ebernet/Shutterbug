@@ -6,9 +6,7 @@
 //  Copyright (c) 2012 Eytan Bernet. All rights reserved.
 //
 
-#import "MapViewController.h"
 #import "FlickrViewController.h"
-#import "FlickrTableViewController.h"
 #import "MapViewController.h"
 #import "DetailViewController.h"
 
@@ -33,6 +31,20 @@
 @synthesize currentlyShowingMap = _currentlyShowingMap;
 
 #define SORT_RECENTS_ON_VIEW @"sort_recents_on_view"
+
+
+#pragma mark - Custom Map and Table delegate actions
+
+// These two methods allow the locale to be set from the child controllers
+- (void)mapViewController:(MapViewController *)sender currentPhoto:(NSDictionary *)photo
+{
+    self.photoToDisplay = photo;
+}
+
+- (void)flickrTableViewController:(FlickrTableViewController *)sender currentPhoto:(NSDictionary *)photo
+{
+    self.photoToDisplay = photo;
+}
 
 #pragma mark - Recents handeling
 
@@ -122,11 +134,8 @@
 // to recents and one not
 - (void)showPhoto
 {
-    if (self.currentlyShowingMap) {
-        self.photoToDisplay = self.mapViewController.photoToDisplay;
-    } else {
-        self.photoToDisplay = self.tableViewController.photoToDisplay;
-    }
+    // self.photoToDisplay now being set by delegate action!!!
+    
     // addToRecents now checks for settings to decide if it should move to the top
     [self addToRecents];
 
@@ -192,10 +201,12 @@
 - (IBAction)segmentChanged:(UISegmentedControl *)sender {
     UIViewController *vc = [self viewControllerForSegmentIndex:sender.selectedSegmentIndex];
     if ([vc isEqual:self.mapViewController]) {
+        self.mapViewController.delegate = self;
         self.mapViewController.photos = [self photos];
         [self.mapViewController updateMapView];
         self.currentlyShowingMap = YES;
     } else if ([vc isEqual:self.tableViewController]) {
+        self.tableViewController.delegate = self;
         self.tableViewController.photos = [self photos];
         [self.tableViewController.tableView reloadData];
         self.currentlyShowingMap = NO;
@@ -235,6 +246,7 @@
         self.mapViewController.view.frame = self.contentView.bounds;
         [self.contentView addSubview:self.mapViewController.view];
         self.currentViewController = self.mapViewController;
+        self.mapViewController.delegate = self;
         self.currentlyShowingMap = YES;
     } else {
         self.listOrMap.selectedSegmentIndex = 0;
@@ -242,6 +254,7 @@
         self.tableViewController.view.frame = self.contentView.bounds;
         [self.contentView addSubview:self.tableViewController.view];
         self.currentViewController = self.tableViewController;
+        self.tableViewController.delegate = self;
         self.currentlyShowingMap = NO;
     }
 }

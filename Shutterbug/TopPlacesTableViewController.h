@@ -12,8 +12,16 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TopPlacesTableViewController;
+
+@protocol TopPlacesTableViewControllerDelegate <NSObject>
+@optional
+- (void)TopPlacesTableViewController:(TopPlacesTableViewController *)sender currentLocation:(NSDictionary *)location;
+@end
 
 @interface TopPlacesTableViewController : UITableViewController
 @property (nonatomic,strong) NSArray *places;                   // of Flickr places, grouped by countries. Set by parent.
 @property (nonatomic, strong) NSDictionary *localeToDisplay;    // Advertise currently selected location. Queried by ParentViewController.
+
+@property (nonatomic, weak) id <TopPlacesTableViewControllerDelegate> delegate;
 @end

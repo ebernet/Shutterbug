@@ -21,6 +21,7 @@
 @synthesize localeToDisplay = _localeToDisplay;
 @synthesize annotations = _annotations;
 @synthesize placesForMaps = _placesForMaps;
+@synthesize delegate = _delegate;
 
 #pragma mark - MKMapViewDelegate
 
@@ -41,9 +42,8 @@
 {
     NSDictionary *locale = [self.placesForMaps objectAtIndex:[self.annotations indexOfObject:[view annotation]]];
     
-    // Have a delegate method that is in the parent view controller. It does NOT return a value (as in the Y coordiabte for an x)
-    // but instead just TAKES the value from here (in this case, locale) and uses it for the parent.
-    self.localeToDisplay = locale;
+    // Set the locale in the parent controller using delegation
+    [self.delegate TopPlacesMapViewController:self currentLocation:locale];
     
     // Now do segue to bring up the a list of photos at the current location
     [self.parentViewController performSegueWithIdentifier:@"Show Photos At Place" sender:self.parentViewController];

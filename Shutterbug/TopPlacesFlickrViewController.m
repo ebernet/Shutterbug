@@ -7,8 +7,6 @@
 //
 
 #import "TopPlacesFlickrViewController.h"
-#import "TopPlacesTableViewController.h"
-#import "TopPlacesMapViewController.h"
 #import "PhotosViewController.h"
 #import "MapViewController.h"
 #import "FlickrFetcher.h"
@@ -38,6 +36,19 @@
 @synthesize tableViewController = _tableViewController;
 @synthesize listOrMap = _listOrMap;
 @synthesize currentlyShowingMap = _currentlyShowingMap;
+
+#pragma mark - Custom Map and Table delegate actions
+
+// These two methods allow the locale to be set from the child controllers
+- (void)TopPlacesMapViewController:(TopPlacesMapViewController *)sender currentLocation:(NSDictionary *)location
+{
+    self.localeToDisplay = location;
+}
+
+- (void)TopPlacesTableViewController:(TopPlacesTableViewController *)sender currentLocation:(NSDictionary *)location
+{
+    self.localeToDisplay = location;
+}
 
 #pragma mark - TopPlaces loading and sorting
 
@@ -225,6 +236,12 @@
 {
     if ([segue.identifier isEqualToString:@"Show Photos At Place"]) {
         PhotosViewController *destVC = segue.destinationViewController;
+
+/*
+        // Now that I have done the delegation, I don't need to do thios weird communication since the locale
+        // will have been set for me by the subview controller!
+ 
+ 
         // Kind of weird, I know. I am being called by the child ViewController, and then I extract from it the
         // Chosen locale since the TableView or the MapAnnotations are what set the locale....
         if (self.currentlyShowingMap) {
@@ -232,6 +249,7 @@
         } else {
             self.localeToDisplay = self.tableViewController.localeToDisplay;
         }
+ */
         // The place will not get seen because we now have the maps/list toggle. Is this important?
         destVC.title = [self.localeToDisplay valueForKey:FLICKR_DICT_KEY_CITY];
         destVC.localeToDisplay = self.localeToDisplay;
@@ -277,11 +295,13 @@
         self.mapViewController.placesForMaps = [self placesForMaps];
         self.localeToDisplay = self.tableViewController.localeToDisplay;
         self.mapViewController.localeToDisplay = self.localeToDisplay;
+        self.mapViewController.delegate = self;
         self.currentlyShowingMap = YES;
     } else if ([vc isEqual:self.tableViewController]) {
         self.tableViewController.places = [self places];
         self.localeToDisplay = self.mapViewController.localeToDisplay;
         self.tableViewController.localeToDisplay = self.localeToDisplay;
+        self.tableViewController.delegate = self;
         self.currentlyShowingMap = NO;
     }
     
@@ -311,6 +331,7 @@
 {
     [super viewDidLoad];
     [self addChildViewController:self.tableViewController];
+    self.tableViewController.delegate = self;
     self.tableViewController.view.frame = self.contentView.bounds;
     [self.contentView addSubview:self.tableViewController.view];
     self.currentViewController = self.tableViewController;

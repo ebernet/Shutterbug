@@ -66,7 +66,9 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     NSDictionary *photo = [self.photos objectAtIndex:[self.annotations indexOfObject:[view annotation]]];
-    self.photoToDisplay = photo;
+
+    [self.delegate mapViewController:self currentPhoto:photo];
+    
     [(FlickrViewController *)self.parentViewController showPhoto];
 }
 

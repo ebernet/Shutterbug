@@ -10,11 +10,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MapViewController.h"
+#import "FlickrTableViewController.h"
 
 // To store/retrieve the recents
 #define RECENTS_KEY @"DetailViewController.Recents"
 
-@interface FlickrViewController : UIViewController
+@interface FlickrViewController : UIViewController <MapViewControllerDelegate, FlickrTableViewControllerDelegate>
 @property (nonatomic, strong) NSArray *photos;          // of Flickr photo dictionaries
 @property (nonatomic, strong) NSDictionary *photoToDisplay;
 @property (nonatomic) BOOL currentlyShowingMap;

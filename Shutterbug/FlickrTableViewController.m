@@ -82,11 +82,6 @@
     return data ? [UIImage imageWithData:data] : nil;
 }
 
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
 #pragma mark - Table view delegate
 
 // We need to do this uniquely because we only want to add to recents when viewing images
@@ -94,8 +89,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Set the current photo from the DB
-    
-    self.photoToDisplay = [self.photos objectAtIndex:indexPath.row];
+    [self.delegate flickrTableViewController:self currentPhoto:[self.photos objectAtIndex:indexPath.row]];
     
     // Now do segue to bring up the a list of photos at the current location
     [(FlickrViewController *)self.parentViewController showPhoto];

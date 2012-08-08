@@ -17,6 +17,7 @@
 @implementation TopPlacesTableViewController
 @synthesize places = _places;
 @synthesize localeToDisplay = _localeToDisplay;
+@synthesize delegate = _delegate;
 
 
 #pragma mark - Table view data source
@@ -71,8 +72,9 @@
     NSArray *cities = country.cities;
     NSDictionary *locale = [cities objectAtIndex:indexPath.row];
     
-    self.localeToDisplay = locale;
-    
+    // Set the locale in the parent controller using delegation
+    [self.delegate TopPlacesTableViewController:self currentLocation:locale];
+
     // Now do segue to bring up the a list of photos at the current location
     [self.parentViewController performSegueWithIdentifier:@"Show Photos At Place" sender:self];
 }

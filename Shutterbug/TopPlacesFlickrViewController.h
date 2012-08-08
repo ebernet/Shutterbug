@@ -13,6 +13,8 @@
 //
 
 #import "FlickrViewController.h"
+#import "TopPlacesTableViewController.h"
+#import "TopPlacesMapViewController.h"
 
-@interface TopPlacesFlickrViewController : UIViewController
+@interface TopPlacesFlickrViewController : UIViewController <TopPlacesMapViewControllerDelegate, TopPlacesTableViewControllerDelegate>
 @end

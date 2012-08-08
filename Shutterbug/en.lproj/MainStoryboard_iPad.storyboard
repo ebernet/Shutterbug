@@ -13,21 +13,27 @@
                     <view key="view" contentMode="scaleToFill" id="RTu-Yz-ROf">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="UKg-1R-Qex">
+                                <rect key="frame" x="0.0" y="39" width="320" height="699"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="dVv-Dd-Erf">
+                                <rect key="frame" x="5" y="6" width="310" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="List"/>
+                                    <segment title="Map"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="p6R-Qq-jeV" eventType="valueChanged" id="qSp-wo-1eE"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725496530532837" green="0.94117653369903564" blue="0.95294123888015747" alpha="1" colorSpace="deviceRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Yge-ee-az6">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="dVv-Dd-Erf">
-                            <rect key="frame" x="96" y="7" width="128" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="List"/>
-                                <segment title="Map"/>
-                            </segments>
-                            <connections>
-                                <action selector="segmentChanged:" destination="p6R-Qq-jeV" eventType="valueChanged" id="qSp-wo-1eE"/>
-                            </connections>
-                        </segmentedControl>
                         <barButtonItem key="rightBarButtonItem" title="Refresh" id="5ag-qM-VdO">
                             <connections>
                                 <action selector="refresh:" destination="p6R-Qq-jeV" id="GnE-7E-laH"/>
@@ -35,7 +41,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="contentView" destination="RTu-Yz-ROf" id="te8-7n-3i8"/>
+                        <outlet property="contentView" destination="UKg-1R-Qex" id="Xqe-la-sb8"/>
                         <outlet property="listOrMap" destination="dVv-Dd-Erf" id="va2-Q6-Q1n"/>
                         <outlet property="refreshButton" destination="5ag-qM-VdO" id="S4b-oe-mGG"/>
                         <segue destination="3jh-gq-YnY" kind="push" identifier="Show Photos At Place" id="UVd-3z-sXH"/>
@@ -44,7 +50,7 @@
             </objects>
             <point key="canvasLocation" x="-5784" y="-2858"/>
         </scene>
-        <!--Photos View Controller-->
+        <!--Photos View Controller - City-->
         <scene sceneID="bgo-KR-Mdr">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Rg-Ow-3Qi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -52,21 +58,27 @@
                     <view key="view" contentMode="scaleToFill" id="0WX-Fn-8Ne">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="Qg9-CQ-plA">
+                                <rect key="frame" x="0.0" y="39" width="320" height="699"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="tP5-kR-og2">
+                                <rect key="frame" x="5" y="6" width="310" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="List"/>
+                                    <segment title="Map"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="3jh-gq-YnY" eventType="valueChanged" id="PFc-57-ukk"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725496529999996" green="0.94117653369999998" blue="0.95294123890000004" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Y8e-sB-reG">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="tP5-kR-og2">
-                            <rect key="frame" x="96" y="7" width="128" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="List"/>
-                                <segment title="Map"/>
-                            </segments>
-                            <connections>
-                                <action selector="segmentChanged:" destination="3jh-gq-YnY" eventType="valueChanged" id="PFc-57-ukk"/>
-                            </connections>
-                        </segmentedControl>
+                    <navigationItem key="navigationItem" title="City" id="Y8e-sB-reG">
                         <barButtonItem key="rightBarButtonItem" id="g3Y-FL-44k">
                             <view key="customView" autoresizesSubviews="NO" tag="10" contentMode="scaleToFill" id="2J8-zo-XdU">
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
@@ -75,7 +87,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="contentView" destination="0WX-Fn-8Ne" id="9o7-fZ-L4y"/>
+                        <outlet property="contentView" destination="Qg9-CQ-plA" id="kIk-2U-Eiw"/>
                         <outlet property="listOrMap" destination="tP5-kR-og2" id="v49-tX-CT2"/>
                         <outlet property="spinnerContainer" destination="2J8-zo-XdU" id="Nqq-6z-e6o"/>
                     </connections>
@@ -99,7 +111,7 @@
             </objects>
             <point key="canvasLocation" x="-6161" y="-1691"/>
         </scene>
-        <!--Recents Flickr View Controller-->
+        <!--Recents Flickr View Controller - Recents-->
         <scene sceneID="Ggm-S0-wOR">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CGz-w4-6ce" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -107,21 +119,27 @@
                     <view key="view" contentMode="scaleToFill" id="ifV-Dh-l8x">
                         <rect key="frame" x="0.0" y="64" width="320" height="739"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="7qM-C5-AxC">
+                                <rect key="frame" x="0.0" y="39" width="320" height="699"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="V62-eP-7xm">
+                                <rect key="frame" x="5" y="6" width="310" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="List"/>
+                                    <segment title="Map"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentChanged:" destination="20B-dY-XgT" eventType="valueChanged" id="eRJ-E3-pux"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725496529999996" green="0.94117653369999998" blue="0.95294123890000004" alpha="1" colorSpace="deviceRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="qFL-I0-mBH">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="V62-eP-7xm">
-                            <rect key="frame" x="96" y="7" width="128" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="List"/>
-                                <segment title="Map"/>
-                            </segments>
-                            <connections>
-                                <action selector="segmentChanged:" destination="20B-dY-XgT" eventType="valueChanged" id="eRJ-E3-pux"/>
-                            </connections>
-                        </segmentedControl>
+                    <navigationItem key="navigationItem" title="Recents" id="qFL-I0-mBH">
                         <barButtonItem key="rightBarButtonItem" id="dYu-Fq-r7B">
                             <view key="customView" autoresizesSubviews="NO" tag="10" contentMode="scaleToFill" id="1Am-nc-gqv">
                                 <rect key="frame" x="293" y="12" width="20" height="20"/>
@@ -130,7 +148,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="contentView" destination="ifV-Dh-l8x" id="Gfp-gQ-bEr"/>
+                        <outlet property="contentView" destination="7qM-C5-AxC" id="cHk-h1-eMe"/>
                         <outlet property="listOrMap" destination="V62-eP-7xm" id="vxh-C0-jy1"/>
                         <outlet property="spinnerContainer" destination="1Am-nc-gqv" id="I6I-GY-foa"/>
                     </connections>
@@ -459,7 +477,6 @@
         <class className="FlickrViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrViewController.h"/>
             <relationships>
-                <relationship kind="action" name="segmentChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="listOrMap" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="spinnerContainer" candidateClass="UIView"/>
@@ -468,7 +485,6 @@
         <class className="MapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MapViewController.h"/>
             <relationships>
-                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
@@ -481,8 +497,6 @@
         <class className="TopPlacesFlickrViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesFlickrViewController.h"/>
             <relationships>
-                <relationship kind="action" name="refresh:"/>
-                <relationship kind="action" name="segmentChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="contentView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="listOrMap" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
@@ -491,7 +505,6 @@
         <class className="TopPlacesMapViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesMapViewController.h"/>
             <relationships>
-                <relationship kind="action" name="changeMapStyle:"/>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
         </class>
