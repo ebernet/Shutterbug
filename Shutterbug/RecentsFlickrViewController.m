@@ -25,9 +25,9 @@
 
 // Lod the photos from the recents stored in NSUserDefaults. No threading necessary (FAST)
 // TabBar View Controller stay in memory?
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewDidAppear:animated];
+    [super viewDidLoad];
     [self loadDefaults];
 }
 @end

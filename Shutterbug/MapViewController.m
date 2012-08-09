@@ -193,17 +193,18 @@
 
 #pragma mark - View lifecycle
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self updateMapView];
+}
+
 - (void)viewDidUnload
 {
     [self setMapView:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
-
-//- (void)applicationDidBecomeActive:(UIApplication *)application
-//{
-//    [self updateMapView];
-//}
 
 // Just not upsidedown on iPhone
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

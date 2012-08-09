@@ -10,9 +10,10 @@
 #import "MapViewController.h"
 #import "DetailViewController.h"
 #import "FlickrPhotoAnnotation.h"
+#import "FlickrTableViewController.h"
 #import "FlickrFetcher.h"
 
-@interface FlickrViewController ()  <MapViewControllerDelegate>
+@interface FlickrViewController ()  <MapViewControllerDelegate, FlickrTableViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *spinnerContainer;          // Put a spinner in here when loading view
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;     // Toggle between list/map
 @property (weak, nonatomic) IBOutlet UIView *contentView;               // Where to embed the subview Controllers
@@ -33,7 +34,6 @@
 @synthesize currentlyShowingMap = _currentlyShowingMap;
 
 #define SORT_RECENTS_ON_VIEW @"sort_recents_on_view"
-
 
 #pragma mark - Custom Map and Table delegate actions
 
@@ -210,17 +210,6 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)sender {
     UIViewController *vc = [self viewControllerForSegmentIndex:sender.selectedSegmentIndex];
-    if ([vc isEqual:self.mapViewController]) {
-        self.mapViewController.delegate = self;
-        self.mapViewController.photos = [self photos];
-        [self.mapViewController updateMapView];
-        self.currentlyShowingMap = YES;
-    } else if ([vc isEqual:self.tableViewController]) {
-        self.tableViewController.delegate = self;
-        self.tableViewController.photos = [self photos];
-        [self.tableViewController.tableView reloadData];
-        self.currentlyShowingMap = NO;
-    }
 
     [self addChildViewController:vc];
     [self transitionFromViewController:self.currentViewController
@@ -236,6 +225,18 @@
         [self.currentViewController removeFromParentViewController];
         self.currentViewController = vc;
     }];
+
+    if ([vc isEqual:self.mapViewController]) {
+        self.mapViewController.delegate = self;
+        self.mapViewController.photos = [self photos];
+        [self.mapViewController updateMapView];
+        self.currentlyShowingMap = YES;
+    } else if ([vc isEqual:self.tableViewController]) {
+        self.tableViewController.delegate = self;
+        self.tableViewController.photos = [self photos];
+        [self.tableViewController.tableView reloadData];
+        self.currentlyShowingMap = NO;
+    }
 }
 
 #pragma mark - UIViewController lifecycle

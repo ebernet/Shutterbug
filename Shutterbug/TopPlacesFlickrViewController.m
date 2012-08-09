@@ -12,7 +12,7 @@
 #import "FlickrFetcher.h"
 #import "Countries.h"
 
-@interface TopPlacesFlickrViewController ()
+@interface TopPlacesFlickrViewController () <TopPlacesMapViewControllerDelegate, TopPlacesTableViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;        // Need this for spinner reverting to refresh. See viewDidLoad
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;         // The segmented control used to choose ViewControllers to embed
 @property (weak, nonatomic) IBOutlet UIView *contentView;                   // Where we embed the controllers
@@ -291,19 +291,6 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)sender {
     UIViewController *vc = [self viewControllerForSegmentIndex:sender.selectedSegmentIndex];
-    if ([vc isEqual:self.mapViewController]) {
-        self.mapViewController.placesForMaps = [self placesForMaps];
-        self.localeToDisplay = self.tableViewController.localeToDisplay;
-        self.mapViewController.localeToDisplay = self.localeToDisplay;
-        self.mapViewController.delegate = self;
-        self.currentlyShowingMap = YES;
-    } else if ([vc isEqual:self.tableViewController]) {
-        self.tableViewController.places = [self places];
-        self.localeToDisplay = self.mapViewController.localeToDisplay;
-        self.tableViewController.localeToDisplay = self.localeToDisplay;
-        self.tableViewController.delegate = self;
-        self.currentlyShowingMap = NO;
-    }
     
     [self addChildViewController:vc];
     [self transitionFromViewController:self.currentViewController
@@ -319,6 +306,20 @@
                                 [self.currentViewController removeFromParentViewController];
                                 self.currentViewController = vc;
                             }];
+    
+    if ([vc isEqual:self.mapViewController]) {
+        self.mapViewController.placesForMaps = [self placesForMaps];
+        self.mapViewController.localeToDisplay = self.localeToDisplay;
+        [self.mapViewController updateMapView];
+        self.mapViewController.delegate = self;
+        self.currentlyShowingMap = YES;
+    } else {
+        self.tableViewController.places = [self places];
+        self.tableViewController.localeToDisplay = self.localeToDisplay;
+        [self.tableViewController.tableView reloadData];
+        self.tableViewController.delegate = self;
+        self.currentlyShowingMap = NO;
+    }
 }
 
 #pragma mark - UIViewController lifecycle

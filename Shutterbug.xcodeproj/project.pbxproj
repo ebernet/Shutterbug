@@ -23,6 +23,7 @@
 		A06D71AE15D0AD2300967CF3 /* PhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D71AD15D0AD2300967CF3 /* PhotosViewController.m */; };
 		A06D71B215D0B7A400967CF3 /* TopPlacesMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D71B115D0B7A400967CF3 /* TopPlacesMapViewController.m */; };
 		A06D71B515D0B88100967CF3 /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A06D71B415D0B88100967CF3 /* TopPlacesTableViewController.m */; };
+		A08AEBAB15D426C300F70A78 /* testSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A08AEBAA15D426C200F70A78 /* testSettings.bundle */; };
 		A095223B15CE1304002D9916 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A095223A15CE1304002D9916 /* MapKit.framework */; };
 		A095223D15CE130F002D9916 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A095223C15CE130F002D9916 /* CoreLocation.framework */; };
 		A0A7C49715C0A83600A83C26 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A7C49615C0A83600A83C26 /* UIKit.framework */; };
@@ -69,6 +70,7 @@
 		A06D71B115D0B7A400967CF3 /* TopPlacesMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesMapViewController.m; sourceTree = "<group>"; };
 		A06D71B315D0B87500967CF3 /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		A06D71B415D0B88100967CF3 /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
+		A08AEBAA15D426C200F70A78 /* testSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = testSettings.bundle; sourceTree = "<group>"; };
 		A095223A15CE1304002D9916 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A095223C15CE130F002D9916 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A0A7C49215C0A83600A83C26 /* Shutterbug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shutterbug.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +174,7 @@
 		A0A7C48715C0A83600A83C26 = {
 			isa = PBXGroup;
 			children = (
+				A08AEBAA15D426C200F70A78 /* testSettings.bundle */,
 				A0A7C49C15C0A83600A83C26 /* Shutterbug */,
 				A0A7C49515C0A83600A83C26 /* Frameworks */,
 				A0A7C49315C0A83600A83C26 /* Products */,
@@ -300,6 +303,7 @@
 				A040394D15D196AE0011D7B8 /* blank.png in Resources */,
 				A04EE8F815D1B8BC00D4C5FC /* Settings.bundle in Resources */,
 				A02B9F6715D253AE00E98654 /* smallcallout.png in Resources */,
+				A08AEBAB15D426C300F70A78 /* testSettings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
