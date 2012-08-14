@@ -16,8 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;        // Need this for spinner reverting to refresh. See viewDidLoad
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;         // The segmented control used to choose ViewControllers to embed
 @property (weak, nonatomic) IBOutlet UIView *contentView;                   // Where we embed the controllers
-@property (nonatomic,weak) TopPlacesTableViewController *tableViewController;   // The TableViewController...
-@property (nonatomic,weak) TopPlacesMapViewController *mapViewController;       // And the MapViewController
+@property (nonatomic,strong) TopPlacesTableViewController *tableViewController;   // The TableViewController...
+@property (nonatomic,strong) TopPlacesMapViewController *mapViewController;       // And the MapViewController
 @property (nonatomic, strong) id currentViewController; // Holds the currently active view Controller
 @property (nonatomic,strong) NSArray *places;           // of Flickr places, grouped by countries
 @property (nonatomic,strong) NSArray *placesForMaps;    // of Flickr places - linear list, for maps
@@ -308,13 +308,13 @@
                             }];
     
     if ([vc isEqual:self.mapViewController]) {
-        self.mapViewController.placesForMaps = [self placesForMaps];
+        self.mapViewController.placesForMaps = self.placesForMaps;
         self.mapViewController.localeToDisplay = self.localeToDisplay;
         [self.mapViewController updateMapView];
         self.mapViewController.delegate = self;
         self.currentlyShowingMap = YES;
     } else {
-        self.tableViewController.places = [self places];
+        self.tableViewController.places = self.places;
         self.tableViewController.localeToDisplay = self.localeToDisplay;
         [self.tableViewController.tableView reloadData];
         self.tableViewController.delegate = self;

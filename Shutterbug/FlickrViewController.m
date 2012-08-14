@@ -17,8 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIView *spinnerContainer;          // Put a spinner in here when loading view
 @property (weak, nonatomic) IBOutlet UISegmentedControl *listOrMap;     // Toggle between list/map
 @property (weak, nonatomic) IBOutlet UIView *contentView;               // Where to embed the subview Controllers
-@property (nonatomic,weak) FlickrTableViewController *tableViewController;
-@property (nonatomic,weak) MapViewController *mapViewController;
+@property (nonatomic,strong) FlickrTableViewController *tableViewController;
+@property (nonatomic,strong) MapViewController *mapViewController;
 @property (nonatomic, strong) id currentViewController;                 // Holds the currently active view Controller
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;         // Strong because I place it, it is not in a NIB!
 @end
